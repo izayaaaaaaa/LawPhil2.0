@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'Source Serif Pro';
+    src: url('https://fonts.adobe.com/fonts/source-serif-pro') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lexend Exa';
+    src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
+}
+
+body {
+    background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
+}
+
+h1 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 64px;
+    color: rgba(58, 8, 107, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 40px;
+    color: rgba(58, 8, 107, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h3 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 20px;
+    color: rgba(58, 8, 107, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Lexend Exa';
+    src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
+}
+
+.form-label {
+    font-family: 'Lexend Exa', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.container {
+    border-radius: 300px;
+    border-color: #6A498A;
+}
+
+.form-control {
+    background-color: transparent;
+    border-color: white;
+  }
+  
+
+#login-side {
+    background-color: #6A498A;
+    border-radius: 5px;
+}
+
+#form-forgot.text-body {
+    color: #FFFFFF;
+  }
