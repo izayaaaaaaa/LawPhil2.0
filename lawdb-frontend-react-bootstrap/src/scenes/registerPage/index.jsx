@@ -1,13 +1,14 @@
 import React from "react";
-import Form from "./Form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Form from "./Form";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
-      <Form class="text-center"/>
+      <Form />
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
+
