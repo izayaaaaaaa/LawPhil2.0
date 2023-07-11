@@ -3,60 +3,29 @@
     src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
 }
 
-/* not yet optimized for responsive view - tbc */
-.card {
-    background-color: #ffffff;
-    border-color: #6a498a;
-    border-radius: 20px;
-    height: 500px;
-}
-
-#welcome-side {
-    padding: 20px 0 20px 0;
-    height: 500px;
-}
-
-#login-side {
-    background-color: #6a498a;
-    border-radius: 20px;
-    height: 500px;
-}
-
 .form-label {
     font-family: 'Lexend Exa', sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
 }
 
-.form-label:focus {
-    color: #ffffff;
+.container {
+    border-radius: 300px;
+    border-color: #6A498A;
 }
 
 .form-control {
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     background-color: transparent;
-    border-color: #ffffff;
+    border-color: white;
+  }
+  
+
+#login-side {
+    background-color: #6A498A;
+    border-radius: 5px;
 }
 
-.form-control:focus-within {
-    color: #ffffff;
-    background-color: transparent;
-    border-color: #ffffff;
-    box-shadow: none;
-}
-
-.link-light {
-    text-decoration: none;
-}
-
-.link-light:focus {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.btn {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    width: 200px;
-}
+#form-forgot.text-body {
+    color: #FFFFFF;
+  }
