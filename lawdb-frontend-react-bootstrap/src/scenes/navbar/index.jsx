@@ -5,6 +5,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import '../../styles/general.css';
+import '../../styles/navbar.css';
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -17,21 +19,23 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarToggleExternalContent"
-            aria-controls="navbarToggleExternalContent"
-            aria-expanded={isCollapsed ? 'true' : 'false'}
-            aria-label="Toggle navigation"
-            onClick={handleToggleCollapse}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </button>
-          <a class="navbar-brand" href="#">ARELLANO LAW FOVNDATION</a>
+          <div>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent"
+              aria-expanded={isCollapsed ? 'true' : 'false'}
+              aria-label="Toggle navigation"
+              onClick={handleToggleCollapse}
+            >
+              <FontAwesomeIcon icon={faBars} />
+            </button>
+            <a class="navbar-brand m-3" href="#">ARELLANO LAW FOVNDATION</a>
+          </div>
           <form class="d-flex">
-            <a href="/register" class="btn btn-primary">Register</a>
+            <a href="/register" class="btn btn-outline-dark btn-md">Register</a>
           </form>
         </div>
       </nav>

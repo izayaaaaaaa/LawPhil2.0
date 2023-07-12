@@ -15,20 +15,20 @@ body {
 h1 {
     font-family: 'Source Serif Pro', serif;
     font-size: 64px;
-    color: rgba(58, 8, 107, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #3a086b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 h2 {
     font-family: 'Source Serif Pro', serif;
     font-size: 40px;
-    color: rgba(58, 8, 107, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #3a086b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 h3 {
     font-family: 'Source Serif Pro', serif;
     font-size: 20px;
-    color: rgba(58, 8, 107, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #3a086b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
