@@ -10,6 +10,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        {/* ^this placement makes the navbar appear behind the page content rather than as an overlay */}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

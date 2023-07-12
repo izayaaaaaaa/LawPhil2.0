@@ -3,10 +3,23 @@
     src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
 }
 
+/* navbar should display as an overlay - but it appears behind the page content
+ * I suspect it has something to do with the layering(?) of App.js
+ */
 .navbar {
+    top: 0;
+    background-color: #ffffff;
     border-bottom: #3a086b 2px solid;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
 }
+
+/*
+to change navbar color to gradient when isCollapsed is true (WIP)
+.isCollapsed .navbar {
+  background-image: linear-gradient(to right, rgba(147, 58, 124, 0.5), rgba(40, 6, 73, 0.75));
+}
+*/
 
 .navbar-toggler {
     border: none;
@@ -15,6 +28,19 @@
 .navbar-toggler:focus {
     outline: none;
     box-shadow: none;
+}
+
+.navbar-collapse {
+    background-color: #F6EFF6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .navbar-brand {

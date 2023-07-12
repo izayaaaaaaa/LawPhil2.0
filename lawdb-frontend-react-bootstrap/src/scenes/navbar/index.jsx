@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
 import '../../styles/navbar.css';
 
@@ -13,11 +14,11 @@ const Navbar = () => {
 
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
-  };
+  };   
 
   return (
-    <>
-      <nav className="navbar navbar-light bg-light">
+    <div>
+      <nav className={`navbar navbar-light ${isCollapsed ? 'isCollapsed' : ''}`}>
         <div className="container-fluid">
           <div>
             <button
@@ -39,11 +40,11 @@ const Navbar = () => {
           </form>
         </div>
       </nav>
-      <div className={`collapse ${isCollapsed ? 'show' : ''}`} id="navbarToggleExternalContent">
-        <div className="bg-light shadow-3 p-4">
+      <div className="collapse navbar-collapse" id="navbarToggleExternalContent">
+        <div className="shadow-3 p-4">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -51,7 +52,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
