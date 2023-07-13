@@ -5,12 +5,16 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
 import '../../styles/navbar.css';
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/';
+  const buttonText = isLoginPage ? 'Register' : 'Login';
 
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -36,7 +40,9 @@ const Navbar = () => {
             <a class="navbar-brand m-3" href="#">ARELLANO LAW FOVNDATION</a>
           </div>
           <form class="d-flex">
-            <a href="/register" class="btn btn-outline-dark btn-md">Register</a>
+            <Link to={isLoginPage ? '/register' : '/'} class="btn btn-outline-dark btn-md">
+              {buttonText}
+            </Link>
           </form>
         </div>
       </nav>
