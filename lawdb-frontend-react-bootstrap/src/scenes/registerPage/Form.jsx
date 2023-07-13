@@ -1,6 +1,8 @@
 import React from 'react';
 // import * as yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/general.css';
+import '../../styles/register.css';
 
 // const schema = yup.object().shape({
 //   username: yup.string().required(),
@@ -35,37 +37,63 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form3Example3">Username</label>
-        <input 
-          type="email" 
-          id="form3Example3" 
-          class="form-control form-control-lg" 
-        />
-      </div>
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form4Example4">Username</label>
-        <input 
-          type="text" 
-          id="form4Example4" 
-          class="form-control form-control-lg" 
-        />
-      </div>
-      
-      <div class="form-outline mb-3">
-        <label class="form-label" for="form3Example4">Password</label>
-        <input type="password" id="form3Example4" class="form-control form-control-lg"/>
-      </div>
-      <div class="form-outline mb-3">
-        <label class="form-label" for="form3Example4">Password</label>
-        <input type="password" id="form3Example4" class="form-control form-control-lg"/>
-      </div>
-  
-      <div class="text-center text-lg-start mt-4 pt-2">
-        <button type="submit" class="btn btn-primary btn-lg">Register</button>
-      </div>
-    </form>
+    <div className="container">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className="col col-xl-10 mx-auto">
+            <div className="card reg-card reg-card-bg">
+                <div className="text-center">
+                  <h3>Welcome back to</h3>
+                  <h2>LawPhil Project!</h2>
+                  <br/>
+                </div>
+              
+                <form onSubmit={handleSubmit} className="px-5">
+                  <div class="form-outline mb-4 input-wrapper">
+                    <label class="form-label reg-form-label" for="form-username">Username</label>
+                    <input 
+                      type="text" 
+                      id="form-username" 
+                      class="form-control reg-form-control form-control-md" 
+                    />
+                  </div>
+
+                  <div class="form-outline mb-4 input-wrapper">
+                    <label class="form-label reg-form-label" for="form-email">Email</label>
+                    <input 
+                      type="email" 
+                      id="form-email" 
+                      class="form-control reg-form-control form-control-md"
+                      />
+                  </div>
+
+                  <div class="form-outline mb-4 input-wrapper">
+                    <label class="form-label reg-form-label" for="form-password">Password</label>
+                    <input 
+                      type="password" 
+                      id="form-password" 
+                      class="form-control reg-form-control form-control-md"/>
+                  </div>
+
+                  <div class="form-outline mb-5 input-wrapper">
+                    <label class="form-label reg-form-label" for="form-confirm">Confirm Password</label>
+                    <input 
+                      type="password" 
+                      id="form-confirm" 
+                      class="form-control reg-form-control form-control-md" 
+                    />
+                  </div>
+              
+                  <div className="text-center mt-4 mx-auto">
+                    <button type="button" className="btn btn-light reg-btn btn-md">
+                      <text id="btn-text">Register</text>
+                    </button>
+                  </div>
+                
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
   );
 };
 

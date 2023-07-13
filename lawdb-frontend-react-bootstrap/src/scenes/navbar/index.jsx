@@ -40,7 +40,7 @@ const Navbar = () => {
             <a class="navbar-brand m-3" href="#">ARELLANO LAW FOVNDATION</a>
           </div>
           <form class="d-flex">
-            <Link to={isLoginPage ? '/register' : '/'} class="btn btn-outline-dark btn-md">
+            <Link to={isLoginPage ? '/register' : '/'} class="btn btn-outline-dark nav-btn btn-md">
               {buttonText}
             </Link>
           </form>

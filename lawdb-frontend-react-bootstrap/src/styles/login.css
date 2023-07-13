@@ -1,12 +1,5 @@
-@font-face {
-    font-family: 'Lexend Exa';
-    src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
-}
-
 /* not yet optimized for responsive view - tbc */
-.card {
-    background-color: #ffffff;
-    border-color: #6a498a;
+.log-card {
     border-radius: 20px;
     height: 500px;
 }
@@ -22,7 +15,7 @@
     height: 500px;
 }
 
-.form-label {
+.login-form-label {
     font-family: 'Lexend Exa', sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -30,18 +23,18 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.form-label:focus {
+.login-form-label:focus {
     color: #ffffff;
 }
 
-.form-control {
+.login-form-control {
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     background-color: transparent;
     border-color: #ffffff;
 }
 
-.form-control:focus-within {
+.login-form-control:focus-within {
     color: #ffffff;
     background-color: transparent;
     border-color: #ffffff;
@@ -56,7 +49,18 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.btn {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    width: 200px;
+.login-btn {
+    font-family: 'Lexend Exa', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3a086b;
+    background-color: #ffffff;
+    border-color: #3a086b;
+}
+
+.login-btn:hover {
+    color: #ffffff;
+    background-color: #3a086b;
+    border-color: #3a086b;
+    
 }

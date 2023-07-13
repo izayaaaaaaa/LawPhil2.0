@@ -12,6 +12,17 @@ body {
     background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
 }
 
+.card {
+    background-color: #ffffff;
+    border-color: #6a498a;
+}
+
+.btn {
+    font-family: 'Lexend Exa', sans-serif;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    width: 200px;
+}
+
 h1 {
     font-family: 'Source Serif Pro', serif;
     font-size: 64px;
