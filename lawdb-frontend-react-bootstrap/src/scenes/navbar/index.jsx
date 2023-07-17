@@ -2,6 +2,16 @@
 // if on the register page, the register button should be login and vice versa
   // if done logging in, the button should be a user icon with a dropdown menu
 
+/* Checklist for navbar:
+ * [✓] fix navbar to look like the one on figma
+ * [✓] if on the register page, the register button should be login and vice versa
+ * [ ] if done logging in, the button should be a user icon with a dropdown menu (implement when authentication is fixed)
+ * [ ] fix the fullscreen menu to look like the one on figma
+ * [ ] fix the animation of the navbar to dropdown smoother
+ * [ ] change hamburger icon to color match
+ * [ ] change hamrburger icon to close button when menu is open
+ */
+
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';

@@ -1,8 +1,3 @@
-@font-face {
-    font-family: 'Lexend Exa';
-    src: url('https://fonts.google.com/specimen/Lexend+Exa') format('truetype');
-}
-
 .navbar {
     top: 0;
     border-bottom: #3a086b 2px solid;
