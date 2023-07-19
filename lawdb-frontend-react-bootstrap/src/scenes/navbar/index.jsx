@@ -3,18 +3,14 @@
   // if done logging in, the button should be a user icon with a dropdown menu
 
 /* Checklist for navbar:
- * [✓] fix navbar to look like the one on figma
+ * [✓] fix navbar to look like the one on figma (decreased no. of menu items - tbc)
  * [✓] if on the register page, the register button should be login and vice versa
  * [ ] if done logging in, the button should be a user icon with a dropdown menu (implement when authentication is fixed)
- * [ ] fix the fullscreen menu to look like the one on figma
- * [ ] fix the animation of the navbar to dropdown smoother
- * [ ] change hamburger icon to color match
- * [ ] change hamrburger icon to close button when menu is open
  */
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
@@ -45,12 +41,16 @@ const Navbar = () => {
               aria-label="Toggle navigation"
               onClick={handleToggleCollapse}
             >
-              <FontAwesomeIcon icon={faBars} />
+                {isCollapsed ? (
+                  <FontAwesomeIcon icon={faTimes} />
+                ) : (
+                  <FontAwesomeIcon icon={faBars} />
+                )}
             </button>
             <a class="navbar-brand m-3" href="#">ARELLANO LAW FOVNDATION</a>
           </div>
           <form class="d-flex">
-            <Link to={isLoginPage ? '/register' : '/'} class="btn btn-outline-dark nav-btn btn-md">
+            <Link to={isLoginPage ? '/register' : '/'} class="btn nav-btn btn-md">
               {buttonText}
             </Link>
           </form>
@@ -60,10 +60,13 @@ const Navbar = () => {
         <div className="shadow-3 p-4">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Home</a>
+              <a class="nav-link" aria-current="page" href="#">HOME</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" aria-current="page" href="#">ABOUT US</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">DISCLAIMER</a>
             </li>
           </ul>
         </div>
