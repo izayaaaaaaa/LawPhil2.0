@@ -1,8 +1,6 @@
 import React from 'react';
 // import * as yup from 'yup';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/general.css';
-import '../../styles/register.css';
+
 
 // const schema = yup.object().shape({
 //   username: yup.string().required(),

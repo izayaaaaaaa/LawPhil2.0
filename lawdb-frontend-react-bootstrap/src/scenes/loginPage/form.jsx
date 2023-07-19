@@ -1,7 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/general.css';
-import '../../styles/login.css';
 
 const Form = () => {
   return (

@@ -1,5 +1,7 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/general.css';
+import '../../styles/register.css';
 import Form from "./Form";
 
 const RegisterPage = () => {
