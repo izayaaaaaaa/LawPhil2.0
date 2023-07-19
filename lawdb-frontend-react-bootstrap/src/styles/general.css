@@ -58,10 +58,27 @@ h3 {
     font-size: 20px;
 }
 
-h4, h5, h6, text {
-    font-family: 'Lexend Exa, sans-serif';
+h4, h5, h6{
+    font-family: 'Lexend Exa', sans-serif;
+}
+
+h4 {
+    font-size: 20px;
     color: #3a086b;
+    font-weight: bold;
+    letter-spacing: 5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+h5 {
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 10%;
+    letter-spacing: 5px;
+}
+
+h6  {
+    font-size: 16px;
 }
 
 .form-label {

@@ -1,0 +1,27 @@
+.search-bg {
+    background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.50),rgba(58, 8, 107, 1));
+}
+
+.search-bar {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    width: auto;
+    padding-left: 10px;
+}
+
+.search-btn {
+    background-color: transparent;
+    width: fit-content;
+    padding: none;
+    margin: none;
+    box-shadow: none;
+    border-radius: 100%;
+    margin-left: 170px;
+    cursor: pointer;
+}
+
+.search-btn:active {
+    border: none;
+}

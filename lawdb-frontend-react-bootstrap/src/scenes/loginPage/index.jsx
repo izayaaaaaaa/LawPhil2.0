@@ -6,7 +6,7 @@ import '../../styles/login.css';
 
 const LoginPage = () => {
   return (
-    <body className="search-bg">
+    <body>
       <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
         <Form class="text-center"/>
       </div>
