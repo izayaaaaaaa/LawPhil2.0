@@ -1,16 +1,6 @@
-// template navbar only for routing purposes; fix and make it look like the one on figma
-// if on the register page, the register button should be login and vice versa
-  // if done logging in, the button should be a user icon with a dropdown menu
-
-/* Checklist for navbar:
- * [✓] fix navbar to look like the one on figma (decreased no. of menu items - tbc)
- * [✓] if on the register page, the register button should be login and vice versa
- * [ ] if done logging in, the button should be a user icon with a dropdown menu (implement when authentication is fixed)
- */
-
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
@@ -20,17 +10,23 @@ const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
+  const isSearchResultsPage = location.pathname === '/search-results';
+  const [searchQuery, setSearchQuery] = useState('');
   const buttonText = isLoginPage ? 'Register' : 'Login';
 
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div>
-      <nav className={`navbar navbar-light bg-light ${isCollapsed ? 'isCollapsed' : ''}`}>
+      <nav className={`navbar navbar-light ${isSearchResultsPage ? 'isSearchResultsPage' : ''} ${isCollapsed ? 'isCollapsed' : ''}`}>
         <div className="container-fluid">
-          <div>
+          <div className="d-flex align-items-center">
             <button
               className="navbar-toggler"
               type="button"
@@ -41,16 +37,47 @@ const Navbar = () => {
               aria-label="Toggle navigation"
               onClick={handleToggleCollapse}
             >
-                {isCollapsed ? (
-                  <FontAwesomeIcon icon={faTimes} />
-                ) : (
-                  <FontAwesomeIcon icon={faBars} />
-                )}
+              {isCollapsed ? (
+                <FontAwesomeIcon icon={faTimes} />
+              ) : (
+                <FontAwesomeIcon icon={faBars} />
+              )}
             </button>
-            <a class="navbar-brand m-3" href="#">ARELLANO LAW FOVNDATION</a>
+            {isSearchResultsPage ? (
+              <div className="search-bar">
+                <form action="" className="search-form">
+                  <div className="form-group has-feedback">
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        className="form-control search-form-control"
+                        placeholder="Search Keywords"
+                        aria-label="Search Bar"
+                        value={searchQuery}
+                        onChange={handleInputChange}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          className="btn search-btn"
+                          onClick={() => {
+                            window.location.href = `/search-results?q=${searchQuery}`;
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <a className="navbar-brand m-3" href="#">
+                ARELLANO LAW FOVNDATION
+              </a>
+            )}
           </div>
-          <form class="d-flex">
-            <Link to={isLoginPage ? '/register' : '/'} class="btn nav-btn btn-md">
+          <form className="d-flex">
+            <Link to={isLoginPage ? '/register' : '/'} className="btn nav-btn btn-md">
               {buttonText}
             </Link>
           </form>
@@ -58,15 +85,21 @@ const Navbar = () => {
       </nav>
       <div className={`collapse navbar-collapse ${isCollapsed ? 'show' : ''}`} id="navbarToggleExternalContent">
         <div className="shadow-3 p-4">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">HOME</a>
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <a className="nav-link" aria-current="page" href="#">
+                HOME
+              </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">ABOUT US</a>
+            <li className="nav-item">
+              <a className="nav-link" aria-current="page" href="#">
+                ABOUT US
+              </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">DISCLAIMER</a>
+            <li className="nav-item">
+              <a className="nav-link" aria-current="page" href="#">
+                DISCLAIMER
+              </a>
             </li>
           </ul>
         </div>

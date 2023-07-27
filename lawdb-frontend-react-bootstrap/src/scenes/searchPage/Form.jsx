@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const Form = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  
   return (
     <div>
       <div className="container d-flex flex-column">
@@ -14,11 +21,23 @@ const Form = () => {
             <form action="" className="search-form">
               <div className="form-group has-feedback">
                 <div className="input-group my-5">
-                  <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
+                <input
+                    type="text"
+                    className="form-control search-form-control"
+                    placeholder="Search Keywords"
+                    aria-label="Search Bar"
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                  />
                   <div className="input-group-append">
-                    <button className="btn search-btn" type="button">
-                      <FontAwesomeIcon icon={faSearch} />
-                    </button>
+                      <button
+                        className="btn search-btn"
+                        onClick={() => {
+                          window.location.href = `/search-results?q=${searchQuery}`;
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faSearch} />
+                      </button>
                   </div>
                 </div>
               </div>
@@ -60,9 +79,9 @@ const Form = () => {
                     <div className="input-group my-5">
                       <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                       <div className="input-group-append">
-                        <button className="btn search-btn" type="button">
+                        <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
                           <FontAwesomeIcon icon={faSearch} />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

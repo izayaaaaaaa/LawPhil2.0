@@ -1,5 +1,6 @@
 .navbar {
     top: 0;
+    height: 80px;
     border-bottom: #3a086b 2px solid;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     z-index: 1;
@@ -14,10 +15,10 @@
     box-shadow: none;
 }
 
-.isCollapsed {
+.isCollapsed, .isSearchResultsPage {
     background-image: linear-gradient(to right, rgba(147, 58, 124, 0.5), rgba(40, 6, 73, 0.5));
-    transition:.1s ease-in-out;
-}
+    transition: 0.1s ease-in-out;
+  }
   
 .navbar-collapse {
     background-color: #F6EFF6;
