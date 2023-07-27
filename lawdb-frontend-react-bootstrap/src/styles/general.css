@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Source Serif Pro';
-    src: url('https://fonts.adobe.com/fonts/source-serif-pro') format('truetype');
+    font-family: 'Source Serif 4';
+    src: url('https://fonts.google.com/specimen/Source+Serif+4') format('truetype');
 }
 
 @font-face {
@@ -19,7 +19,10 @@
 
 body {
     background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
+    margin: 0;
+    height: 100vh;
 }
+
 
 .card {
     background-color: #ffffff;
@@ -33,6 +36,14 @@ body {
     width: 200px;
 }
 
+.form-control:focus,
+.form-select:focus,
+select:focus,
+button:focus {
+  box-shadow: none;
+  border-color: #ffffff;
+}
+
 @media (max-width: 360px) {
     .form-control,
     .btn {
@@ -41,7 +52,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Source Serif Pro', serif;
+    font-family: 'Source Serif 4', serif;
     color: #3a086b;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
@@ -58,7 +69,7 @@ h3 {
     font-size: 20px;
 }
 
-h4, h5, h6{
+h4, h5 {
     font-family: 'Lexend Exa', sans-serif;
 }
 
@@ -71,14 +82,19 @@ h4 {
 }
 
 h5 {
-    font-size: 14px;
+    font-size: 16px;
     color: #000000;
     letter-spacing: 10%;
     letter-spacing: 5px;
 }
 
+h6, a, li, span, option, select, button, label {
+  font-family: 'Anonymous Pro', monospace;
+}
+
 h6  {
     font-size: 16px;
+    color: #ffffff;
 }
 
 .form-label {

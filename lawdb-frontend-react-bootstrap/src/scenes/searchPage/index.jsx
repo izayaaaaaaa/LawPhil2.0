@@ -13,11 +13,11 @@ const SearchPage = () => {
   };
  */
   return (
-    <body className='search-bg'>
+    <div className="search-bg">
         <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
-            <Form class="text-center"/>
+            <Form className="text-center"/>
         </div>
-    </body>
+    </div>
   );
 };
 
