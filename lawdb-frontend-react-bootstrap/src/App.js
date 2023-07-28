@@ -6,6 +6,8 @@ import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
+import './styles/components.css';
+import './styles/general.css';
 
 function App() {
   return (

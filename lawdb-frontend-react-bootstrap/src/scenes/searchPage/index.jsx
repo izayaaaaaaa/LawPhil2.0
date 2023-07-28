@@ -14,9 +14,7 @@ const SearchPage = () => {
  */
   return (
     <div className="search-bg">
-        <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
-            <Form className="text-center"/>
-        </div>
+      <Form className="text-center"/>
     </div>
   );
 };

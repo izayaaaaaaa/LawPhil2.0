@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className={`navbar navbar-light ${isSearchResultsPage ? 'isSearchResultsPage' : ''} ${isCollapsed ? 'isCollapsed' : ''}`}>
+      <nav className={`navbar navbar-light bg-light sticky-top ${isSearchResultsPage ? 'isSearchResultsPage' : ''} ${isCollapsed ? 'isCollapsed' : ''}`}>
         <div className="container-fluid">
           <div className="d-flex align-items-center">
             <button

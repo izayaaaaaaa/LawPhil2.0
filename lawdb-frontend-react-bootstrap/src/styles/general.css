@@ -20,9 +20,7 @@
 body {
     background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
     margin: 0;
-    height: 100vh;
 }
-
 
 .card {
     background-color: #ffffff;
