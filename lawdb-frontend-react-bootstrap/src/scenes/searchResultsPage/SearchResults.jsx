@@ -1,17 +1,31 @@
 import React from 'react';
+import '../../styles/general.css';
+import '../../styles/searchResults.css';
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ data }) => {
   return (
-    <div className="container my-4">
-      <h2>Search Results</h2>
-      {results.length === 0 ? (
-        <p>No results found.</p>
-      ) : (
-        <ul>
-          {results.map((result, index) => (
-            <li key={index}>{result}</li>
+    <div>
+      {data.length > 0 ? (
+        <>
+          {/* Display the number of results */}
+          <p className="results-found ml-5">{data.length} results found.</p>
+
+          {/* Loop through the search results */}
+          {data.map((item, index) => (
+            <div className="law-item" key={index}>
+              <div className="px-5 py-4">
+                <h5>{item.lawTitle.toUpperCase()}</h5>
+                <div>
+                  <p className="law-desc">{item.description}</p>
+                  <p className="keywords"><b>Keyword(s):</b> {item.keywords.join(', ')}</p>
+                </div>
+              </div>
+              <hr />
+            </div>
           ))}
-        </ul>
+        </>
+      ) : (
+        <p>No Results</p>
       )}
     </div>
   );

@@ -6,11 +6,10 @@ import Form from "./Form";
 
 const RegisterPage = () => {
   return (
-    <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
+    <div className="container-fluid d-flex align-items-center justify-content-center">
       <Form />
     </div>
   );
 };
 
 export default RegisterPage;
-

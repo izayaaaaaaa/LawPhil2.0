@@ -1,0 +1,14 @@
+.law-item:hover {
+  background-color: rgba(147, 58, 124, 0.05);
+}
+
+.law-desc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+hr {
+  color: #dec1e1;
+}

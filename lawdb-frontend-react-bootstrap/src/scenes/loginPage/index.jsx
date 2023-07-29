@@ -6,11 +6,11 @@ import '../../styles/login.css';
 
 const LoginPage = () => {
   return (
-    <body>
-      <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
-        <Form class="text-center"/>
+    <div>
+      <div className="container d-flex align-items-center min-vh-100">
+        <Form className="text-center"/>
       </div>
-    </body>
+    </div>
   );
 };
 

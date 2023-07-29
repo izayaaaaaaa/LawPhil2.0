@@ -1,6 +1,7 @@
 // add redux persist later (application state to be stored and restored across browser sessions)
+
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
@@ -9,21 +10,57 @@ import SearchResultsPage from './scenes/searchResultsPage';
 import './styles/components.css';
 import './styles/general.css';
 
+const BackgroundWrapper = ({ children }) => {
+  const location = useLocation();
+
+  // Conditionally apply the appropriate background class based on the route
+  const getBackgroundClass = () => {
+    if (location.pathname === '/search-results') {
+      return 'white-bg'; // For search results page
+    } else if (location.pathname === '/search') {
+      return 'search-bg'; // For search page
+    } else {
+      return 'default-bg'; // Use the default class for other pages
+    }
+  };
+
+  // Conditionally apply padding for search results page
+  const getContentStyles = () => {
+    if (location.pathname === '/search-results') {
+      return { paddingTop: '10vh' }; // Apply padding for search results page
+    } else if (location.pathname === '/register') {
+      return { paddingTop: '15vh' }; // Apply padding for register page
+    } else if (location.pathname === '/search-') {
+      return { paddingTop: '0' }; // Apply padding for search results page
+    } else {
+      return { paddingTop: '10vh' }; // Default padding for other pages
+    }
+  };
+
+  return (
+    <div className={`App ${getBackgroundClass()}`}>
+      <div style={getContentStyles()}>{children}</div>
+    </div>
+  );
+};
+
 function App() {
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column' }}>
-      <BrowserRouter>
-        <div className="NavbarPosition">
-          <Navbar />
-        </div>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/search-results" element={<SearchResultsPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <BackgroundWrapper>
+          <div className="NavbarPosition">
+            <Navbar />
+          </div>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/search-results" element={<SearchResultsPage />} />
+          </Routes>
+        </BackgroundWrapper>
+      </div>
+    </BrowserRouter>
   );
 }
 
