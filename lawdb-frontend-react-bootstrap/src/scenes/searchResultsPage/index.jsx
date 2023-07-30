@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
 
+/* Search Results Checklist:
+ * [ ] Connect to the API/database to fetch the search results
+ * [ ] 
+*/
+
 const SearchResultsPage = () => {
   // State to hold the search results
   const [searchResults, setSearchResults] = useState([]);
 
   // Simulate fetching search results from an API
   useEffect(() => {
-    // For this example, let's assume searchResults is populated with some dummy data.
     const dummyResults = [
       { lawTitle: 'Result 1', 
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 
@@ -21,7 +25,6 @@ const SearchResultsPage = () => {
       { lawTitle: 'Result 4', 
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet consectetur adipiscing elit pellentesque habitant morbi. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Placerat duis ultricies lacus sed.', 
         keywords: ['Keyword 3', 'Keyword 4'] },
-      // Add more search result objects...
     ];
     setSearchResults(dummyResults);
   }, []);

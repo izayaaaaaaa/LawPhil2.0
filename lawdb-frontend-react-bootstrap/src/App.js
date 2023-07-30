@@ -27,13 +27,13 @@ const BackgroundWrapper = ({ children }) => {
   // Conditionally apply padding for search results page
   const getContentStyles = () => {
     if (location.pathname === '/search-results') {
-      return { paddingTop: '10vh' }; // Apply padding for search results page
+      return { paddingTop: '10vh' }; // For search results page
     } else if (location.pathname === '/register') {
-      return { paddingTop: '15vh' }; // Apply padding for register page
-    } else if (location.pathname === '/search-') {
-      return { paddingTop: '0' }; // Apply padding for search results page
+      return { paddingTop: '13vh' }; // For register page
+    } else if (location.pathname === '/search') {
+      return { paddingTop: '0' }; // For search page
     } else {
-      return { paddingTop: '10vh' }; // Default padding for other pages
+      return { paddingTop: '25vh' }; // Padding for loginPage
     }
   };
 

@@ -4,6 +4,12 @@ import Form from './Form';
 import '../../styles/general.css';
 import '../../styles/search.css';
 
+
+/* Search Checklist:
+ * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
+ * [ ] 
+*/
+
 const SearchPage = () => {
   /* 
   const handleSearch = (query) => {

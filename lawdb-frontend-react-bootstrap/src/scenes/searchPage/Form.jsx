@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-/* 
-searchPage checklist:
-[ ] implement search functionality (search bar and advanced search) via searchQuery state or something else
+/* Search Checklist:
+ * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
+ * [ ] Implement search functionality (search bar and advanced search) via searchQuery state or something else
 */
 
 const Form = () => {
@@ -18,12 +18,11 @@ const Form = () => {
   return (
     <div className="body-search">
       <div className="container d-flex flex-column">
-
-        {/* Main Search */}
         <div className="search-body text-center flex-grow-1 vh-100">
-          <h4>ARELLANO FOVNDATION</h4>
+          <img src="/logo.png" className="login-logo mb-4" alt="LawPhil Logo" />
+          <h4 className="mb-3">ARELLANO LAW FOVNDATION</h4>
           <h1>LawPhil Project</h1>
-
+          {/* Main Search */}
           <div className="search-bar">
             <form action="" className="search-form">
               <div className="form-group has-feedback">
@@ -41,7 +40,7 @@ const Form = () => {
 
           <h5>FREE ACCESS TO LAW</h5>
 
-          <div className="mt-5 pt-5">
+          <div className="mt-3 pt-5">
             <a href="#adv-search" className="link-light">
               Advanced Search <br />
               <FontAwesomeIcon icon={faCircleArrowDown} />

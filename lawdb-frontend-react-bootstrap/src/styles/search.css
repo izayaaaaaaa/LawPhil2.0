@@ -4,6 +4,12 @@
     height: 100vh;
 }
 
+.login-logo {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+}
+
 .search-body {
     flex: 1;
     height: 100vh;
