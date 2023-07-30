@@ -53,30 +53,27 @@ button:focus {
     }
 }
 
-/* Source Serif 4 - Larger Headings (h1, h2, h3) , form label, & Body Text  */
+/* Source Serif 4 - Larger Headings (h1, h2, h3); Body Text  */
 
 h1, h2, h3 {
     font-family: 'Source Serif 4', serif;
-    color: #3a086b;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
     font-size: 64px;
+    color: #3a086b;
 }
 
 h2 {
     font-size: 40px;
+    color: #000000;
+    text-align: center;
 }
 
 h3 {
     font-size: 20px;
-}
-
-.form-label {
-    font-family: 'Lexend Exa', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
+    color: #3a086b;
 }
 
 p {
@@ -85,7 +82,7 @@ p {
     color: #000000;
 }
 
-/* Lexend Exa - Smaller Headings (h4, h5)*/
+/* Lexend Exa - Smaller Headings (h4, h5); form label */
 
 h4, h5 {
     font-family: 'Lexend Exa', sans-serif;
@@ -104,6 +101,11 @@ h5 {
     font-weight: bolder;
 }
 
+.form-label {
+    font-family: 'Lexend Exa', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
 
 /* Anonymous Pro - h6, smaller text (a, li, span, etc.) */
 
@@ -130,6 +132,8 @@ h6  {
     font-size: 14px;
     color: #432575;
 }
+
+/* Responsive Breakpoints */
 
 @media (max-width: 360px) {
     h1 {

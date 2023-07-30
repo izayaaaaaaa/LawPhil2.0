@@ -7,6 +7,7 @@ import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
+import LawContentPage from './scenes/lawContentPage';
 import './styles/components.css';
 import './styles/general.css';
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
+            <Route path="/law-content/:lawId" element={<LawContentPage />} />
           </Routes>
         </BackgroundWrapper>
       </div>

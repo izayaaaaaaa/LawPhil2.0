@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/searchResults.css';
 
@@ -14,9 +15,12 @@ const SearchResults = ({ data }) => {
           {data.map((item, index) => (
             <div className="law-item" key={index}>
               <div className="px-5 py-4">
-                <h5>{item.lawTitle.toUpperCase()}</h5>
+                <Link to={`/law-content/${item.lawId}`}>
+                  <h5>{item.lawTitle.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
+                </Link>
                 <div>
-                  <p className="law-desc">{item.description}</p>
+                  <p className="law-desc">{item.lawDescription}</p>
+                  <Link to={`/law-content/${item.lawId}`}>Read More</Link>
                   <p className="keywords"><b>Keyword(s):</b> {item.keywords.join(', ')}</p>
                 </div>
               </div>
