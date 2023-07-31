@@ -13,6 +13,8 @@
     src: url('https://fonts.google.com/specimen/Anonymous+Pro') format('truetype');
 }
 
+/* Backgrounds */
+
 .default-bg {
     background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
 }
@@ -46,7 +48,17 @@ button:focus {
   border-color: #ffffff;
 }
 
-@media (max-width: 360px) {
+.link-style {
+    color: #3a086b !important;
+    text-decoration: none !important;
+}
+
+.link-style:hover {
+    color: #6a498a !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 767px) {
     .form-control,
     .btn {
       width: 100%;
@@ -135,13 +147,13 @@ h6  {
 
 /* Responsive Breakpoints */
 
-@media (max-width: 360px) {
+@media (max-width: 767px) {
     h1 {
       font-size: 48px;
     }
   
     h2 {
-      font-size: 32px;
+      font-size: 28px;
     }
   
     h3 {

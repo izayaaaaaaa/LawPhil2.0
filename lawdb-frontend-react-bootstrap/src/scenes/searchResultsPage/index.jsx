@@ -12,6 +12,7 @@ const SearchResultsPage = () => {
 
   // Simulate fetching search results from an API
   useEffect(() => {
+    // Dummy data for now - populate with actual data from the database!
     const dummyResults = [
       {
         lawId: 1,

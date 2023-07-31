@@ -6,6 +6,8 @@ import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 /* Search Checklist:
  * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
  * [ ] Implement search functionality (search bar and advanced search) via searchQuery state or something else
+ * [ ] Connect to the database to fetch the search results using: lawId, lawTitle, lawDescription, keywords (might not match ERD - mb!)
+ * [ ] Change the redirects for the search bar/adv search bar inputs (text input & search button) - take note that there are TWO search bars
 */
 
 const Form = () => {
@@ -27,6 +29,9 @@ const Form = () => {
             <form action="" className="search-form">
               <div className="form-group has-feedback">
                 <div className="input-group my-5">
+
+                  {/* Fix search functionality here: */}
+                  
                   <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                   <div className="input-group-append">
                     <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
@@ -70,6 +75,9 @@ const Form = () => {
                 <div className="search-bar">
                   <form action="" className="search-form">
                     <div className="form-group has-feedback">
+
+                      {/* Fix adv search functionality (+category dropdown from lines 59-70) here: */}
+
                       <div className="input-group my-5">
                         <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                         <div className="input-group-append">

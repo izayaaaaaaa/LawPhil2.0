@@ -19,7 +19,7 @@ const SearchPage = () => {
   };
  */
   return (
-    <div className="search-bg">
+    <div>
       <Form className="text-center"/>
     </div>
   );

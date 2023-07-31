@@ -9,18 +9,20 @@ const SearchResults = ({ data }) => {
       {data.length > 0 ? (
         <>
           {/* Display the number of results */}
-          <p className="results-found ml-5">{data.length} results found.</p>
+          <p className="results-found">{data.length} results found.</p>
 
           {/* Loop through the search results */}
           {data.map((item, index) => (
             <div className="law-item" key={index}>
               <div className="px-5 py-4">
-                <Link to={`/law-content/${item.lawId}`}>
+                <Link to={`/law-content/${item.lawId}`} className="link-style">
                   <h5>{item.lawTitle.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
                 </Link>
                 <div>
                   <p className="law-desc">{item.lawDescription}</p>
-                  <Link to={`/law-content/${item.lawId}`}>Read More</Link>
+                  <Link to={`/law-content/${item.lawId}`} className="link-style">
+                    Read More
+                  </Link>
                   <p className="keywords"><b>Keyword(s):</b> {item.keywords.join(', ')}</p>
                 </div>
               </div>
