@@ -13,6 +13,10 @@
     src: url('https://fonts.google.com/specimen/Anonymous+Pro') format('truetype');
 }
 
+body {
+    margin: 0;
+  }  
+
 /* Backgrounds */
 
 .default-bg {
@@ -79,7 +83,7 @@ h1 {
 
 h2 {
     font-size: 40px;
-    color: #000000;
+    color: #3a086b;
     text-align: center;
 }
 
@@ -127,8 +131,7 @@ li,
 span, 
 option, 
 select, 
-button, 
-label,
+button,
 .results-found,
 .keywords {
   font-family: 'Anonymous Pro', monospace;

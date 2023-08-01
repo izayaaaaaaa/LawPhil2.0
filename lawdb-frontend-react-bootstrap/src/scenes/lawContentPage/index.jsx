@@ -56,8 +56,12 @@ const LawContentPage = () => {
   
 
   if (!lawContent) {
-    // loading state/nothing to show
-    return <div><img src="/logo.png" className="container-fluid d-flex align-items-center justify-content-center loading-logo" alt="LawPhil Logo" /></div>;
+    return <div className="container-fluid d-flex align-items-center justify-content-center text-center">
+      <div>
+        <img src="/logo.png" className="loading-logo mb-5" alt="LawPhil Logo" />
+        <h5>Loading...</h5>
+      </div>
+    </div>;
   }
 
     // Function to find and replace the "Section <number>." pattern with bold text

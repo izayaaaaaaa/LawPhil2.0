@@ -1,0 +1,55 @@
+.pfp {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.prof-form-control {
+    color: #3A086B;
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    border-color: #3A086B;
+    width: 100%; /* Set width to 100% for smaller screens */
+  }
+  
+.prof-form-control:focus-within {
+    color: #3A086B;
+    background-color: transparent;
+    border-color: #3A086B;
+    box-shadow: none;
+}
+
+.edit-btn {
+    font-family: 'Lexend Exa', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: #9163B3;
+    border-color: #9163B3;
+}
+
+.edit-btn:hover {
+    color: #9163B3;
+    background-color: transparent;
+    border-color: #9163B3;
+}
+
+.save-btn {
+    font-family: 'Lexend Exa', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #3A086B;
+    border-color: #3A086B;
+}
+
+.save-btn:hover {
+    color: #3A086B;
+    background: transparent;
+    border-color: #3A086B;
+}
