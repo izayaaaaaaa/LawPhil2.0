@@ -5,6 +5,7 @@ import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
 
+
 function App() {
   return (
     <div className="App">

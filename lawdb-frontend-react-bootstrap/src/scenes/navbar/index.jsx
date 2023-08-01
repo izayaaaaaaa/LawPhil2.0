@@ -29,20 +29,20 @@ const Navbar = () => {
           >
             <FontAwesomeIcon icon={faBars} />
           </button>
-          <a class="navbar-brand" href="#">ARELLANO LAW FOVNDATION</a>
-          <form class="d-flex">
-            <a href="/register" class="btn btn-primary">Register</a>
+          <a className="navbar-brand" href="#">ARELLANO LAW FOVNDATION</a>
+          <form className="d-flex">
+            <a href="/register" className="btn btn-primary">Register</a>
           </form>
         </div>
       </nav>
       <div className={`collapse ${isCollapsed ? 'show' : ''}`} id="navbarToggleExternalContent">
         <div className="bg-light shadow-3 p-4">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Link</a>
             </li>
           </ul>
         </div>
