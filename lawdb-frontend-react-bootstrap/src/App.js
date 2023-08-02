@@ -9,6 +9,7 @@ import SearchPage from './scenes/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
+import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
@@ -61,6 +62,7 @@ function App() {
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/law-content/:lawId" element={<LawContentPage />} />
             <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
           </Routes>
         </BackgroundWrapper>
       </div>

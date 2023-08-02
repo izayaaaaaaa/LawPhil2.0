@@ -1,0 +1,21 @@
+.law-list {
+    border: 1px solid #3A086B;
+    border-radius: 10px;
+}
+
+.law-details {
+    border: 1px solid #3A086B;
+    border-radius: 10px;
+}
+
+.list-group-item {
+    border: none;
+    background-color: transparent;
+}
+
+.list-group-item:focus, 
+.list-group-item::after,
+.list-group-item::selection {
+    outline: none;    
+    background-color: transparent;
+  }
