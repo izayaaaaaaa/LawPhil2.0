@@ -5,6 +5,19 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/general.css';
 import '../../styles/admin.css';
 
+// To delete
+import Testing from './testing';
+// To delete
+
+/* Checklist for Admin Dashboard:
+* [ ] Fix Add Law Content button to be functional
+* [ ] Fix Properties to match the database/ERD
+* [ ] Fix buttons' functionalities
+* [ ] Add Actions menu(?) - from figma
+*/
+
+const ITEMS_PER_PAGE = 5;
+
 const AdminDashboard = () => {
   const [laws, setLaws] = useState([]);
   const [selectedLaw, setSelectedLaw] = useState(null);
@@ -12,52 +25,18 @@ const AdminDashboard = () => {
   const [editedLaw, setEditedLaw] = useState(null);
   const [showSavedNotification, setShowSavedNotification] = useState(false);
 
-  {/* Testing - delete when connected to db */}
-  useEffect(() => {
-    // Dummy data for testing purposes
-    const dummyData = [
-      {
-        lawId: 1,
-        lawTitle: 'Sample Law 1',
-        lawDescription: 'This is a sample law description for law 1.',
-        headings: [
-          {
-            headingTitle: 'Sample Heading 1',
-            sections: [
-              { content: 'Section 1 content for law 1.' },
-              { content: 'Section 2 content for law 1.' },
-            ],
-          },
-        ],
-      },
-      {
-        lawId: 2,
-        lawTitle: 'Sample Law 2',
-        lawDescription: 'This is a sample law description for law 2.',
-        headings: [
-          {
-            headingTitle: 'Sample Heading 1',
-            sections: [
-              { content: 'Section 1 content for law 2.' },
-              { content: 'Section 2 content for law 2.' },
-            ],
-          },
-          {
-            headingTitle: 'Sample Heading 2',
-            sections: [
-              { content: 'Section 1 content for law 2.' },
-              { content: 'Section 2 content for law 2.' },
-            ],
-          },
-        ],
-      },
-    ];
+  {/* For Pagination */}
+  const [currentPage, setCurrentPage] = useState(1);
 
-    // Set the laws state with the dummy data
-    setLaws(dummyData);
-  }, []);
+  // Calculate the index of the first and last law item to display on the current page
+  const indexOfLastLaw = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstLaw = indexOfLastLaw - ITEMS_PER_PAGE;
+  const currentLaws = laws.slice(indexOfFirstLaw, indexOfLastLaw);
 
-  {/* End */}
+  // Handle pagination button click
+  const handlePaginationClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     // Fetch laws data from the server using API call
@@ -67,12 +46,14 @@ const AdminDashboard = () => {
       .catch((error) => console.error('Error fetching laws:', error));
   }, []);
 
+  {/* For Viewing Individual Laws */}
   const handleLawClick = (law, event) => {
     setSelectedLaw(law);
     setEditMode(false);
     setEditedLaw({ ...law });
   };  
 
+  {/* For Saving Changes */}
   const handleSaveChanges = () => {
     // Perform API call to save changes to the selected law
     // Use the editedLaw object to update the selected law
@@ -105,9 +86,14 @@ const AdminDashboard = () => {
 
   return (
     <div className="container">
-      <div className="row">
+
+{/* Testing - delete when connected to db */}
+ <Testing setLaws={setLaws} />
+{/* End */}
+
+      <div className="row law-container">
        {/* Law List */}
-        <div className="col-md-4 law-list">
+        <div className="col-md-3 law-list">
           <div className="d-flex justify-content-end">
             <button type="button" className="btn">
               <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
@@ -116,7 +102,7 @@ const AdminDashboard = () => {
           </div>
           {/* List of laws */}
           <ul className="list-group mt-3">
-            {laws.map((law) => (
+            {currentLaws.map((law) => (
               <li
                 key={law.lawId}
                 className={`list-group-item${selectedLaw === law ? ' active' : ''}`}
@@ -132,6 +118,20 @@ const AdminDashboard = () => {
               </li>
             ))}
           </ul>
+          
+          {/* Pagination */}
+          <div>
+            {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePaginationClick(index + 1)}
+                style={{ margin: '4px' }}
+                disabled={currentPage === index + 1}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Law Details */}

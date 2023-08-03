@@ -1,3 +1,13 @@
+.law-container {
+    display: flex;
+    gap: 10px; /* Adjust the gap value as needed */
+}
+
+.law-list-container {
+    height: 150px;
+    overflow-y: auto;
+}
+
 .law-list {
     border: 1px solid #3A086B;
     border-radius: 10px;
@@ -13,9 +23,9 @@
     background-color: transparent;
 }
 
-.list-group-item:focus, 
-.list-group-item::after,
-.list-group-item::selection {
-    outline: none;    
+.list-group-item.active{
+    border: none;
     background-color: transparent;
-  }
+    color: #3A086B;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
