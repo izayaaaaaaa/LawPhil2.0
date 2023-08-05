@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Form = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const loginResponse = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (loginResponse.ok) {
+        // Login successful, redirect to the dashboard or do something else
+        console.log("Login successful!");
+      } else {
+        const errorData = await loginResponse.json();
+        console.log("Login failed:", errorData.message);
+      }
+    } catch (error) {
+      console.log("Login failed:", error.message);
+    }
+  };
+
   return (
     <div className="container px-5">
       <div className="row d-flex justify-content-center align-items-center">
@@ -16,22 +52,26 @@ const Form = () => {
               {/* Login Container - Login Form */}
               <div className="col-md-6 col-lg-6 d-flex align-items-center" id="login-side">
                 <div className="card-body p-4 p-lg-5 text-black">
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="form-group mb-4">
-                      <label className="form-label login-form-label" htmlFor="form-username">Username</label>
+                      <label className="form-label login-form-label" htmlFor="username">Username</label>
                       <input 
-                        type="email" 
-                        id="form-username" 
+                        type="text" 
+                        id="username" 
                         className="form-control form-control-md login-form-control" 
+                        value={formData.username}
+                        onChange={handleChange}
                       />
                     </div>
                     
                     <div className="form-group mb-4">
-                      <label className="form-label login-form-label" htmlFor="form-password">Password</label>
+                      <label className="form-label login-form-label" htmlFor="password">Password</label>
                       <input 
                         type="password" 
-                        id="form-password" 
+                        id="password" 
                         className="form-control form-control-md login-form-control"
+                        value={formData.password}
+                        onChange={handleChange}
                       />
                     </div>
                 
@@ -40,7 +80,7 @@ const Form = () => {
                     </div>
                 
                     <div className="text-center mt-4">
-                      <button type="button" className="btn btn-light btn-md login-btn">
+                      <button type="submit" className="btn btn-light btn-md login-btn">
                         <span id="btn-text">Login</span>
                       </button>
                     </div>

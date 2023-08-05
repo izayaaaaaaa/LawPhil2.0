@@ -1,33 +1,31 @@
-import React from 'react';
-// import * as yup from 'yup';
-
-
-// const schema = yup.object().shape({
-//   username: yup.string().required(),
-//   email: yup.string().email().required(),
-//   password: yup.string().required(),
-//   confirmPassword: yup.string().required(),
-// });
-
-// const initialValues = {
-//   username: '',
-//   email: '',
-//   password: '',
-//   confirmPassword: '',
-// };
+import React, { useState } from 'react';
 
 const Form = () => {
-  const handleSubmit = async(values) => {
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
-          method: "POST",
-          body: formData,
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
     const savedUser = await savedUserResponse.json();
@@ -46,52 +44,60 @@ const Form = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="px-5">
-              <div className="form-outline mb-4 input-wrapper">
-                <label className="form-label reg-form-label" htmlFor="form-username">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="form-username"
-                  className="form-control reg-form-control form-control-md"
-                />
-              </div>
+      <div className="form-outline mb-4 input-wrapper">
+        <label className="form-label reg-form-label" htmlFor="username">
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="form-control reg-form-control form-control-md"
+          value={formData.username}
+          onChange={handleChange}
+        />
+      </div>
 
-              <div className="form-outline mb-4 input-wrapper">
-                <label className="form-label reg-form-label" htmlFor="form-email">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="form-email"
-                  className="form-control reg-form-control form-control-md"
-                />
-              </div>
+      <div className="form-outline mb-4 input-wrapper">
+        <label className="form-label reg-form-label" htmlFor="email">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          className="form-control reg-form-control form-control-md"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
 
-              <div className="form-outline mb-4 input-wrapper">
-                <label className="form-label reg-form-label" htmlFor="form-password">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="form-password"
-                  className="form-control reg-form-control form-control-md"
-                />
-              </div>
+      <div className="form-outline mb-4 input-wrapper">
+        <label className="form-label reg-form-label" htmlFor="password">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          className="form-control reg-form-control form-control-md"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </div>
 
-              <div className="form-outline mb-5 input-wrapper">
-                <label className="form-label reg-form-label" htmlFor="form-confirm">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="form-confirm"
-                  className="form-control reg-form-control form-control-md"
-                />
-              </div>
+      <div className="form-outline mb-5 input-wrapper">
+        <label className="form-label reg-form-label" htmlFor="confirmPassword">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          className="form-control reg-form-control form-control-md"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+        />
+      </div>
 
               <div className="text-center mt-4 mx-auto">
-                <button type="button" className="btn btn-light reg-btn btn-md">
+                <button type="submit" className="btn btn-light reg-btn btn-md">
                   Register
                 </button>
               </div>
