@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+// register form
+// to do: 
+// - implement a feature that checks if the username already exists, cancel registration if yes
 
-const Form = () => {
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const RegisterForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const handleChange = (e) => {
@@ -18,95 +22,61 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: JSON.stringify(formData),
+    try {
+      const response = await axios.post("http://localhost/LawPhil2.0_Server/register.php", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
+      });
+
+      // debug code 
+      // console.log("Full response object:", response); 
+
+      if (response.data.success) {
+        console.log("Registration successful!");
+      } else {
+        console.log("Registration failed:", response.data.message);
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    // onSubmitProps.resetForm(); RESET THE FORM
+    } catch (error) {
+      console.log("Registration failed:", error.message);
+    }
   };
 
   return (
-    <div className="container">
-      <div className="row d-flex justify-content-center align-items-center">
-        <div className="col col-xl-10 mx-auto">
-          <div className="card reg-card reg-card-bg">
-            <div className="text-center">
-              <h3>Welcome back to</h3>
-              <h2>LawPhil Project!</h2>
-              <br />
-            </div>
-
-            <form onSubmit={handleSubmit} className="px-5">
-      <div className="form-outline mb-4 input-wrapper">
-        <label className="form-label reg-form-label" htmlFor="username">
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          className="form-control reg-form-control form-control-md"
-          value={formData.username}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-outline mb-4 input-wrapper">
-        <label className="form-label reg-form-label" htmlFor="email">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          className="form-control reg-form-control form-control-md"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-outline mb-4 input-wrapper">
-        <label className="form-label reg-form-label" htmlFor="password">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="form-control reg-form-control form-control-md"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-outline mb-5 input-wrapper">
-        <label className="form-label reg-form-label" htmlFor="confirmPassword">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          className="form-control reg-form-control form-control-md"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
-      </div>
-
-              <div className="text-center mt-4 mx-auto">
-                <button type="submit" className="btn btn-light reg-btn btn-md">
-                  Register
-                </button>
-              </div>
-            </form>
-          </div>
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
         </div>
-      </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };
 
-export default Form;
+export default RegisterForm;

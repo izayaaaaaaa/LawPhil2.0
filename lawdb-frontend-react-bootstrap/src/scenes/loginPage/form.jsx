@@ -1,4 +1,9 @@
+// login form
+// to do: 
+// - implement a proper forget password feature
+
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -17,20 +22,22 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      const loginResponse = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        body: JSON.stringify(formData),
+      // debug code
+      // console.log("Form Data: ", formData);
+
+      const response = await axios.post("http://localhost/LawPhil2.0_Server/login.php", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (loginResponse.ok) {
-        // Login successful, redirect to the dashboard or do something else
+      // debug code
+      // console.log("Server Response:", response.data); // log the complete response
+
+      if (response.data.success) {
         console.log("Login successful!");
       } else {
-        const errorData = await loginResponse.json();
-        console.log("Login failed:", errorData.message);
+        console.log("Login failed:", response.data.message);
       }
     } catch (error) {
       console.log("Login failed:", error.message);
@@ -75,9 +82,9 @@ const Form = () => {
                       />
                     </div>
                 
-                    <div className="text-center mt-4">
+                    {/* <div className="text-center mt-4">
                       <a href="#!" className="link-light">Forgot Password?</a>
-                    </div>
+                    </div> */}
                 
                     <div className="text-center mt-4">
                       <button type="submit" className="btn btn-light btn-md login-btn">
