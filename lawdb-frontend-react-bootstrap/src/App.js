@@ -13,7 +13,7 @@ import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http:///192.168.56.1"; 
+const hostUrl = "http://192.168.56.1"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -31,16 +31,21 @@ const BackgroundWrapper = ({ children }) => {
 
   // Conditionally apply padding for search results page
   const getContentStyles = () => {
+    let paddingTop = '25vh'; // Default top padding
+  
     if (location.pathname === '/search-results') {
-      return { paddingTop: '10vh' }; // For search results page
+      paddingTop = '10vh'; // Override top padding for search results page
     } else if (location.pathname === '/register') {
-      return { paddingTop: '13vh' }; // For register page
+      paddingTop = '13vh'; // Override top padding for register page
+    } else if (location.pathname === '/admin-dashboard') {
+      paddingTop = '15vh'; // Override top padding for admin-dashboard page
     } else if (location.pathname === '/search') {
-      return { paddingTop: '0' }; // For search page
-    } else {
-      return { paddingTop: '25vh' }; // Padding for loginPage
+      paddingTop = '0'; // Override top padding for search page
     }
+  
+    return { paddingTop, paddingBottom: '0' }; // Set bottom padding to 0 for all pages
   };
+  
 
   return (
     <div className={`App ${getBackgroundClass()}`}>

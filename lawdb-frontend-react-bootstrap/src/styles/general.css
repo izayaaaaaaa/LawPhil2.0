@@ -1,3 +1,4 @@
+/* general.css */
 @font-face {
     font-family: 'Source Serif 4';
     src: url('https://fonts.google.com/specimen/Source+Serif+4') format('truetype');
@@ -15,12 +16,14 @@
 
 body {
     margin: 0;
+    background-size: 100% 100%;
   }  
 
 /* Backgrounds */
 
 .default-bg {
     background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
+    background-attachment: fixed;
 }
 
 .search-bg {

@@ -86,7 +86,7 @@ const AdminDashboard = ({ hostUrl }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container m-auto">
       <div className="row law-container">
        {/* Law List */}
         <div className="col-md-3 law-list">
@@ -132,10 +132,10 @@ const AdminDashboard = ({ hostUrl }) => {
 
         {/* Law Details */}
         <div className="col-md-8 law-details">
+        <p className="ml-4 mt-1">Details</p>
+              <hr />
           {selectedLaw && (
             <>
-              <p className="ml-4 mt-1">Details</p>
-              <hr />
               {!editMode ? (
                 // Display law content without edit form
                 <>
@@ -153,7 +153,32 @@ const AdminDashboard = ({ hostUrl }) => {
                         onChange={(e) => setEditedLaw({ ...editedLaw, lawTitle: e.target.value })}
                       />
                     </div>
-
+                    <div className="mb-3">
+                      <label htmlFor="category" className="form-label">
+                        Category
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="category"
+                        value={editedLaw?.category || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Content
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="content"
+                        rows="4"
+                        value={editedLaw?.content || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
+                      />
+                    </div>
                   </form>
                   {/* Edit button */}
                   <div className="d-flex justify-content-end my-3">
