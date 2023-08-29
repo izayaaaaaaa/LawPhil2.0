@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
+// searchPage Form.jsx
+
 /* Search Checklist:
  * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
  * [ ] Implement search functionality (search bar and advanced search) via searchQuery state or something else

@@ -1,11 +1,11 @@
-// login form
+// loginPage Form.jsx
 // to do: 
 // - implement a proper forget password feature
 
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Form = () => {
+const Form = ({ hostUrl }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -22,20 +22,21 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      // debug code
       // console.log("Form Data: ", formData);
+      
+      // console.log("Backend Base URL:", hostUrl);
 
-      const response = await axios.post("http://localhost/LawPhil2.0_Server/login.php", formData, {
+      const response = await axios.post(`${hostUrl}/LawPhil2.0_Server/login.php`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      // debug code
       // console.log("Server Response:", response.data); // log the complete response
 
       if (response.data.success) {
         console.log("Login successful!");
+        window.location.href = `${hostUrl}:3000/search`;
       } else {
         console.log("Login failed:", response.data.message);
       }

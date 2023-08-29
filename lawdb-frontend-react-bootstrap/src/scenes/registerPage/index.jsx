@@ -4,10 +4,10 @@ import '../../styles/general.css';
 import '../../styles/register.css';
 import Form from "./Form";
 
-const RegisterPage = () => {
+const RegisterPage = ({ hostUrl }) => {
   return (
     <div className="container-fluid d-flex align-items-center justify-content-center">
-      <Form />
+      <Form hostUrl={hostUrl} />
     </div>
   );
 };

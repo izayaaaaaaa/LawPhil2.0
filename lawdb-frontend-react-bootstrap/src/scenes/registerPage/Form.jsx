@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const RegisterForm = () => {
+const RegisterForm = ({ hostUrl }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -23,13 +23,14 @@ const RegisterForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost/LawPhil2.0_Server/register.php", formData, {
+      // console.log("Backend Base URL:", hostUrl);
+
+      const response = await axios.post(`${hostUrl}/LawPhil2.0_Server/register.php`, formData, {
         headers: {
           "Content-Type": "application/json"
         },
       });
 
-      // debug code 
       // console.log("Full response object:", response); 
 
       if (response.data.success) {
