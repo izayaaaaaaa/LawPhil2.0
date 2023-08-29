@@ -20,22 +20,17 @@ const Form = ({ hostUrl }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // console.log("Form Data: ", formData);
-      
-      // console.log("Backend Base URL:", hostUrl);
-
       const response = await axios.post(`${hostUrl}/LawPhil2.0_Server/login.php`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      // console.log("Server Response:", response.data); // log the complete response
-
+  
       if (response.data.success) {
         console.log("Login successful!");
+        localStorage.setItem("username", formData.username); // Store the username
         window.location.href = `${hostUrl}:3000/search`;
       } else {
         console.log("Login failed:", response.data.message);

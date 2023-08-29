@@ -41,6 +41,23 @@
     color: #3a086b;
 }
 
+.usr-btn{
+    font-size: 16px;
+    font-weight: bold;
+    color: #3a086b;;
+    background-color: #ffffff;
+    border: none;
+}
+
+.usr-btn:hover {
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.user-icon {
+    margin-right: 15px;
+}
+
 .nav-btn {
     font-size: 16px;
     font-weight: bold;
