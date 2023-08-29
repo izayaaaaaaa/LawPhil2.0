@@ -1,4 +1,4 @@
-// add redux persist later (application state to be stored and restored across browser sessions)
+// app.js 
 
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
@@ -12,6 +12,8 @@ import UserProfile from './scenes/userProfilePage/UserProfile';
 import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
+
+const hostUrl = "http://192.168.100.7"; // Replace with your actual backend base URL
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -56,7 +58,7 @@ function App() {
             <Navbar />
           </div>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />

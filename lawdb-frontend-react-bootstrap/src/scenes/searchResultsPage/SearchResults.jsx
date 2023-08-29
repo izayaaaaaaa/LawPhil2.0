@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/searchResults.css';
 
+// searchResultsPage SearchResults.jsx
+
 const SearchResults = ({ data }) => {
   return (
     <div>

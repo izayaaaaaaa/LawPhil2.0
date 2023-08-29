@@ -4,6 +4,7 @@ import Form from './Form';
 import '../../styles/general.css';
 import '../../styles/search.css';
 
+// searchPage index.jsx
 
 /* Search Checklist:
  * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu

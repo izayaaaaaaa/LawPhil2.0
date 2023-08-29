@@ -1,3 +1,7 @@
+// navbar 
+// to do:
+// - After successfully logging in and being redirected to /search, (sessions or cookies check which is most suited for this use case)
+//    the user's name should be shown on the upper right as a button that redirects to their respective profile page
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -71,7 +75,7 @@ const Navbar = () => {
                 </form>
               </div>
             ) : (
-              <a className="navbar-brand m-3" href="#">
+              <a className="navbar-brand m-3" href="https://lawphil.net/">
                 ARELLANO LAW FOVNDATION
               </a>
             )}
@@ -87,17 +91,17 @@ const Navbar = () => {
         <div className="shadow-3 p-4">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <a className="nav-link" aria-current="page" href="https://lawphil.net/">
                 HOME
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <a className="nav-link" aria-current="page" href="https://lawphil.net/">
                 ABOUT US
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <a className="nav-link" aria-current="page" href="https://lawphil.net/">
                 DISCLAIMER
               </a>
             </li>

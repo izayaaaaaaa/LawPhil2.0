@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
 
+// searchResultsPage index.jsx
+
 /* Search Results Checklist:
  * [ ] Connect to the database to fetch the search results
  * [ ] Connect to the API/database to fetch the law content
