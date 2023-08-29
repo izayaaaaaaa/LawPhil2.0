@@ -13,7 +13,7 @@ import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.100.7"; // Replace with your actual backend base URL
+const hostUrl = "http://192.168.100.7"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -59,7 +59,7 @@ function App() {
           </div>
           <Routes>
             <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/law-content/:lawId" element={<LawContentPage />} />
