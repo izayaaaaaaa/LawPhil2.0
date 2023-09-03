@@ -64,7 +64,7 @@ function App() {
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/law-content/:lawId" element={<LawContentPage />} />
             <Route path="/user-profile" element={<UserProfile />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
           </Routes>
         </BackgroundWrapper>
       </div>
