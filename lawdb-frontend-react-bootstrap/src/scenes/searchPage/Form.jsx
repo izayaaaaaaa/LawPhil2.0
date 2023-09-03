@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
+// import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 // searchPage Form.jsx
 
@@ -13,11 +13,11 @@ import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 */
 
 const Form = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  // const [searchQuery, setSearchQuery] = useState('');
 
-  const handleInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  // const handleInputChange = (event) => {
+  //   setSearchQuery(event.target.value);
+  // };
   
   return (
     <div className="body-search">
@@ -36,9 +36,9 @@ const Form = () => {
                   
                   <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                   <div className="input-group-append">
-                    <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
+                    {/* <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
                       <FontAwesomeIcon icon={faSearch} />
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@ const Form = () => {
           <div className="mt-3 pt-5">
             <a href="#adv-search" className="link-light">
               Advanced Search <br />
-              <FontAwesomeIcon icon={faCircleArrowDown} />
+              {/* <FontAwesomeIcon icon={faCircleArrowDown} /> */}
             </a>
           </div>
         </div>
@@ -83,9 +83,9 @@ const Form = () => {
                       <div className="input-group my-5">
                         <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                         <div className="input-group-append">
-                          <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
+                          {/* <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
                             <FontAwesomeIcon icon={faSearch} />
-                          </Link>
+                          </Link> */}
                         </div>
                       </div>
                     </div>
