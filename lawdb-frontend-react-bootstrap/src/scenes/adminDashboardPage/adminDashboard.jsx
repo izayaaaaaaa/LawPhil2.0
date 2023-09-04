@@ -93,7 +93,7 @@ const AdminDashboard = ({ hostUrl }) => {
               >
                 <div className="d-flex align-items-center justify-content-between">
                   <span>{law.title}</span>
-                  <a href="https://lawphil.net/" onClick={(e) => handleLawClick(law, e)} className="ms-2 link-style">
+                  <a href="#" onClick={(e) => handleLawClick(law, e)} className="ms-2 link-style">
                     Edit
                   </a>
                 </div>
@@ -126,13 +126,75 @@ const AdminDashboard = ({ hostUrl }) => {
               {!editMode ? (
                 // Display law content without edit form
                 <>
-                  {/* Display law details */}
+                  <form>
+                    <div className="mb-3">
+                      <label htmlFor="title" className="form-label">
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="title"
+                        value={editedLaw?.title || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, lawTitle: e.target.value })}
+                      />
+                    </div>
+
+                  </form>
+                  {/* Edit button */}
+                  <div className="d-flex justify-content-end my-3">
+                    <button
+                      type="button"
+                      className="btn edit-btn"
+                      onClick={() => setEditMode(true)}
+                    >
+                      Edit
+                    </button>
+                  </div>
                 </>
               ) : (
                 // Edit form for the selected law
                 <>
                   <form>
-                    {/* Form fields for editing */}
+                  <div className="mb-3">
+                      <label htmlFor="title" className="form-label">
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="title"
+                        value={editedLaw?.title || ''}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="category" className="form-label">
+                        Category
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="category"
+                        value={editedLaw?.category || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Content
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="content"
+                        rows="4"
+                        value={editedLaw?.content || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
+                      />
+                    </div>
                   </form>
                   {/* Save and Cancel buttons */}
                   <div className="d-flex justify-content-end my-3">
