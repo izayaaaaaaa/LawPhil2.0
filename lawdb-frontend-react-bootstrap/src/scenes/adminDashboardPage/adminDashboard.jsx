@@ -39,7 +39,7 @@ const AdminDashboard = ({ hostUrl }) => {
       },
       body: JSON.stringify({action: 'updateLaw', ...editedLaw})
     })
-    .then((response) => response.json())
+    .then((response) => {return response.text();})
     .then((data) => {
       try {
         const jsonData = JSON.parse(data); // Try to parse the response as JSON
@@ -62,7 +62,9 @@ const AdminDashboard = ({ hostUrl }) => {
         // Handle the JSON parsing error gracefully, e.g., display an error message
       }
     })
-    .catch((error) => console.error('Error updating law:', error));
+    .catch((error) => {
+      console.error('Frontend: Error updating law:', error);
+    });
   };
 
   const handleCancelEdit = () => {
