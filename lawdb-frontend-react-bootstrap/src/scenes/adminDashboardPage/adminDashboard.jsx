@@ -32,26 +32,37 @@ const AdminDashboard = ({ hostUrl }) => {
 
   const handleSaveChanges = () => {
     // Update the law on the server
-    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=updateLaw`, {
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(editedLaw),
+      body: JSON.stringify({action: 'updateLaw', ...editedLaw})
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Update the local laws state with the edited law data
-        setLaws((prevLaws) =>
-          prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
-        );
-        // Show the saved notification
-        setShowSavedNotification(true);
-        // Exit edit mode after saving changes
-        setEditMode(false);
-      })
-      .catch((error) => console.error('Error updating law:', error));
+    .then((response) => response.json())
+    .then((data) => {
+      try {
+        const jsonData = JSON.parse(data); // Try to parse the response as JSON
+        if (jsonData) {
+          console.log(jsonData);
+          // Update the local laws state with the edited law data
+          setLaws((prevLaws) =>
+            prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
+          );
+          // Show the saved notification
+          setShowSavedNotification(true);
+          // Exit edit mode after saving changes
+          setEditMode(false);
+        } else {
+          console.error('Frontend: Received empty JSON response from the server.');
+          // Handle the empty response gracefully, e.g., display an error message
+        }
+      } catch (error) {
+        console.error('Frontend: Error parsing JSON response:', error);
+        // Handle the JSON parsing error gracefully, e.g., display an error message
+      }
+    })
+    .catch((error) => console.error('Error updating law:', error));
   };
 
   const handleCancelEdit = () => {
