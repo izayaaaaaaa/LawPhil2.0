@@ -10,10 +10,11 @@ const ITEMS_PER_PAGE = 7;
 const AdminDashboard = ({ hostUrl }) => {
   const [laws, setLaws] = useState([]); // list of laws
   const [selectedLaw, setSelectedLaw] = useState(null); // currently selected law item
-  const [editMode, setEditMode] = useState(false); // determines whether the component
+  const [editMode, setEditMode] = useState(false); // determines whether the component is in edit mode
   const [editedLaw, setEditedLaw] = useState(null);
   const [showSavedNotification, setShowSavedNotification] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [createMode, setCreateMode] = useState(false); // Add create mode state
 
   // fetch laws data from the server 
   useEffect(() => { // runs when the component is mounted
@@ -30,25 +31,51 @@ const AdminDashboard = ({ hostUrl }) => {
     setEditedLaw({ ...law });
   };
 
+  const handleCreateNewLaw = () => {
+    // Clear selectedLaw and set createMode to true
+    setSelectedLaw(null);
+    setCreateMode(true);
+    setEditMode(false);
+    setEditedLaw({
+      title: '', // Initialize with empty values
+      category: '',
+      content: '',
+    });
+  };
+
   const handleSaveChanges = () => {
+    // Check if it's a new law or an existing one
+    const isNewLaw = editedLaw.id === undefined;
+  
+    // Prepare the request body
+    const requestBody = {
+      action: isNewLaw ? 'createLaw' : 'updateLaw',
+      ...editedLaw,
+    };
+  
     // Update the law on the server
     fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({action: 'updateLaw', ...editedLaw})
+      body: JSON.stringify(requestBody)
     })
     .then((response) => {return response.text();})
     .then((data) => {
       try {
-        const jsonData = JSON.parse(data); // Try to parse the response as JSON
+        const jsonData = JSON.parse(data);
         if (jsonData) {
           console.log(jsonData);
-          // Update the local laws state with the edited law data
-          setLaws((prevLaws) =>
-            prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
-          );
+          // If it's a new law, add it to the local laws state
+          if (isNewLaw) {
+            setLaws((prevLaws) => [...prevLaws, jsonData]);
+          } else {
+            // Update the local laws state with the edited law data
+            setLaws((prevLaws) =>
+              prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
+            );
+          }
           // Show the saved notification
           setShowSavedNotification(true);
           // Exit edit mode after saving changes
@@ -86,12 +113,12 @@ const AdminDashboard = ({ hostUrl }) => {
   };
 
   return (
-    <div className="container m-auto">
+    <div className="container">
       <div className="row law-container">
        {/* Law List */}
         <div className="col-md-3 law-list">
           <div className="d-flex justify-content-end">
-            <button type="button" className="btn">
+            <button type="button" className="btn" onClick={handleCreateNewLaw}>
               <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
               Law Content
             </button>
@@ -134,9 +161,10 @@ const AdminDashboard = ({ hostUrl }) => {
         <div className="col-md-8 law-details">
         <p className="ml-4 mt-1">Details</p>
               <hr />
-          {selectedLaw && (
+          {selectedLaw && !createMode && (
+            // Display law content without edit form
             <>
-              {!editMode ? (
+            {!editMode ? (
                 // Display law content without edit form
                 <>
                   <form>
@@ -150,10 +178,10 @@ const AdminDashboard = ({ hostUrl }) => {
                         id="title"
                         value={editedLaw?.title || ''}
                         readOnly={!editMode}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, lawTitle: e.target.value })}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
                       />
                     </div>
-                    <div className="mb-3">
+                  <div className="mb-3">
                       <label htmlFor="category" className="form-label">
                         Category
                       </label>
@@ -255,6 +283,63 @@ const AdminDashboard = ({ hostUrl }) => {
                   Changes have been saved!
                 </div>
               )}
+            </>
+          )}
+
+          {createMode && (
+            // Create new law form
+            <>
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="createTitle" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="createTitle"
+                    value={editedLaw?.title || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="createCategory" className="form-label">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="createCategory"
+                    value={editedLaw?.category || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="createContent" className="form-label">
+                    Content
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="createContent"
+                    rows="4"
+                    value={editedLaw?.content || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
+                  />
+                </div>
+              </form>
+              {/* Save and Cancel buttons for create mode */}
+              <div className="d-flex justify-content-end my-3">
+                <button
+                  type="button"
+                  className="btn edit-btn me-2"
+                  onClick={() => setCreateMode(false)}
+                >
+                  Cancel
+                </button>
+                <button type="button" className="btn save-btn" onClick={handleSaveChanges}>
+                  Save Law
+                </button>
+              </div>
             </>
           )}
         </div>
