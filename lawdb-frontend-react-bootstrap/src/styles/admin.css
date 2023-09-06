@@ -15,6 +15,21 @@
     border-radius: 10px;
 }
 
+.law-btn {
+    color: #3A086B;
+}
+
+.law-btn:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.law-btn:hover {
+    color: #6A498A; 
+    /* Change to indicate state */
+}
+
 .law-details {
     border: 1px solid #3A086B;
     border-radius: 10px;

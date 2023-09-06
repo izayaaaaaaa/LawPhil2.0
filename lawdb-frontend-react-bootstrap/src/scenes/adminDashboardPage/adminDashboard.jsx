@@ -1,7 +1,7 @@
 // adminDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/general.css';
 import '../../styles/admin.css';
 
@@ -23,12 +23,22 @@ const AdminDashboard = ({ hostUrl }) => {
       .then((data) => setLaws(data)) // update the laws state with the fetched data; "laws" will now hold "data" 
       .catch((error) => console.error('Error fetching laws:', error));
   }, [hostUrl]); // re-run this effect when the hostUrl changes
+  // add new parameter for re-fetching the laws when a new law is created
 
   // for viewing individual Laws 
-  const handleLawClick = (law) => {
-    setSelectedLaw(law);
-    setEditMode(false);
-    setEditedLaw({ ...law });
+  const handleLawClick = (law, e) => {
+    e.preventDefault(); // Prevent the default link behavior
+    
+    if (createMode || selectedLaw !== law) {
+        // If you're in "Create New Law" mode and click on an existing law,
+        // switch back to displaying the law content with the edit form.
+        setCreateMode(false);
+        setSelectedLaw(law);
+        setEditMode(false);
+        setEditedLaw({ ...law });
+      } else {
+          setEditMode((prevEditMode) => !prevEditMode);
+        }
   };
 
   const handleCreateNewLaw = () => {
@@ -117,10 +127,10 @@ const AdminDashboard = ({ hostUrl }) => {
       <div className="row law-container">
        {/* Law List */}
         <div className="col-md-3 law-list">
-          <div className="d-flex justify-content-end">
-            <button type="button" className="btn" onClick={handleCreateNewLaw}>
+          <div className="d-flex mx-auto justify-content-center">
+            <button type="button" className="btn law-btn" onClick={handleCreateNewLaw}>
               <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
-              Law Content
+              Add New Law
             </button>
           </div>
           {/* List of laws */}
@@ -129,7 +139,7 @@ const AdminDashboard = ({ hostUrl }) => {
               <li
                 key={law.id}
                 className={`list-group-item${selectedLaw === law ? ' active' : ''}`}
-                onClick={() => handleLawClick(law)}
+                onClick={(e) => handleLawClick(law, e)}
               >
                 <div className="d-flex align-items-center justify-content-between">
                   <span>{law.title}</span>
@@ -144,29 +154,31 @@ const AdminDashboard = ({ hostUrl }) => {
           
           {/* Pagination */}
           <div>
-            {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePaginationClick(index + 1)}
-                style={{ margin: '4px' }}
-                disabled={currentPage === index + 1}
-              >
-                {index + 1}
-              </button>
-            ))}
+            <div className="d-flex justify-content-center mt-3">
+              {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePaginationClick(index + 1)}
+                  style={{ margin: '4px' }}
+                  disabled={currentPage === index + 1}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Law Details */}
         <div className="col-md-8 law-details">
-        <p className="ml-4 mt-1">Details</p>
-              <hr />
           {selectedLaw && !createMode && (
             // Display law content without edit form
             <>
             {!editMode ? (
                 // Display law content without edit form
                 <>
+                <p className="ml-4 mt-1">Details</p>
+                <hr />
                   <form>
                     <div className="mb-3">
                       <label htmlFor="title" className="form-label">
@@ -222,6 +234,14 @@ const AdminDashboard = ({ hostUrl }) => {
               ) : (
                 // Edit form for the selected law
                 <>
+                <p className="ml-4 mt-1">Edit Law
+                  <button type="button" className="btn law-btn">
+                    Delete Law
+                    <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                  </button>  
+                </p>
+                
+                <hr />
                   <form>
                   <div className="mb-3">
                       <label htmlFor="title" className="form-label">
@@ -279,7 +299,7 @@ const AdminDashboard = ({ hostUrl }) => {
               )}
               {/* Saved Notification */}
               {showSavedNotification && (
-                <div className="alert alert-success" role="alert">
+                <div className="alert alert-dismissible alert-success" role="alert">
                   Changes have been saved!
                 </div>
               )}
@@ -289,6 +309,8 @@ const AdminDashboard = ({ hostUrl }) => {
           {createMode && (
             // Create new law form
             <>
+            <p className="ml-4 mt-1">Create New Law</p>
+            <hr />
               <form>
                 <div className="mb-3">
                   <label htmlFor="createTitle" className="form-label">
