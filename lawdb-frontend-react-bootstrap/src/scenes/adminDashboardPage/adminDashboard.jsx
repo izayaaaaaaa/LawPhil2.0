@@ -16,6 +16,53 @@ const AdminDashboard = ({ hostUrl }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [createMode, setCreateMode] = useState(false); // Add create mode state
 
+  // Function to delete a law by its ID
+  const handleDeleteLaw = () => {
+    if (!selectedLaw || !selectedLaw.id) {
+      console.error('Cannot delete law: No selected law or ID available.');
+      return;
+    }
+
+    // Prepare the request body for law deletion
+    const requestBody = {
+      action: 'deleteLaw',
+      id: selectedLaw.id,
+    };
+
+    // Send a request to delete the law from the server
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        try {
+          const jsonData = JSON.parse(data);
+          if (jsonData && jsonData.success) {
+            // Remove the deleted law from the local laws state
+            setLaws((prevLaws) => prevLaws.filter((law) => law.id !== selectedLaw.id));
+            // Clear the selectedLaw state
+            setSelectedLaw(null);
+            // Show a success message or handle it as needed
+            console.log('Law deleted successfully.');
+          } else {
+            console.error('Frontend: Received empty or unsuccessful JSON response from the server.');
+            // Handle the empty or unsuccessful response gracefully, e.g., display an error message
+          }
+        } catch (error) {
+          console.error('Frontend: Error parsing JSON response:', error);
+          // Handle the JSON parsing error gracefully, e.g., display an error message
+        }
+      })
+      .catch((error) => {
+        console.error('Frontend: Error deleting law:', error);
+        // Handle the deletion error gracefully, e.g., display an error message
+      });
+  };
+
   // fetch laws data from the server 
   useEffect(() => { // runs when the component is mounted
     fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=getLaws`)
@@ -234,13 +281,8 @@ const AdminDashboard = ({ hostUrl }) => {
               ) : (
                 // Edit form for the selected law
                 <>
-                <p className="ml-4 mt-1">Edit Law
-                  <button type="button" className="btn law-btn">
-                    Delete Law
-                    <FontAwesomeIcon icon={faTrash} className="mx-2" />
-                  </button>  
-                </p>
-                
+                <p className="ml-4 mt-1">Edit Law</p>
+
                 <hr />
                   <form>
                   <div className="mb-3">
@@ -282,6 +324,16 @@ const AdminDashboard = ({ hostUrl }) => {
                       />
                     </div>
                   </form>
+                  <div className="ml-4 mt-1 mb-0 d-flex justify-content-start">
+                    <button
+                      type="button"
+                      className="btn law-btn"
+                      onClick={handleDeleteLaw}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                      Delete Law
+                    </button>
+                  </div>
                   {/* Save and Cancel buttons */}
                   <div className="d-flex justify-content-end my-3">
                     <button

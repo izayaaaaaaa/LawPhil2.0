@@ -16,7 +16,7 @@
 }
 
 .law-btn {
-    color: #3A086B;
+    color: #6A498A;
 }
 
 .law-btn:focus {
@@ -26,8 +26,7 @@
 }
 
 .law-btn:hover {
-    color: #6A498A; 
-    /* Change to indicate state */
+    color: #3A086B;
 }
 
 .law-details {

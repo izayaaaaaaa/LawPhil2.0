@@ -154,10 +154,13 @@ h6  {
     /* color: #ffffff; */
 }
 
-a:focus, a::selection {
+a:focus, 
+a::selection, 
+.btn-link:focus, 
+.btn-link::selection {
     outline: none;
     background-color: transparent;
-  }
+}
 
 .results-found,
 .keywords {
