@@ -1,6 +1,6 @@
-import React from 'react';
-// import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import Form from './Form';
+import SearchResults from './SearchResults';
 import '../../styles/general.css';
 import '../../styles/search.css';
 
@@ -12,16 +12,52 @@ import '../../styles/search.css';
 */
 
 const SearchPage = () => {
-  /* 
-  const handleSearch = (query) => {
-    // Perform the search using the query.
-    // You can make an API call or implement your search logic here.
-    console.log('Perform search for:', query);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchSearchResults = async (query) => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSearchResults(data);
+      } else {
+        console.error('Search request failed');
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error('Error while searching:', error);
+      setLoading(false);
+    }
   };
- */
+
+  useEffect(() => {
+    // Example: Fetch search results for the query 'yourQuery'
+    fetchSearchResults('yourQuery');
+  }, []);
+
+  const handleSearch = (query) => {
+    // Call the fetchSearchResults function when the search form is submitted
+    fetchSearchResults(query);
+  };
+
   return (
     <div>
-      <Form className="text-center"/>
+      <Form onSearch={handleSearch} />
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <SearchResults data={searchResults} />
+      )}
     </div>
   );
 };
