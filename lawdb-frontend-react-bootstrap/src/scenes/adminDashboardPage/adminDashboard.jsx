@@ -24,45 +24,33 @@ const AdminDashboard = ({ hostUrl }) => {
       return;
     }
 
-    // Prepare the request body for law deletion
-    const requestBody = {
-      action: 'deleteLaw',
-      id: selectedLaw.id,
-    };
-
-    // Send a request to delete the law from the server
-    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
+    // Send a DELETE request to delete the law from the server
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=deleteLaw&id=${selectedLaw.id}`, {
+      method: 'DELETE',
     })
-      .then((response) => response.text())
-      .then((data) => {
-        try {
-          const jsonData = JSON.parse(data);
-          if (jsonData && jsonData.success) {
-            // Remove the deleted law from the local laws state
-            setLaws((prevLaws) => prevLaws.filter((law) => law.id !== selectedLaw.id));
-            // Clear the selectedLaw state
-            setSelectedLaw(null);
-            // Show a success message or handle it as needed
-            console.log('Law deleted successfully.');
-          } else {
-            console.error('Frontend: Received empty or unsuccessful JSON response from the server.');
-            // Handle the empty or unsuccessful response gracefully, e.g., display an error message
-          }
-        } catch (error) {
-          console.error('Frontend: Error parsing JSON response:', error);
-          // Handle the JSON parsing error gracefully, e.g., display an error message
-        }
-      })
-      .catch((error) => {
-        console.error('Frontend: Error deleting law:', error);
-        // Handle the deletion error gracefully, e.g., display an error message
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data && data.message) {
+        // Remove the deleted law from the local laws state
+        setLaws((prevLaws) => prevLaws.filter((law) => law.id !== selectedLaw.id));
+        // Clear the selectedLaw state
+        setSelectedLaw(null);
+        // Show a success message or handle it as needed
+        console.log(data.message);
+      } else if (data && data.error) {
+        console.error('Frontend: ' + data.error);
+        // Handle the error message from the server
+      } else {
+        console.error('Frontend: Received unexpected response from the server.');
+        // Handle unexpected response gracefully, e.g., display an error message
+      }
+    })
+    .catch((error) => {
+      console.error('Frontend: Error deleting law:', error);
+      // Handle the deletion error gracefully, e.g., display an error message
+    });
   };
+
 
   // fetch laws data from the server 
   useEffect(() => { // runs when the component is mounted
