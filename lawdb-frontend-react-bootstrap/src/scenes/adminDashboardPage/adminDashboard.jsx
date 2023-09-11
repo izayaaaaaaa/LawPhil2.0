@@ -15,6 +15,7 @@ const AdminDashboard = ({ hostUrl }) => {
   const [showSavedNotification, setShowSavedNotification] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [createMode, setCreateMode] = useState(false); // Add create mode state
+  const [lawChangeState, setChangeBool] = useState([false]); // var to change when the laws state changes
 
   // Function to delete a law by its ID
   const handleDeleteLaw = () => {
@@ -67,27 +68,30 @@ const AdminDashboard = ({ hostUrl }) => {
   useEffect(() => { // runs when the component is mounted
     fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=getLaws`)
       .then((response) => response.json()) // parses the response body as JSON -> data
-      .then((data) => setLaws(data)) // update the laws state with the fetched data; "laws" will now hold "data" 
+      .then((data) => {
+        setLaws(data); // update the laws state with the fetched data; "laws" will now hold "data" 
+        setChangeBool(false); 
+      })
       .catch((error) => console.error('Error fetching laws:', error));
-  }, [hostUrl]); // re-run this effect when the hostUrl changes
-  // add new parameter for re-fetching the laws when a new law is created
+  }, [hostUrl, lawChangeState]); // re-run this effect when the hostUrl changes
 
-  // for viewing individual Laws 
+  // Handle law selection
   const handleLawClick = (law, e) => {
     e.preventDefault(); // Prevent the default link behavior
-    
+
     if (createMode || selectedLaw !== law) {
-        // If you're in "Create New Law" mode and click on an existing law,
-        // switch back to displaying the law content with the edit form.
-        setCreateMode(false);
-        setSelectedLaw(law);
-        setEditMode(false);
-        setEditedLaw({ ...law });
-      } else {
-          setEditMode((prevEditMode) => !prevEditMode);
-        }
+      // If you're in "Create New Law" mode and click on an existing law,
+      // switch back to displaying the law content with the edit form.
+      setCreateMode(false);
+      setSelectedLaw(law);
+      setEditMode(false);
+      setEditedLaw({ ...law });
+    } else {
+      setEditMode((prevEditMode) => !prevEditMode);
+    }
   };
 
+  // Handle create new law
   const handleCreateNewLaw = () => {
     // Clear selectedLaw and set createMode to true
     setSelectedLaw(null);
@@ -100,6 +104,7 @@ const AdminDashboard = ({ hostUrl }) => {
     });
   };
 
+  // Handle save changes
   const handleSaveChanges = () => {
     // Check if it's a new law or an existing one
     const isNewLaw = editedLaw.id === undefined;
@@ -116,39 +121,46 @@ const AdminDashboard = ({ hostUrl }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(requestBody),
     })
-    .then((response) => {return response.text();})
-    .then((data) => {
-      try {
-        const jsonData = JSON.parse(data);
-        if (jsonData) {
-          console.log(jsonData);
-          // If it's a new law, add it to the local laws state
-          if (isNewLaw) {
-            setLaws((prevLaws) => [...prevLaws, jsonData]);
+      .then((response) => response.text())
+      .then((data) => {
+        try {
+          const jsonData = JSON.parse(data);
+          if (jsonData) {
+            console.log(jsonData);
+  
+            if (isNewLaw) {
+              // If it's a new law, add it to the local laws state
+              setLaws((prevLaws) => [...prevLaws, jsonData]);
+              setChangeBool(true); // var is changed
+            } else {
+              // Update the local laws state with the edited law data
+              setLaws((prevLaws) =>
+                prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
+              );
+              setChangeBool(true); // var is changed
+            }
+  
+            // Show the saved notification
+            setShowSavedNotification(true);
+            // Exit edit mode after saving changes
+            setEditMode(false);
+  
+            // Clear the editedLaw state
+            setEditedLaw(null);
           } else {
-            // Update the local laws state with the edited law data
-            setLaws((prevLaws) =>
-              prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
-            );
+            console.error('Frontend: Received empty JSON response from the server.');
+            // Handle the empty response gracefully, e.g., display an error message
           }
-          // Show the saved notification
-          setShowSavedNotification(true);
-          // Exit edit mode after saving changes
-          setEditMode(false);
-        } else {
-          console.error('Frontend: Received empty JSON response from the server.');
-          // Handle the empty response gracefully, e.g., display an error message
+        } catch (error) {
+          console.error('Frontend: Error parsing JSON response:', error);
+          // Handle the JSON parsing error gracefully, e.g., display an error message
         }
-      } catch (error) {
-        console.error('Frontend: Error parsing JSON response:', error);
-        // Handle the JSON parsing error gracefully, e.g., display an error message
-      }
-    })
-    .catch((error) => {
-      console.error('Frontend: Error updating law:', error);
-    });
+      })
+      .catch((error) => {
+        console.error('Frontend: Error updating law:', error);
+      });
   };
 
   const handleCancelEdit = () => {
@@ -158,13 +170,13 @@ const AdminDashboard = ({ hostUrl }) => {
     setEditMode(false);
   };
 
-  // pagination
-  // calculate the index of the first and last law item to display on the current page
+  // Pagination
+  // Calculate the index of the first and last law item to display on the current page
   const indexOfLastLaw = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstLaw = indexOfLastLaw - ITEMS_PER_PAGE;
   const currentLaws = laws.slice(indexOfFirstLaw, indexOfLastLaw);
 
-  // handle pagination button click
+  // Handle pagination button click
   const handlePaginationClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -172,7 +184,7 @@ const AdminDashboard = ({ hostUrl }) => {
   return (
     <div className="container">
       <div className="row law-container">
-       {/* Law List */}
+        {/* Law List */}
         <div className="col-md-3 law-list">
           <div className="d-flex mx-auto justify-content-center">
             <button type="button" className="btn law-btn" onClick={handleCreateNewLaw}>
@@ -198,7 +210,7 @@ const AdminDashboard = ({ hostUrl }) => {
               </li>
             ))}
           </ul>
-          
+
           {/* Pagination */}
           <div>
             <div className="d-flex justify-content-center mt-3">
@@ -221,11 +233,11 @@ const AdminDashboard = ({ hostUrl }) => {
           {selectedLaw && !createMode && (
             // Display law content without edit form
             <>
-            {!editMode ? (
+              {!editMode ? (
                 // Display law content without edit form
                 <>
-                <p className="ml-4 mt-1">Details</p>
-                <hr />
+                  <p className="ml-4 mt-1">Details</p>
+                  <hr />
                   <form>
                     <div className="mb-3">
                       <label htmlFor="title" className="form-label">
@@ -240,7 +252,7 @@ const AdminDashboard = ({ hostUrl }) => {
                         onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
                       />
                     </div>
-                  <div className="mb-3">
+                    <div className="mb-3">
                       <label htmlFor="category" className="form-label">
                         Category
                       </label>
@@ -281,11 +293,10 @@ const AdminDashboard = ({ hostUrl }) => {
               ) : (
                 // Edit form for the selected law
                 <>
-                <p className="ml-4 mt-1">Edit Law</p>
-
-                <hr />
+                  <p className="ml-4 mt-1">Edit Law</p>
+                  <hr />
                   <form>
-                  <div className="mb-3">
+                    <div className="mb-3">
                       <label htmlFor="title" className="form-label">
                         Title
                       </label>
@@ -361,8 +372,8 @@ const AdminDashboard = ({ hostUrl }) => {
           {createMode && (
             // Create new law form
             <>
-            <p className="ml-4 mt-1">Create New Law</p>
-            <hr />
+              <p className="ml-4 mt-1">Create New Law</p>
+              <hr />
               <form>
                 <div className="mb-3">
                   <label htmlFor="createTitle" className="form-label">
