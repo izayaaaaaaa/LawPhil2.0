@@ -6,7 +6,7 @@ import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage';
-import SearchResultsPage from './scenes/searchResultsPage';
+import SearchResultsPage from './scenes/searchPage';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
 import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
