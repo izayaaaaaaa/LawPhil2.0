@@ -1,11 +1,12 @@
 // loginPage Form.jsx
-// to do: 
-// - implement a proper forget password feature
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../../AuthContext'; 
 
 const Form = ({ hostUrl }) => {
+  const { login } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -31,7 +32,7 @@ const Form = ({ hostUrl }) => {
       if (response.data.success) {
         console.log("Login successful!");
         localStorage.setItem("username", formData.username); // Store the username
-        window.location.href = `${hostUrl}:3000/search`;
+        login({ username: formData.username, role: response.data.role }); // Use the login function to set authentication state and role
       } else {
         console.log("Login failed:", response.data.message);
       }
