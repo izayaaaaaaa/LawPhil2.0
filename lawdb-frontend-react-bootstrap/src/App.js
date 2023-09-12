@@ -5,15 +5,15 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
-import SearchPage from './scenes/searchPage';
-import SearchResultsPage from './scenes/searchPage';
+import SearchPage from './scenes/searchPage/searchPage';
+import SearchResults from './scenes/searchResultsPage/SearchResults';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
 import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.56.1"; 
+const hostUrl = "http://192.168.100.19"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -65,9 +65,9 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
             <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/search-results" element={<SearchResultsPage />} />
-            <Route path="/law-content/:lawId" element={<LawContentPage />} />
+            <Route path="/search" element={<SearchPage hostUrl={hostUrl}/>} />
+            <Route path="/search-results/:query" element={<SearchResults />} />
+            <Route path="/law-content/:id" element={<LawContentPage />} />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
           </Routes>

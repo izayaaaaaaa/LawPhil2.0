@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-// searchPage Form.jsx
-
-/* Search Checklist:
- * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
- * [ ] Implement search functionality (search bar and advanced search) via searchQuery state or something else
- * [ ] Connect to the database to fetch the search results using: lawId, lawTitle, lawDescription, keywords (might not match ERD - mb!)
- * [ ] Change the redirects for the search bar/adv search bar inputs (text input & search button) - take note that there are TWO search bars
-*/
+// Form.jsx
 
 const Form = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +13,7 @@ const Form = ({ onSearch }) => {
 
   const handleSearch = (event) => {
     event.preventDefault();
+    console.log('Search query:', searchQuery);
     onSearch(searchQuery);
   };
   return (
@@ -44,9 +37,9 @@ const Form = ({ onSearch }) => {
                   onChange={handleInputChange}
                 />
                   <div className="input-group-append">
-                    <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
+                    <button type="submit" className="btn search-btn"> {/* Change the Link component to a button */}
                       <FontAwesomeIcon icon={faSearch} />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
