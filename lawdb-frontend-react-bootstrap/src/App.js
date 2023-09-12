@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
 import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
@@ -56,24 +57,26 @@ const BackgroundWrapper = ({ children }) => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <BackgroundWrapper>
-          <div className="NavbarPosition">
-            <Navbar />
-          </div>
-          <Routes>
-            <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
-            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-            <Route path="/search" element={<SearchPage hostUrl={hostUrl}/>} />
-            <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
-            <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
-            <Route path="/user-profile" element={<UserProfile />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
-          </Routes>
-        </BackgroundWrapper>
-      </div>
-    </BrowserRouter>
+    <AuthProvider hostUrl={hostUrl}>
+      <BrowserRouter>
+        <div className="App">
+          <BackgroundWrapper>
+            <div className="NavbarPosition">
+              <Navbar />
+            </div>
+            <Routes>
+              <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
+              <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
+              <Route path="/search" element={<SearchPage hostUrl={hostUrl}/>} />
+              <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
+              <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
+              <Route path="/user-profile" element={<UserProfile />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
+            </Routes>
+          </BackgroundWrapper>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
