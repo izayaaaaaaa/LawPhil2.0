@@ -6,7 +6,7 @@ import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage/searchPage';
-import SearchResults from './scenes/searchResultsPage/SearchResults';
+import SearchResultsPage from './scenes/searchResultsPage/index';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
 import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
@@ -66,7 +66,7 @@ function App() {
             <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
             <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
             <Route path="/search" element={<SearchPage hostUrl={hostUrl}/>} />
-            <Route path="/search-results/:query" element={<SearchResults />} />
+            <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
             <Route path="/law-content/:id" element={<LawContentPage />} />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
