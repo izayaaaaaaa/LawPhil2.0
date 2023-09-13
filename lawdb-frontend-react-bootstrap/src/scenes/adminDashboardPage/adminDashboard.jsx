@@ -224,7 +224,7 @@ const AdminDashboard = ({ hostUrl }) => {
               {!editMode ? (
                 // Display law content without edit form
                 <>
-                  <p className="ml-4 mt-1">Details</p>
+                  <p className="ml-4 mt-3 mb-4">Details</p>
                   <hr />
                   <form>
                     <div className="mb-3">
@@ -280,8 +280,23 @@ const AdminDashboard = ({ hostUrl }) => {
                 </>
               ) : (
                 // Edit form for the selected law
-                <>
-                  <p className="ml-4 mt-1">Edit Law</p>
+                <div>
+                  <div className="d-flex justify-content-between mb-0">
+                    <p className="ml-4 mt-3">Edit Law</p>
+                    <button
+                      type="button"
+                      className="btn law-btn btn-link p-0 m-0 link-style"
+                      onClick={() => {
+                        const confirmed = window.confirm("Are you sure you want to delete this law?");
+                        if (confirmed) {
+                          handleDeleteLaw(); // Delete the law if confirmed
+                        }
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                      Delete Law
+                    </button>
+                    </div>
                   <hr />
                   <form>
                     <div className="mb-3">
@@ -323,16 +338,6 @@ const AdminDashboard = ({ hostUrl }) => {
                       />
                     </div>
                   </form>
-                  <div className="ml-4 mt-1 mb-0 d-flex justify-content-start">
-                    <button
-                      type="button"
-                      className="btn law-btn"
-                      onClick={handleDeleteLaw}
-                    >
-                      <FontAwesomeIcon icon={faTrash} className="mx-2" />
-                      Delete Law
-                    </button>
-                  </div>
                   {/* Save and Cancel buttons */}
                   <div className="d-flex justify-content-end my-3">
                     <button
@@ -346,7 +351,7 @@ const AdminDashboard = ({ hostUrl }) => {
                       Save Changes
                     </button>
                   </div>
-                </>
+                </div>
               )}
               {/* Saved Notification */}
               {showSavedNotification && (
@@ -360,7 +365,7 @@ const AdminDashboard = ({ hostUrl }) => {
           {createMode && (
             // Create new law form
             <>
-              <p className="ml-4 mt-1">Create New Law</p>
+              <p className="ml-4 mt-3 mb-4">Create New Law</p>
               <hr />
               <form>
                 <div className="mb-3">

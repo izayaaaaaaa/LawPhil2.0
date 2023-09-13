@@ -14,7 +14,7 @@ import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.100.19"; 
+const hostUrl = "http://192.168.56.1"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const BackgroundWrapper = ({ children }) => {
   const getBackgroundClass = () => {
     if (location.pathname === '/search-results') {
       return 'white-bg'; // For search results page
-    } else if (location.pathname === '/search') {
+    } else if (location.pathname === '/') {
       return 'search-bg'; // For search page
     } else {
       return 'default-bg'; // Use the default class for other pages
@@ -32,15 +32,15 @@ const BackgroundWrapper = ({ children }) => {
 
   // Conditionally apply padding for search results page
   const getContentStyles = () => {
-    let paddingTop = '25vh'; // Default top padding
+    let paddingTop = '12vh'; // Default top padding
   
-    if (location.pathname === '/search-results') {
-      paddingTop = '10vh'; // Override top padding for search results page
-    } else if (location.pathname === '/register') {
-      paddingTop = '13vh'; // Override top padding for register page
-    } else if (location.pathname === '/admin-dashboard') {
+    if (location.pathname === '/law-content/') {
+      paddingTop = '30vh'; // Override top padding for search results page
+    } else if (location.pathname === '/user-profile' || location.pathname === '/login') {
+      paddingTop = '25vh'; // Override top padding for search results page
+    }else if (location.pathname === '/admin-dashboard') {
       paddingTop = '15vh'; // Override top padding for admin-dashboard page
-    } else if (location.pathname === '/search') {
+    } else if (location.pathname === '/') {
       paddingTop = '0'; // Override top padding for search page
     }
   
