@@ -47,55 +47,8 @@ const Form = ({ onSearch }) => {
           </div>
 
           <h5>FREE ACCESS TO LAW</h5>
-
-          <div className="mt-3 pt-5">
-            <a href="#adv-search" className="link-light">
-              Advanced Search <br />
-              <FontAwesomeIcon icon={faCircleArrowDown} />
-            </a>
-          </div>
         </div>
-
-        {/* Advanced Search */}
-        <div id="adv-search" className="adv-search-body flex-grow-1 vh-100">
-            <div className="row align-items-center">
-              <h6>Search by Category</h6>
-              <div className="col-12 col-md-6">
-                <select className="form-select" id="search-categories">
-                  <option>All Categories</option>
-                  <option>Constitutions</option>
-                  <option>Statutes</option>
-                  <option>Executive Issuances</option>
-                  <option>Judicial Issuances</option>
-                  <option>Other Judicial Issuances</option>
-                  <option>Other Issuances</option>
-                  <option>Jurisprudence</option>
-                  <option>International Legal Resources</option>
-                  <option>AUSL Exclusive</option>
-                </select>
-              </div>
-              <div className="col-12 col-md-6 mt-3 mt-md-0">
-                <div className="search-bar">
-                  <form action="" className="search-form">
-                    <div className="form-group has-feedback">
-
-                      {/* Fix adv search functionality (+category dropdown from lines 59-70) here: */}
-
-                      <div className="input-group my-5">
-                        <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
-                        <div className="input-group-append">
-                        <button type="submit" className="btn search-btn">
-                          <FontAwesomeIcon icon={faSearch} />
-                        </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import '../../styles/navbar.css';
 const Navbar = ({ hostUrl }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const isLoginPage = location.pathname === '/login';
   const isSearchResultsPage = location.pathname === '/search-results';
@@ -20,6 +21,10 @@ const Navbar = ({ hostUrl }) => {
   
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   useEffect(() => {
@@ -53,9 +58,38 @@ const Navbar = ({ hostUrl }) => {
               )}
             </button>
 
-            <Link className="navbar-brand m-3" to="/">
-              ARELLANO LAW FOUNDATION
-            </Link>
+            {isSearchResultsPage ? (
+              <div className="search-bar">
+                <form action="" className="search-form">
+                  <div className="form-group has-feedback">
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        className="form-control search-form-control"
+                        placeholder="Search Keywords"
+                        aria-label="Search Bar"
+                        value={searchQuery}
+                        onChange={handleInputChange}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          className="btn search-btn"
+                          onClick={() => {
+                            window.location.href = `/search-results?q=${searchQuery}`;
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <Link className="navbar-brand m-3" to="/">
+                ARELLANO LAW FOVNDATION
+              </Link>
+            )}
           </div>
 
           <form className="d-flex">
