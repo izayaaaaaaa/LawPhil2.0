@@ -103,10 +103,11 @@ h3 {
     color: #3a086b;
 }
 
-p {
+p, span {
     font-family: 'Source Serif 4', serif;
     font-size: 18px;
     color: #000000;
+    text-align: justify;
 }
 
 /* Lexend Exa - Smaller Headings (h4, h5); form label */
@@ -139,12 +140,11 @@ h5 {
 
 h6,
 a,
-li, 
-span, 
+li,
 option, 
 select, 
 button,
-.results-found,
+.small-text,
 .keywords {
   font-family: 'Anonymous Pro', monospace;
 }
