@@ -1,9 +1,11 @@
 // navbar 
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
+// Import Bootstrap's CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
 import '../../styles/navbar.css';
@@ -16,7 +18,7 @@ const Navbar = ({ hostUrl }) => {
   const isLoginPage = location.pathname === '/login';
   const isSearchResultsPage = location.pathname === '/search-results';
 
-  const [username, setUsername] = useState('');
+  const [role, setRole] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const handleToggleCollapse = () => {
@@ -29,11 +31,19 @@ const Navbar = ({ hostUrl }) => {
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
+
     if (storedUsername) {
-      setUsername(storedUsername);
       setIsLoggedIn(true);
+      setRole(localStorage.getItem('role'));
     }
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('username'); // Remove the stored username
+    localStorage.removeItem('role'); // Remove the stored user role
+
+    Navigate('/login');
+  };
 
   return (
     <div>
@@ -94,10 +104,33 @@ const Navbar = ({ hostUrl }) => {
 
           <form className="d-flex">
             {isLoggedIn ? (
-              <Link key="user-profile" to="/user-profile" className="btn btn-md usr-btn">
-                <FontAwesomeIcon icon={faUser} className="user-icon" />
-                {username}
-              </Link>
+              <div className="dropdown">
+                <div className="btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-secondary dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {localStorage.getItem('username')}
+                  </button>
+                  <div className="dropdown-menu" aria-labelledby="userRoleDropdown">
+                    <Link className="dropdown-item" to="/user-profile">User Profile</Link>
+                    {role === 'admin' && (
+                      <Link className="dropdown-item" to="/admin-dashboard">Admin Dashboard</Link>
+                    )}
+                    <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                  </div>
+                </div>
+                <div className="dropdown-menu" aria-labelledby="userRoleDropdown">
+                  <Link className="dropdown-item" to="/user-profile">User Profile</Link>
+                  {role === 'admin' && (
+                    <Link className="dropdown-item" to="/admin-dashboard">Admin Dashboard</Link>
+                  )}
+                  <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                </div>
+              </div>
             ) : (
               isLoginPage ? (
                 <Link to="/register" className="btn btn-md nav-btn">
