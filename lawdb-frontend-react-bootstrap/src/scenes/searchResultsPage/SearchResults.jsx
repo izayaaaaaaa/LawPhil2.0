@@ -11,7 +11,7 @@ const SearchResults = ({ results }) => {
       {results.length > 0 ? (
         <>
           {/* Display the number of results */}
-          <p className="results-found">{results.length} results found.</p>
+          <p className="small-text m-3">{results.length} results found.</p>
 
           {/* Loop through the search results */}
           {results.map((item, index) => (
@@ -21,7 +21,7 @@ const SearchResults = ({ results }) => {
                   <h5>{item.title.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
                 </Link>
                 <div>
-                  <p className="category"><b>Categoy: (s):</b> {item.category}</p>
+                  <p className="category small-text "><b>Category (s):</b> {item.category}</p>
                   <p className="law-desc">{item.content}</p>
                   <Link to={`/law-content/${item.id}`} className="link-style">
                     Read More
