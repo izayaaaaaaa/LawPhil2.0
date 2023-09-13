@@ -2,13 +2,10 @@
 // to do: 
 // - implement a proper forget password feature
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../AuthContext'; 
 
 const Form = ({ hostUrl }) => {
-  const { login } = useContext(AuthContext);
-
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -32,9 +29,19 @@ const Form = ({ hostUrl }) => {
       });
   
       if (response.data.success) {
+        // log the user response role
+        console.log("Response data:", response.data);
         console.log("Login successful!");
         localStorage.setItem("username", formData.username); // Store the username
-        login({ username: formData.username, role: response.data.role }); // Use the login function to set authentication state and role
+        localStorage.setItem("role", response.data.role); // Store the user role
+
+        if (localStorage.getItem("role")=== "admin") {
+        // Redirect admin users to the admin dashboard
+        window.location.href = "/admin-dashboard";
+        } else {
+          // Redirect normal users to the main page
+          window.location.href = "/";
+        }
       } else {
         console.log("Login failed:", response.data.message);
       }

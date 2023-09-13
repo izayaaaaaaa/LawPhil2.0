@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
 import LoginPage from './scenes/loginPage';
 import Navbar from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
@@ -14,7 +13,7 @@ import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.56.1"; 
+const hostUrl = "http://192.168.100.19"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -56,30 +55,31 @@ const BackgroundWrapper = ({ children }) => {
 };
 
 function App() {
-  return (
-    <AuthProvider hostUrl={hostUrl}>
-      <BrowserRouter>
-        <div className="App">
-          <BackgroundWrapper>
-            <div className="NavbarPosition">
-              <Navbar hostUrl={hostUrl} />
-            </div>
-            <Routes>
-              <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
-              <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
-              <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
+  // const { getRole } = useAuth();
 
-              <Route path="/login" element={<LoginPage hostUrl={hostUrl} />} />
-              <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-              <Route path="/user-profile" element={<UserProfile />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
-              {/* about us route */}
-              {/* disclaimer route ? */}
-            </Routes>
-          </BackgroundWrapper>
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <BackgroundWrapper>
+          <div className="NavbarPosition">
+            <Navbar hostUrl={hostUrl} />
+          </div>
+          <Routes>
+            <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
+            <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
+            <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
+
+            <Route path="/login" element={<LoginPage hostUrl={hostUrl} />} />
+            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl}/>} />
+      
+            {/* about us route */}
+            {/* disclaimer route ? */}
+          </Routes>
+        </BackgroundWrapper>
+      </div>
+    </BrowserRouter>
   );
 }
 

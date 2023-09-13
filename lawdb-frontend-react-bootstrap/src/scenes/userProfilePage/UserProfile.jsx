@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../../styles/general.css';
 import '../../styles/userprofile.css';
 
-const UserProfile = () => {
+const UserProfile = ({ hostUrl }) => {
   // State to hold user profile details fetched from the database
   const [userProfile, setUserProfile] = useState(null);
   // State to track if the component is in edit mode
@@ -12,18 +13,14 @@ const UserProfile = () => {
 
   // Function to fetch user profile details from the database
   useEffect(() => {
-    // Simulate a delay to mimic API call
-    const delay = setTimeout(() => {
-      // Mock user profile data
-      const mockUserProfile = {
-        username: 'JuanDelaCruz',
-        email: 'jdcruz@law.gov.ph',
-        // Add more profile details here
-      };
-      setUserProfile(mockUserProfile);
-    }, 1500); // Delay of 1.5 seconds (1500 milliseconds)
-
-    return () => clearTimeout(delay);
+    // Fetch user profile data from the PHP backend
+    axios.get(`{hostUrl}/LawPhil2.0_Server/getUserProfile.php/`) // Replace '1' with the actual user ID
+      .then(response => {
+        setUserProfile(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   // If user profile details are not loaded yet, show loading state
@@ -43,16 +40,21 @@ const UserProfile = () => {
   const handleSaveChanges = (event) => {
     event.preventDefault();
     // Perform API call to save changes to the user's profile
-    // For simplicity, we will just log the updated profile data for now
-    console.log('Updated Profile Data:', userProfile);
-    // Exit edit mode after saving changes
-    setEditMode(false);
-    // Show the changes saved alert
-    setChangesSaved(true);
-    // Hide the alert after 3 seconds (3000 milliseconds)
-    setTimeout(() => {
-      setChangesSaved(false);
-    }, 3000);
+    axios.put('http://your-backend-api-url/api/user-profile/1', userProfile) // Replace '1' with the actual user ID
+    .then(response => {
+      console.log('Changes saved:', response.data);
+      // Exit edit mode after saving changes
+      setEditMode(false);
+      // Show the changes saved alert
+      setChangesSaved(true);
+      // Hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(() => {
+        setChangesSaved(false);
+      }, 3000);
+    })
+    .catch(error => {
+      console.error('Error saving changes:', error);
+    });
   };
 
   // JSX to display the user profile details
@@ -70,9 +72,9 @@ const UserProfile = () => {
         <div className="col-md-6 d-flex align-items-center justify-content-center mt-3">
           {/* Check if userProfile has a profile picture */}
           {userProfile.profilePicture ? (
-            <img src={userProfile.profilePicture} alt="Profile Picture" className="img-fluid pfp" />
+            <img src={userProfile.profilePicture} alt="Profile" className="img-fluid pfp" />
           ) : (
-            <img src="/logo.png" alt="Default Profile Picture" className="pfp img-fluid" />
+            <img src="/logo.png" alt="Default Profile" className="pfp img-fluid" />
           )}
         </div>
 

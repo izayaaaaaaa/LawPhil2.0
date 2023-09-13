@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/admin.css';
 
@@ -190,9 +191,9 @@ const AdminDashboard = ({ hostUrl }) => {
               >
                 <div className="d-flex align-items-center justify-content-between">
                   <span>{law.title}</span>
-                  <a href="#" onClick={(e) => handleLawClick(law, e)} className="ms-2 link-style">
+                  <Link to="#" onClick={(e) => handleLawClick(law, e)} className="ms-2 link-style">
                     Edit
-                  </a>
+                  </Link>
                 </div>
                 <hr />
               </li>
