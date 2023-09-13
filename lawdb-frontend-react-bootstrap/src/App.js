@@ -62,16 +62,19 @@ function App() {
         <div className="App">
           <BackgroundWrapper>
             <div className="NavbarPosition">
-              <Navbar />
+              <Navbar hostUrl={hostUrl} />
             </div>
             <Routes>
-              <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
-              <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-              <Route path="/search" element={<SearchPage hostUrl={hostUrl}/>} />
+              <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
               <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
               <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
+
+              <Route path="/login" element={<LoginPage hostUrl={hostUrl} />} />
+              <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
               <Route path="/user-profile" element={<UserProfile />} />
               <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl} />} />
+              {/* about us route */}
+              {/* disclaimer route ? */}
             </Routes>
           </BackgroundWrapper>
         </div>
