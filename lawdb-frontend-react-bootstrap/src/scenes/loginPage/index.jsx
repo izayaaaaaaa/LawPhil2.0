@@ -12,7 +12,7 @@ const LoginPage = ({ hostUrl }) => {
   const { isAuthenticated, login } = useContext(AuthContext);
 
   if (isAuthenticated) {
-    navigate('/search'); // Redirect to the search page or the appropriate page
+    navigate('/'); // Redirect to the search page or the appropriate page
   }
 
   return (
