@@ -1,139 +1,139 @@
 /* general.css */
 @font-face {
-    font-family: 'Source Serif 4';
-    src: url('./fonts/SourceSerif4.ttf') format('truetype');
+  font-family: 'Source Serif 4';
+  src: url('./fonts/SourceSerif4.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Lexend Exa';
-    src: url('./fonts/LexendExa.ttf') format('truetype');
+  font-family: 'Lexend Exa';
+  src: url('./fonts/LexendExa.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Anonymous Pro';
-    src: url('./fonts/AnonymousPro.ttf') format('truetype');
+  font-family: 'Anonymous Pro';
+  src: url('./fonts/AnonymousPro.ttf') format('truetype');
 }
 
 body {
-    margin: 0;
-    background-size: 100% 100%;
-  }  
+  margin: 0;
+  background-size: 100% 100%;
+}   
 
 /* Backgrounds */
 
 .default-bg {
-    background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
-    background-attachment: fixed;
+  background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
+  background-attachment: fixed;
 }
 
 .search-bg {
-    background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.50),rgba(58, 8, 107, 1));
-    height: 200vh;
+  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.50),rgba(58, 8, 107, 1));
+  height: 200vh;
 }
 
 .white-bg {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .card {
-    background-color: #ffffff;
-    border-color: #6a498a;
-    border-radius: 20px;
+  background-color: #ffffff;
+  border-color: #6a498a;
+  border-radius: 20px;
 }
 
 hr {
-    color: #432575;
+  color: #432575;
 }
 
 .btn {
-    font-family: 'Anonymous Pro', monospace;
-    box-shadow: none;
-    width: 200px;
+  font-family: 'Anonymous Pro', monospace;
+  box-shadow: none;
+  width: 200px;
 }
 
 .form-control {
-    border-color:#432575;
+  border-color:#432575;
 }
 
 .form-control:focus,
 .form-select:focus,
 select:focus,
 button:focus {
-    border-color: #432575;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-color: #432575;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link-style {
-    color: #3a086b !important;
-    text-decoration: none !important;
+  color: #3a086b !important;
+  text-decoration: none !important;
 }
 
 .link-style:hover {
-    color: #6a498a !important;
-    text-decoration: underline !important;
+  color: #6a498a !important;
+  text-decoration: underline !important;
 }
 
 @media (max-width: 767px) {
-    .form-control,
-    .btn {
-      width: 100%;
-    }
+  .form-control,
+  .btn {
+    width: 100%;
+  }
 }
 
 /* Source Serif 4 - Larger Headings (h1, h2, h3); Body Text  */
 
 h1, h2, h3 {
-    font-family: 'Source Serif 4', serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  font-family: 'Source Serif 4', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
-    font-size: 64px;
-    color: #3a086b;
+  font-size: 64px;
+  color: #3a086b;
 }
 
 h2 {
-    font-size: 40px;
-    color: #3a086b;
-    text-align: center;
+  font-size: 40px;
+  color: #3a086b;
+  text-align: center;
 }
 
 h3 {
-    font-size: 20px;
-    color: #3a086b;
+  font-size: 20px;
+  color: #3a086b;
 }
 
 p, span {
-    font-family: 'Source Serif 4', serif;
-    font-size: 18px;
-    color: #000000;
-    text-align: justify;
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px;
+  color: #000000;
+  text-align: justify;
 }
 
 /* Lexend Exa - Smaller Headings (h4, h5); form label */
 
 h4, h5, h6 {
-    font-family: 'Lexend Exa', sans-serif;
-    color: #3a086b;
+  font-family: 'Lexend Exa', sans-serif;
+  color: #3a086b;
 }
 
 h4 {
-    font-size: 20px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    letter-spacing: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  letter-spacing: 5px;
 }
 
 h5 {
-    font-size: 16px;
-    font-weight: bolder;
-    letter-spacing: 5px;
+  font-size: 16px;
+  font-weight: bolder;
+  letter-spacing: 5px;
 }
 
 .form-label {
-    font-family: 'Lexend Exa', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
+  font-family: 'Lexend Exa', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 /* Anonymous Pro - smaller text (a, li, span, etc.) */
@@ -150,40 +150,40 @@ button,
 }
 
 h6  {
-    font-size: 16px;
-    /* color: #ffffff; */
+  font-size: 16px;
+  /* color: #ffffff; */
 }
 
 a:focus, 
 a::selection, 
 .btn-link:focus, 
 .btn-link::selection {
-    outline: none;
-    background-color: transparent;
+  outline: none;
+  background-color: transparent;
 }
 
 .results-found,
 .keywords {
-    font-size: 14px;
-    color: #432575;
+  font-size: 14px;
+  color: #432575;
 }
 
 /* Responsive Breakpoints */
 
 @media (max-width: 767px) {
-    h1 {
-      font-size: 48px;
-    }
-  
-    h2 {
-      font-size: 28px;
-    }
-  
-    h3 {
-      font-size: 16px;
-    }
-  
-    .form-label {
-      font-size: 14px;
-    }
+  h1 {
+    font-size: 48px;
   }
+  
+  h2 {
+    font-size: 28px;
+  }
+  
+  h3 {
+    font-size: 16px;
+  }
+  
+  .form-label {
+    font-size: 14px;
+  }
+}

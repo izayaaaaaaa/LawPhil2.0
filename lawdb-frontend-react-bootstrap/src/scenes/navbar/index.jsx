@@ -20,6 +20,8 @@ const Navbar = ({ hostUrl }) => {
 
   const [role, setRole] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const userId = localStorage.getItem('id');
   
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -41,6 +43,7 @@ const Navbar = ({ hostUrl }) => {
   const handleLogout = () => {
     localStorage.removeItem('username'); // Remove the stored username
     localStorage.removeItem('role'); // Remove the stored user role
+    localStorage.removeItem('id'); // Remove the stored user id
 
     Navigate('/login');
   };
@@ -116,19 +119,12 @@ const Navbar = ({ hostUrl }) => {
                     {localStorage.getItem('username')}
                   </button>
                   <div className="dropdown-menu" aria-labelledby="userRoleDropdown">
-                    <Link className="dropdown-item" to="/user-profile">User Profile</Link>
+                    <Link className="dropdown-item" to={`/user-profile/${userId}`}>User Profile</Link>
                     {role === 'admin' && (
                       <Link className="dropdown-item" to="/admin-dashboard">Admin Dashboard</Link>
                     )}
                     <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                   </div>
-                </div>
-                <div className="dropdown-menu" aria-labelledby="userRoleDropdown">
-                  <Link className="dropdown-item" to="/user-profile">User Profile</Link>
-                  {role === 'admin' && (
-                    <Link className="dropdown-item" to="/admin-dashboard">Admin Dashboard</Link>
-                  )}
-                  <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                 </div>
               </div>
             ) : (

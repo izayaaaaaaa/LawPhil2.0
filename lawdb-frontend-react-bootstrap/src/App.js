@@ -71,7 +71,7 @@ function App() {
 
             <Route path="/login" element={<LoginPage hostUrl={hostUrl} />} />
             <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/user-profile/:id" element={<UserProfile hostUrl={hostUrl}/>} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl}/>} />
       
             {/* about us route */}
