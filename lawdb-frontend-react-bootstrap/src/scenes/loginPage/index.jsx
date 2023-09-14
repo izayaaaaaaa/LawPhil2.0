@@ -7,7 +7,7 @@ import '../../styles/login.css';
 const LoginPage = ({ hostUrl }) => {
   return (
     <div>
-      <div className="container d-flex align-items-center min-vh-100">
+      <div className="container-user d-flex align-items-center min-vh-100">
         <Form hostUrl={hostUrl} className="text-center" />
       </div>
     </div>
