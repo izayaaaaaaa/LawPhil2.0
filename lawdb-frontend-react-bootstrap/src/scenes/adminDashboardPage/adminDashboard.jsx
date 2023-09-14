@@ -1,7 +1,7 @@
 // adminDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/admin.css';
@@ -17,6 +17,7 @@ const AdminDashboard = ({ hostUrl }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [createMode, setCreateMode] = useState(false); // Add create mode state
   const [lawChangeState, setChangeBool] = useState([false]); // var to change when the laws state changes
+  const [newLawCreated, setNewLawCreated] = useState(false); // State to control the "New Law Created!" alert
 
   // Function to delete a law by its ID
   const handleDeleteLaw = () => {
@@ -82,28 +83,42 @@ const AdminDashboard = ({ hostUrl }) => {
 
   // Handle create new law
   const handleCreateNewLaw = () => {
-    // Clear selectedLaw and set createMode to true
-    setSelectedLaw(null);
-    setCreateMode(true);
-    setEditMode(false);
-    setEditedLaw({
-      title: '', // Initialize with empty values
-      category: '',
-      content: '',
-    });
+      // Clear selectedLaw and set createMode to true
+      setSelectedLaw(null);
+      setCreateMode(true);
+      setEditMode(false);
+      
+      // Initialize editedLaw with empty values only if it's in create mode
+      if (createMode) {
+      setEditedLaw({
+        title: '',
+        category: '',
+        content: '',
+      });
+    }
+  };
+
+  // Function to show the alert and set a timeout to hide it
+  const showAlertWithTimeout = () => {
+    setShowSavedNotification(true);
+
+    // Set a timeout to hide the alert after 3 seconds (adjust the time as needed)
+    setTimeout(() => {
+      setShowSavedNotification(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
   };
 
   // Handle save changes
   const handleSaveChanges = () => {
     // Check if it's a new law or an existing one
     const isNewLaw = editedLaw.id === undefined;
-  
+
     // Prepare the request body
     const requestBody = {
       action: isNewLaw ? 'createLaw' : 'updateLaw',
       ...editedLaw,
     };
-  
+
     // Update the law on the server
     fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
       method: 'POST',
@@ -118,26 +133,35 @@ const AdminDashboard = ({ hostUrl }) => {
           const jsonData = JSON.parse(data);
           if (jsonData) {
             console.log(jsonData);
-  
+
             if (isNewLaw) {
               // If it's a new law, add it to the local laws state
               setLaws((prevLaws) => [...prevLaws, jsonData]);
               setChangeBool(true); // var is changed
+              // Set the "New Law Created!" alert
+              setNewLawCreated(true);
             } else {
               // Update the local laws state with the edited law data
               setLaws((prevLaws) =>
-                prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
+                prevLaws.map((law) => (law.id === editedLaw.id ? jsonData : law))
               );
               setChangeBool(true); // var is changed
             }
-  
+
             // Show the saved notification
             setShowSavedNotification(true);
             // Exit edit mode after saving changes
             setEditMode(false);
-  
+
             // Clear the editedLaw state
-            setEditedLaw(null);
+            setEditedLaw(jsonData); // Update editedLaw with the saved law data
+
+            // Use showAlertWithTimeout to display the alert with a timeout
+            showAlertWithTimeout("Changes have been saved!");
+
+            // Reset the newLawCreated state after displaying the alert
+            setNewLawCreated(false);
+
           } else {
             console.error('Frontend: Received empty JSON response from the server.');
             // Handle the empty response gracefully, e.g., display an error message
@@ -165,14 +189,31 @@ const AdminDashboard = ({ hostUrl }) => {
   const indexOfFirstLaw = indexOfLastLaw - ITEMS_PER_PAGE;
   const currentLaws = laws.slice(indexOfFirstLaw, indexOfLastLaw);
 
-  // Handle pagination button click
-  const handlePaginationClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+// Calculate the total number of pages
+const totalPageCount = Math.ceil(laws.length / ITEMS_PER_PAGE);
+
+// Function to handle previous page click
+const handlePreviousPageClick = () => {
+  if (currentPage > 1) {
+    setCurrentPage(currentPage - 1);
+  }
+};
+
+// Function to handle next page click
+const handleNextPageClick = () => {
+  if (currentPage < totalPageCount) {
+    setCurrentPage(currentPage + 1);
+  }
+};
+
+// Function to handle page clicks
+const handlePaginationClick = (pageNumber) => {
+  setCurrentPage(pageNumber);
+};
 
   return (
     <div className="container">
-      <div className="row law-container">
+      <div className="row law-container justify-content-center">
         {/* Law List */}
         <div className="col-md-3 law-list">
           <div className="d-flex mx-auto justify-content-center">
@@ -200,22 +241,56 @@ const AdminDashboard = ({ hostUrl }) => {
             ))}
           </ul>
 
-          {/* Pagination */}
-          <div>
-            <div className="d-flex justify-content-center mt-3">
-              {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePaginationClick(index + 1)}
-                  style={{ margin: '4px' }}
-                  disabled={currentPage === index + 1}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* Pagination */}
+      <div>
+        <div className="d-flex justify-content-center mt-3">
+          {/* Previous button */}
+          <button
+            onClick={handlePreviousPageClick}
+            style={{ margin: '4px' }}
+            disabled={currentPage === 1}
+          >
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+
+        {/* First three pages */}
+        {Array.from({ length: Math.min(totalPageCount, 3) }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePaginationClick(index + 1)} // This is where handlePaginationClick is used
+            style={{ margin: '4px' }}
+            disabled={currentPage === index + 1}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        {/* Ellipsis for more pages */}
+        {totalPageCount > 3 && <span>...</span>}
+
+        {/* Last three pages */}
+        {Array.from({ length: Math.min(totalPageCount - Math.max(currentPage - 1, 3), 3) }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePaginationClick(currentPage + index + 1)} // This is where handlePaginationClick is used
+            style={{ margin: '4px' }}
+            disabled={currentPage === currentPage + index + 1}
+          >
+            {currentPage + index + 1}
+          </button>
+        ))}
+
+            {/* Next button */}
+          <button
+            onClick={handleNextPageClick}
+            style={{ margin: '4px' }}
+            disabled={currentPage === totalPageCount}
+          >
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
         </div>
+      </div>
+    </div>
 
         {/* Law Details */}
         <div className="col-md-8 law-details">
@@ -297,7 +372,7 @@ const AdminDashboard = ({ hostUrl }) => {
                       <FontAwesomeIcon icon={faTrash} className="mx-2" />
                       Delete Law
                     </button>
-                    </div>
+                  </div>
                   <hr />
                   <form>
                     <div className="mb-3">
@@ -419,6 +494,12 @@ const AdminDashboard = ({ hostUrl }) => {
                   Save Law
                 </button>
               </div>
+              {/* "New Law Created!" Alert */}
+              {newLawCreated && (
+                <div className="alert alert-dismissible alert-success" role="alert">
+                  New Law Created!
+                </div>
+              )}
             </>
           )}
         </div>
