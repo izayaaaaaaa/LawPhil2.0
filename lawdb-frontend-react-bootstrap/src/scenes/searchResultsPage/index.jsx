@@ -1,4 +1,3 @@
-// import modules
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
@@ -25,7 +24,7 @@ const SearchResultsPage = ({ hostUrl }) => {
           console.error('Response status:', error.response.status);
         }
       });
-  }, [query]);
+  }, [hostUrl, query]);
 
   return (
     <div>
