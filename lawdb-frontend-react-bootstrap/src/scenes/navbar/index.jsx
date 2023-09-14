@@ -2,9 +2,9 @@
 // to do:
 // - After successfully logging in and being redirected to /search, (sessions or cookies check which is most suited for this use case)
 //    the user's name should be shown on the upper right as a button that redirects to their respective profile page
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
@@ -14,9 +14,15 @@ const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
+
+  // to display search bar when on search results page
   const isSearchResultsPage = location.pathname === '/search-results';
   const [searchQuery, setSearchQuery] = useState('');
+
+  // to change the button text depending on the page
   const buttonText = isLoginPage ? 'Register' : 'Login';
+  const [username, setUsername] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -25,6 +31,14 @@ const Navbar = () => {
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -81,9 +95,16 @@ const Navbar = () => {
             )}
           </div>
           <form className="d-flex">
-            <Link to={isLoginPage ? '/register' : '/'} className="btn nav-btn btn-md">
-              {buttonText}
-            </Link>
+            {isLoggedIn ? (
+              <Link to="/user-profile" className="btn btn-md usr-btn">
+                <FontAwesomeIcon icon={faUser} className="user-icon" />
+                {username}
+              </Link>
+            ) : (
+              <Link to={isLoginPage ? '/register' : '/'} className="btn btn-md nav-btn">
+                {buttonText}
+              </Link>
+            )}
           </form>
         </div>
       </nav>
