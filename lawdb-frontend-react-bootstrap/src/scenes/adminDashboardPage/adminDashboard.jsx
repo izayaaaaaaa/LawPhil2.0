@@ -1,33 +1,164 @@
+// adminDashboard.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/general.css';
 import '../../styles/admin.css';
 
-// To delete
-import Testing from './testing';
-// To delete
+const ITEMS_PER_PAGE = 7;
 
-/* Checklist for Admin Dashboard:
-* [ ] Fix Add Law Content button to be functional
-* [ ] Fix Properties to match the database/ERD
-* [ ] Fix buttons' functionalities
-* [ ] Add Actions menu(?) - from figma
-*/
-
-const ITEMS_PER_PAGE = 5;
-
-const AdminDashboard = () => {
-  const [laws, setLaws] = useState([]);
-  const [selectedLaw, setSelectedLaw] = useState(null);
-  const [editMode, setEditMode] = useState(false);
+const AdminDashboard = ({ hostUrl }) => {
+  const [laws, setLaws] = useState([]); // list of laws
+  const [selectedLaw, setSelectedLaw] = useState(null); // currently selected law item
+  const [editMode, setEditMode] = useState(false); // determines whether the component is in edit mode
   const [editedLaw, setEditedLaw] = useState(null);
   const [showSavedNotification, setShowSavedNotification] = useState(false);
-
-  {/* For Pagination */}
   const [currentPage, setCurrentPage] = useState(1);
+  const [createMode, setCreateMode] = useState(false); // Add create mode state
+  const [lawChangeState, setChangeBool] = useState([false]); // var to change when the laws state changes
 
+  // Function to delete a law by its ID
+  const handleDeleteLaw = () => {
+    if (!selectedLaw || !selectedLaw.id) {
+      console.error('Cannot delete law: No selected law or ID available.');
+      return;
+    }
+
+    // Send a DELETE request to delete the law from the server
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=deleteLaw&id=${selectedLaw.id}`, {
+      method: 'DELETE',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data && data.message) {
+        // Remove the deleted law from the local laws state
+        setLaws((prevLaws) => prevLaws.filter((law) => law.id !== selectedLaw.id));
+        // Clear the selectedLaw state
+        setSelectedLaw(null);
+        // Show a success message or handle it as needed
+        console.log(data.message);
+      } else if (data && data.error) {
+        console.error('Frontend: ' + data.error);
+        // Handle the error message from the server
+      } else {
+        console.error('Frontend: Received unexpected response from the server.');
+        // Handle unexpected response gracefully, e.g., display an error message
+      }
+    })
+    .catch((error) => {
+      console.error('Frontend: Error deleting law:', error);
+      // Handle the deletion error gracefully, e.g., display an error message
+    });
+  };
+
+
+  // fetch laws data from the server 
+  useEffect(() => { // runs when the component is mounted
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php?action=getLaws`)
+      .then((response) => response.json()) // parses the response body as JSON -> data
+      .then((data) => {
+        setLaws(data); // update the laws state with the fetched data; "laws" will now hold "data" 
+        setChangeBool(false); 
+      })
+      .catch((error) => console.error('Error fetching laws:', error));
+  }, [hostUrl, lawChangeState]); // re-run this effect when the hostUrl changes
+
+  // Handle law selection
+  const handleLawClick = (law, e) => {
+    e.preventDefault(); // Prevent the default link behavior
+
+    if (createMode || selectedLaw !== law) {
+      // If you're in "Create New Law" mode and click on an existing law,
+      // switch back to displaying the law content with the edit form.
+      setCreateMode(false);
+      setSelectedLaw(law);
+      setEditMode(false);
+      setEditedLaw({ ...law });
+    } else {
+      setEditMode((prevEditMode) => !prevEditMode);
+    }
+  };
+
+  // Handle create new law
+  const handleCreateNewLaw = () => {
+    // Clear selectedLaw and set createMode to true
+    setSelectedLaw(null);
+    setCreateMode(true);
+    setEditMode(false);
+    setEditedLaw({
+      title: '', // Initialize with empty values
+      category: '',
+      content: '',
+    });
+  };
+
+  // Handle save changes
+  const handleSaveChanges = () => {
+    // Check if it's a new law or an existing one
+    const isNewLaw = editedLaw.id === undefined;
+  
+    // Prepare the request body
+    const requestBody = {
+      action: isNewLaw ? 'createLaw' : 'updateLaw',
+      ...editedLaw,
+    };
+  
+    // Update the law on the server
+    fetch(`${hostUrl}/LawPhil2.0_Server/crud.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        try {
+          const jsonData = JSON.parse(data);
+          if (jsonData) {
+            console.log(jsonData);
+  
+            if (isNewLaw) {
+              // If it's a new law, add it to the local laws state
+              setLaws((prevLaws) => [...prevLaws, jsonData]);
+              setChangeBool(true); // var is changed
+            } else {
+              // Update the local laws state with the edited law data
+              setLaws((prevLaws) =>
+                prevLaws.map((law) => (law.id === editedLaw.id ? editedLaw : law))
+              );
+              setChangeBool(true); // var is changed
+            }
+  
+            // Show the saved notification
+            setShowSavedNotification(true);
+            // Exit edit mode after saving changes
+            setEditMode(false);
+  
+            // Clear the editedLaw state
+            setEditedLaw(null);
+          } else {
+            console.error('Frontend: Received empty JSON response from the server.');
+            // Handle the empty response gracefully, e.g., display an error message
+          }
+        } catch (error) {
+          console.error('Frontend: Error parsing JSON response:', error);
+          // Handle the JSON parsing error gracefully, e.g., display an error message
+        }
+      })
+      .catch((error) => {
+        console.error('Frontend: Error updating law:', error);
+      });
+  };
+
+  const handleCancelEdit = () => {
+    // Revert any changes made to the editedLaw state
+    setEditedLaw(selectedLaw);
+    // Exit edit mode
+    setEditMode(false);
+  };
+
+  // Pagination
   // Calculate the index of the first and last law item to display on the current page
   const indexOfLastLaw = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstLaw = indexOfLastLaw - ITEMS_PER_PAGE;
@@ -38,78 +169,27 @@ const AdminDashboard = () => {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(() => {
-    // Fetch laws data from the server using API call
-    fetch('http://localhost:3001/api/laws')
-      .then((response) => response.json())
-      .then((data) => setLaws(data))
-      .catch((error) => console.error('Error fetching laws:', error));
-  }, []);
-
-  {/* For Viewing Individual Laws */}
-  const handleLawClick = (law, event) => {
-    setSelectedLaw(law);
-    setEditMode(false);
-    setEditedLaw({ ...law });
-  };  
-
-  {/* For Saving Changes */}
-  const handleSaveChanges = () => {
-    // Perform API call to save changes to the selected law
-    // Use the editedLaw object to update the selected law
-    // For simplicity, we will just log the updated law data for now
-    console.log('Updated Law Data:', editedLaw);
-
-    // Update the laws state with the edited law data
-    setLaws((prevLaws) =>
-      prevLaws.map((law) => (law.lawId === editedLaw.lawId ? editedLaw : law))
-    );
-
-    // Show the saved notification
-    setShowSavedNotification(true);
-
-    // Hide the notification after 3 seconds (3000 milliseconds)
-    setTimeout(() => {
-      setShowSavedNotification(false);
-    }, 3000);
-
-    // Exit edit mode after saving changes
-    setEditMode(false);
-  };
-
-  const handleCancelEdit = () => {
-    // Revert any changes made to the editedLaw state
-    setEditedLaw(selectedLaw);
-    // Exit edit mode
-    setEditMode(false);
-  };
-
   return (
     <div className="container">
-
-{/* Testing - delete when connected to db */}
- <Testing setLaws={setLaws} />
-{/* End */}
-
       <div className="row law-container">
-       {/* Law List */}
+        {/* Law List */}
         <div className="col-md-3 law-list">
-          <div className="d-flex justify-content-end">
-            <button type="button" className="btn">
+          <div className="d-flex mx-auto justify-content-center">
+            <button type="button" className="btn law-btn" onClick={handleCreateNewLaw}>
               <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
-              Law Content
+              Add New Law
             </button>
           </div>
           {/* List of laws */}
           <ul className="list-group mt-3">
             {currentLaws.map((law) => (
               <li
-                key={law.lawId}
+                key={law.id}
                 className={`list-group-item${selectedLaw === law ? ' active' : ''}`}
-                onClick={() => handleLawClick(law)}
+                onClick={(e) => handleLawClick(law, e)}
               >
                 <div className="d-flex align-items-center justify-content-between">
-                  <span>{law.lawTitle}</span>
+                  <span>{law.title}</span>
                   <a href="#" onClick={(e) => handleLawClick(law, e)} className="ms-2 link-style">
                     Edit
                   </a>
@@ -118,45 +198,35 @@ const AdminDashboard = () => {
               </li>
             ))}
           </ul>
-          
+
           {/* Pagination */}
           <div>
-            {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePaginationClick(index + 1)}
-                style={{ margin: '4px' }}
-                disabled={currentPage === index + 1}
-              >
-                {index + 1}
-              </button>
-            ))}
+            <div className="d-flex justify-content-center mt-3">
+              {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePaginationClick(index + 1)}
+                  style={{ margin: '4px' }}
+                  disabled={currentPage === index + 1}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Law Details */}
         <div className="col-md-8 law-details">
-          {selectedLaw && (
+          {selectedLaw && !createMode && (
+            // Display law content without edit form
             <>
-              <p className="ml-4 mt-1">Details</p>
-              <hr />
               {!editMode ? (
                 // Display law content without edit form
                 <>
+                  <p className="ml-4 mt-1">Details</p>
+                  <hr />
                   <form>
-                    <div className="mb-3">
-                      <label htmlFor="lawId" className="form-label">
-                        Law ID
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="lawId"
-                        value={editedLaw?.lawId || ''}
-                        readOnly={!editMode}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, lawId: e.target.value })}
-                      />
-                    </div>
                     <div className="mb-3">
                       <label htmlFor="title" className="form-label">
                         Title
@@ -165,96 +235,37 @@ const AdminDashboard = () => {
                         type="text"
                         className="form-control"
                         id="title"
-                        value={editedLaw?.lawTitle || ''}
+                        value={editedLaw?.title || ''}
                         readOnly={!editMode}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, lawTitle: e.target.value })}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
                       />
                     </div>
                     <div className="mb-3">
-                      <label htmlFor="description" className="form-label">
-                        Description
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="description"
-                        rows="4"
-                        value={editedLaw?.lawDescription || ''}
-                        readOnly={!editMode}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, lawDescription: e.target.value })}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="keywords" className="form-label">
-                        Keywords
+                      <label htmlFor="category" className="form-label">
+                        Category
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        id="keywords"
-                        value={editedLaw?.keywords?.join(', ') || ''}
+                        id="category"
+                        value={editedLaw?.category || ''}
                         readOnly={!editMode}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, keywords: e.target.value.split(', ') })}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
                       />
                     </div>
-                    {/* Loop through headings and sections */}
-                    {editedLaw?.headings.map((heading, headingIndex) => (
-                      <div key={headingIndex}>
-                        <div className="mb-3">
-                          <label htmlFor={`heading${headingIndex + 1}`} className="form-label">
-                            Heading {headingIndex + 1} Title
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id={`heading${headingIndex + 1}`}
-                            value={heading.headingTitle}
-                            readOnly={!editMode}
-                            onChange={(e) =>
-                              setEditedLaw({
-                                ...editedLaw,
-                                headings: [
-                                  ...editedLaw.headings.slice(0, headingIndex),
-                                  { ...heading, headingTitle: e.target.value },
-                                  ...editedLaw.headings.slice(headingIndex + 1),
-                                ],
-                              })
-                            }
-                          />
-                        </div>
-                        {/* Loop through sections */}
-                        {heading.sections.map((section, sectionIndex) => (
-                          <div key={sectionIndex} className="mb-3">
-                            <label htmlFor={`section${headingIndex + 1}.${sectionIndex + 1}`} className="form-label">
-                              Section {headingIndex + 1}.{sectionIndex + 1} Content
-                            </label>
-                            <textarea
-                              className="form-control"
-                              id={`section${headingIndex + 1}.${sectionIndex + 1}`}
-                              rows="3"
-                              value={section.content}
-                              readOnly={!editMode}
-                              onChange={(e) =>
-                                setEditedLaw({
-                                  ...editedLaw,
-                                  headings: [
-                                    ...editedLaw.headings.slice(0, headingIndex),
-                                    {
-                                      ...heading,
-                                      sections: [
-                                        ...heading.sections.slice(0, sectionIndex),
-                                        { ...section, content: e.target.value },
-                                        ...heading.sections.slice(sectionIndex + 1),
-                                      ],
-                                    },
-                                    ...editedLaw.headings.slice(headingIndex + 1),
-                                  ],
-                                })
-                              }
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                    <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Content
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="content"
+                        rows="4"
+                        value={editedLaw?.content || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
+                      />
+                    </div>
                   </form>
                   {/* Edit button */}
                   <div className="d-flex justify-content-end my-3">
@@ -270,6 +281,8 @@ const AdminDashboard = () => {
               ) : (
                 // Edit form for the selected law
                 <>
+                  <p className="ml-4 mt-1">Edit Law</p>
+                  <hr />
                   <form>
                     <div className="mb-3">
                       <label htmlFor="title" className="form-label">
@@ -279,26 +292,47 @@ const AdminDashboard = () => {
                         type="text"
                         className="form-control"
                         id="title"
-                        value={editedLaw?.lawTitle || ''}
-                        onChange={(e) => setEditedLaw({ ...editedLaw, lawTitle: e.target.value })}
+                        value={editedLaw?.title || ''}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
                       />
                     </div>
-                    {/* Add more law properties as needed */}
                     <div className="mb-3">
-                      <label htmlFor="description" className="form-label">
-                        Description
+                      <label htmlFor="category" className="form-label">
+                        Category
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="category"
+                        value={editedLaw?.category || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="content" className="form-label">
+                        Content
                       </label>
                       <textarea
                         className="form-control"
-                        id="description"
+                        id="content"
                         rows="4"
-                        value={editedLaw?.lawDescription || ''}
-                        onChange={(e) =>
-                          setEditedLaw({ ...editedLaw, lawDescription: e.target.value })
-                        }
+                        value={editedLaw?.content || ''}
+                        readOnly={!editMode}
+                        onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
                       />
                     </div>
                   </form>
+                  <div className="ml-4 mt-1 mb-0 d-flex justify-content-start">
+                    <button
+                      type="button"
+                      className="btn law-btn"
+                      onClick={handleDeleteLaw}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="mx-2" />
+                      Delete Law
+                    </button>
+                  </div>
                   {/* Save and Cancel buttons */}
                   <div className="d-flex justify-content-end my-3">
                     <button
@@ -316,10 +350,69 @@ const AdminDashboard = () => {
               )}
               {/* Saved Notification */}
               {showSavedNotification && (
-                <div className="alert alert-success" role="alert">
+                <div className="alert alert-dismissible alert-success" role="alert">
                   Changes have been saved!
                 </div>
               )}
+            </>
+          )}
+
+          {createMode && (
+            // Create new law form
+            <>
+              <p className="ml-4 mt-1">Create New Law</p>
+              <hr />
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="createTitle" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="createTitle"
+                    value={editedLaw?.title || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, title: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="createCategory" className="form-label">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="createCategory"
+                    value={editedLaw?.category || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, category: e.target.value })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="createContent" className="form-label">
+                    Content
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="createContent"
+                    rows="4"
+                    value={editedLaw?.content || ''}
+                    onChange={(e) => setEditedLaw({ ...editedLaw, content: e.target.value })}
+                  />
+                </div>
+              </form>
+              {/* Save and Cancel buttons for create mode */}
+              <div className="d-flex justify-content-end my-3">
+                <button
+                  type="button"
+                  className="btn edit-btn me-2"
+                  onClick={() => setCreateMode(false)}
+                >
+                  Cancel
+                </button>
+                <button type="button" className="btn save-btn" onClick={handleSaveChanges}>
+                  Save Law
+                </button>
+              </div>
             </>
           )}
         </div>

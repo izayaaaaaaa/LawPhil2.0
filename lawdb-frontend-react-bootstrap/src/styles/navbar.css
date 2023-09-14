@@ -1,6 +1,6 @@
 .navbar {
     top: 0;
-    height: 80px;
+    height: 75px;
     border-bottom: #3a086b 2px solid;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     z-index: 1;
@@ -44,8 +44,8 @@
 .usr-btn{
     font-size: 16px;
     font-weight: bold;
-    color: #3a086b;;
-    background-color: #ffffff;
+    color: #3a086b;
+    background-color: transparent;
     border: none;
 }
 

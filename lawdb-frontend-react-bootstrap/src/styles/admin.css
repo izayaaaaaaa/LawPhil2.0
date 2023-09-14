@@ -1,6 +1,8 @@
+/* admin.css */
+
 .law-container {
     display: flex;
-    gap: 10px; /* Adjust the gap value as needed */
+    gap: 10px;
 }
 
 .law-list-container {
@@ -11,6 +13,20 @@
 .law-list {
     border: 1px solid #3A086B;
     border-radius: 10px;
+}
+
+.law-btn {
+    color: #6A498A;
+}
+
+.law-btn:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.law-btn:hover {
+    color: #3A086B;
 }
 
 .law-details {

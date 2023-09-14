@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-// searchPage Form.jsx
+// Form.jsx
 
-/* Search Checklist:
- * [ ] Revisit Advanced Search to see if the search results can be filtered using the dropdown menu
- * [ ] Implement search functionality (search bar and advanced search) via searchQuery state or something else
- * [ ] Connect to the database to fetch the search results using: lawId, lawTitle, lawDescription, keywords (might not match ERD - mb!)
- * [ ] Change the redirects for the search bar/adv search bar inputs (text input & search button) - take note that there are TWO search bars
-*/
-
-const Form = () => {
+const Form = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
-  
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    console.log('Search query:', searchQuery);
+    onSearch(searchQuery);
+  };
   return (
     <div className="body-search">
       <div className="container d-flex flex-column">
@@ -28,17 +25,21 @@ const Form = () => {
           <h1>LawPhil Project</h1>
           {/* Main Search */}
           <div className="search-bar">
-            <form action="" className="search-form">
-              <div className="form-group has-feedback">
-                <div className="input-group my-5">
-
-                  {/* Fix search functionality here: */}
-                  
-                  <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="form-group has-feedback">
+              <div className="input-group my-5">
+                <input
+                  type="text"
+                  className="form-control search-form-control"
+                  placeholder="Search Keywords"
+                  aria-label="Search Bar"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                />
                   <div className="input-group-append">
-                    <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
+                    <button type="submit" className="btn search-btn"> {/* Change the Link component to a button */}
                       <FontAwesomeIcon icon={faSearch} />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -83,9 +84,9 @@ const Form = () => {
                       <div className="input-group my-5">
                         <input type="text" className="form-control search-form-control" placeholder="Search Keywords" aria-label="Search Bar" />
                         <div className="input-group-append">
-                          <Link to={`/search-results?q=${searchQuery}`} className="btn search-btn">
-                            <FontAwesomeIcon icon={faSearch} />
-                          </Link>
+                        <button type="submit" className="btn search-btn">
+                          <FontAwesomeIcon icon={faSearch} />
+                        </button>
                         </div>
                       </div>
                     </div>

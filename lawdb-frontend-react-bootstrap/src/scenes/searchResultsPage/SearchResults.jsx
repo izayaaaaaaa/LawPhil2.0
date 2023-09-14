@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/searchResults.css';
 
-// searchResultsPage SearchResults.jsx
+// SearchResults.jsx
 
-const SearchResults = ({ data }) => {
+const SearchResults = ({ results }) => {
   return (
     <div>
-      {data.length > 0 ? (
+      {results.length > 0 ? (
         <>
           {/* Display the number of results */}
-          <p className="results-found">{data.length} results found.</p>
+          <p className="results-found">{results.length} results found.</p>
 
           {/* Loop through the search results */}
-          {data.map((item, index) => (
+          {results.map((item, index) => (
             <div className="law-item" key={index}>
               <div className="px-5 py-4">
-                <Link to={`/law-content/${item.lawId}`} className="link-style">
-                  <h5>{item.lawTitle.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
+                <Link to={`/law-content/${item.id}`} className="link-style">
+                  <h5>{item.title.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
                 </Link>
                 <div>
-                  <p className="law-desc">{item.lawDescription}</p>
-                  <Link to={`/law-content/${item.lawId}`} className="link-style">
+                  <p className="category"><b>Categoy: (s):</b> {item.category}</p>
+                  <p className="law-desc">{item.content}</p>
+                  <Link to={`/law-content/${item.id}`} className="link-style">
                     Read More
                   </Link>
-                  <p className="keywords"><b>Keyword(s):</b> {item.keywords.join(', ')}</p>
                 </div>
               </div>
               <hr />
