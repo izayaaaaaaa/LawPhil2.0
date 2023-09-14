@@ -55,8 +55,6 @@ const BackgroundWrapper = ({ children }) => {
 };
 
 function App() {
-  // const { getRole } = useAuth();
-
   return (
     <BrowserRouter>
       <div className="App">
