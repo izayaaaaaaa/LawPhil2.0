@@ -32,6 +32,7 @@ const Form = ({ hostUrl }) => {
         console.log("Login successful!");
         localStorage.setItem("username", formData.username); // Store the username
         localStorage.setItem("role", response.data.role); // Store the user role
+        localStorage.setItem("id", response.data.id); // Store the user id
 
         if (localStorage.getItem("role")=== "admin") {
         // Redirect admin users to the admin dashboard
