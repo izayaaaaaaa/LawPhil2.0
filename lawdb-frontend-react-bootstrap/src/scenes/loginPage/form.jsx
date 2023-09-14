@@ -27,7 +27,6 @@ const Form = ({ hostUrl }) => {
       });
   
       if (response.data.success) {
-        // log the user response role
         console.log("Response data:", response.data);
         console.log("Login successful!");
         localStorage.setItem("username", formData.username); // Store the username

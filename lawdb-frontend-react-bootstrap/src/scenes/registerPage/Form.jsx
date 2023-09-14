@@ -4,8 +4,10 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const RegisterForm = ({ hostUrl }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -35,6 +37,8 @@ const RegisterForm = ({ hostUrl }) => {
 
       if (response.data.success) {
         console.log("Registration successful!");
+        // Redirect to login page
+        navigate('/login');
       } else {
         console.log("Registration failed:", response.data.message);
       }
