@@ -1,76 +1,30 @@
-// loginPage Form.jsx
+/* The code defines a functional component called `LoginForm` in JavaScript React. It takes three
+props: `formData`, `handleChange`, and `handleSubmit`. */
 
-import React, { useState } from 'react';
-import axios from 'axios';
-
-const Form = ({ hostUrl }) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await axios.post(`${hostUrl}/LawPhil2.0_Server/login.php`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      if (response.data.success) {
-        console.log("Response data:", response.data);
-        console.log("Login successful!");
-        localStorage.setItem("username", formData.username); // Store the username
-        localStorage.setItem("role", response.data.role); // Store the user role
-        localStorage.setItem("id", response.data.id); // Store the user id
-
-        if (localStorage.getItem("role")=== "admin") {
-        // Redirect admin users to the admin dashboard
-        window.location.href = "/admin-dashboard";
-        } else {
-          // Redirect normal users to the main page
-          window.location.href = "/";
-        }
-      } else {
-        console.log("Login failed:", response.data.message);
-      }
-    } catch (error) {
-      console.log("Login failed:", error.message);
-    }
-  };
-
+const LoginForm = ({ formData, handleChange, handleSubmit }) => {
   return (
     <div className="container px-5">
       <div className="row d-flex justify-content-center align-items-center">
         <div className="col col-xl-10">
           <div className="card log-card">
             <div className="row g-0">
-              {/* Login Container - Welcome Message */}
+              
               <div className="col-md-6 col-lg-6 d-flex flex-column justify-content-center align-items-center text-center" id="welcome-side">
                 <h3>Welcome back to</h3>
                 <h2>LawPhil Project!</h2>
               </div>
 
-              {/* Login Container - Login Form */}
               <div className="col-md-6 col-lg-6 d-flex align-items-center" id="login-side">
                 <div className="card-body p-4 p-lg-5 text-black">
                   <form onSubmit={handleSubmit}>
+                    
                     <div className="form-group mb-4">
-                      <label className="form-label login-form-label" htmlFor="username">Username</label>
+                      <label className="form-label login-form-label" htmlFor="email">Email</label>
                       <input 
                         type="text" 
-                        id="username" 
+                        id="email" 
                         className="form-control form-control-md login-form-control" 
-                        value={formData.username}
+                        value={formData.email}
                         onChange={handleChange}
                       />
                     </div>
@@ -95,6 +49,7 @@ const Form = ({ hostUrl }) => {
                         <span id="btn-text">Login</span>
                       </button>
                     </div>
+                    
                   </form>
                 </div>
               </div>
@@ -106,4 +61,4 @@ const Form = ({ hostUrl }) => {
   );
 };
 
-export default Form;
+export default LoginForm;

@@ -1,7 +1,13 @@
+/**
+ * The AdminDashboard component is a React component that manages the state and functionality for an
+ * admin dashboard interface.
+ * @returns The AdminDashboard component is being returned.
+ */
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/admin.css';
-import AdminForm from './Form';
+import Form from './Form';
 import React, { useState, useEffect } from 'react';
 
 const fetchData = async (url, options = {}) => {
@@ -35,14 +41,14 @@ const AdminDashboard = ({ hostUrl }) => {
     lawChangeState
   } = state;
 
-  // update multiple state properties in a single call
+  // UPDATE MULTIPLE STATE PROPERS IN A SINGLE CALL
   const setFormState = (updatedState) => {
     setState((prevState) => ({ ...prevState, ...updatedState }));
   }
 
+  // READ (FETCH ALL LAWS)
   useEffect(() => {
     const fetchLaws = async () => {
-      // FETCH ALL LAWS
       const data = await fetchData(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getAllLaws.php`);
       setFormState({
         laws: data,
@@ -53,33 +59,7 @@ const AdminDashboard = ({ hostUrl }) => {
     fetchLaws();
   }, [hostUrl, lawChangeState]);
 
-  const handleLawClick = (law, e) => {
-    e.preventDefault();
-    if (createMode || selectedLaw !== law) {
-      setFormState({
-        selectedLaw: law,
-        editedLaw: { ...law },
-        createMode: false,
-        editMode: false,
-      });
-    } else {
-      setFormState((prevState) => ({ editMode: !prevState.editMode }));
-    }
-  }
-
-  const handleCreateLaw = () => {
-    setFormState({
-      selectedLaw: null,
-      editedLaw: {
-        title: '',
-        category: '',
-        content: '',
-      },
-      createMode: true,
-      editMode: false,
-    });
-  };
-
+  // CREATE/UPDATE LAW
   const handleSaveChanges = () => {
     const isNewLaw = editedLaw.id === undefined;
 
@@ -134,13 +114,7 @@ const AdminDashboard = ({ hostUrl }) => {
       });
   };
 
-  const handleCancelEdit = () => {
-    setFormState({
-      editedLaw: selectedLaw,
-      editMode: false,
-    });
-  };
-
+  // DELETE LAW
   const handleDeleteLaw = () => {
   console.log("handleDeleteLaw called");
 
@@ -166,13 +140,48 @@ const AdminDashboard = ({ hostUrl }) => {
   .catch((error) => console.error('Frontend handleDeleteLaw error:', error));
   };
 
+  // SELECT LAW AND SHOW IT ON THE FORM
+  const handleLawClick = (law, e) => {
+    e.preventDefault();
+    if (createMode || selectedLaw !== law) {
+      setFormState({
+        selectedLaw: law,
+        editedLaw: { ...law },
+        createMode: false,
+        editMode: false,
+      });
+    } else {
+      setFormState((prevState) => ({ editMode: !prevState.editMode }));
+    }
+  }
+
+  // CLEAR FORM TO CREATE NEW LAW
+  const handleCreateLaw = () => {
+    setFormState({
+      selectedLaw: null,
+      editedLaw: {
+        title: '',
+        category: '',
+        content: '',
+      },
+      createMode: true,
+      editMode: false,
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setFormState({
+      editedLaw: selectedLaw,
+      editMode: false,
+    });
+  };
 
   const handlePaginationClick = (pageNumber) => {
     setFormState({ currentPage: pageNumber });
   }
 
   return (
-    <AdminForm
+    <Form
       laws={laws}
       selectedLaw={selectedLaw}
       editMode={editMode}

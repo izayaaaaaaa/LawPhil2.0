@@ -1,19 +1,23 @@
-// app.js 
+/**
+ * The above code is a JavaScript file that defines the main App component for a React application,
+ * which includes routing and rendering different scenes/pages based on the URL path.
+ * @returns The App component is being returned.
+ */
 
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
-import Navbar from './scenes/navbar';
+import NavbarPage from './scenes/navbarPage';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
-import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
+import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.56.1"; 
+const hostUrl = "http://192.168.100.19"; 
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -62,7 +66,7 @@ function App() {
       <div className="App">
         <BackgroundWrapper>
           <div className="NavbarPosition">
-            <Navbar hostUrl={hostUrl} />
+            <NavbarPage hostUrl={hostUrl} />
           </div>
           <Routes>
             <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />

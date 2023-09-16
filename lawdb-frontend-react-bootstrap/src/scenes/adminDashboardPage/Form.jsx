@@ -1,9 +1,16 @@
+/* The above code is a React component called `AdminForm`. It is responsible for rendering a form that
+allows the user to create, edit, and delete laws. The component receives several props that control
+its behavior and data, such as `laws` (an array of laws), `selectedLaw` (the currently selected
+law), `editMode` (a boolean indicating whether the form is in edit mode), `editedLaw` (the law being
+edited), and various event handlers for different actions like creating a law, saving changes,
+deleting a law, etc. */
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const AdminForm = ({
+const Form = ({
   laws,
   selectedLaw,
   editMode,
@@ -292,4 +299,4 @@ const AdminForm = ({
   );
 }
 
-export default AdminForm;
+export default Form;
