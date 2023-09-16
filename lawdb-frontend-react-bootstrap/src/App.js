@@ -1,15 +1,19 @@
-// app.js 
+/**
+ * The above code is a JavaScript file that defines the main App component for a React application,
+ * which includes routing and rendering different scenes/pages based on the URL path.
+ * @returns The App component is being returned.
+ */
 
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
-import Navbar from './scenes/navbar';
+// import NavbarPage from './scenes/navbarPage';
 import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';
-import AdminDashboard from './scenes/adminDashboardPage/adminDashboard';
+import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
 
@@ -28,7 +32,6 @@ const BackgroundWrapper = ({ children }) => {
       return 'default-bg'; // Use the default class for other pages
     }
   };
-
   // Conditionally apply padding for search results page
   const getContentStyles = () => {
     let paddingTop = '12vh'; // Default top padding
@@ -38,7 +41,7 @@ const BackgroundWrapper = ({ children }) => {
     } else if (location.pathname === '/user-profile' || location.pathname === '/login') {
       paddingTop = '25vh'; // Override top padding for search results page
     }else if (location.pathname === '/admin-dashboard') {
-      paddingTop = '15vh'; // Override top padding for admin-dashboard page
+      paddingTop = '12vh'; // Override top padding for admin-dashboard page
     } else if (location.pathname === '/') {
       paddingTop = '0'; // Override top padding for search page
     }
@@ -61,9 +64,11 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <BackgroundWrapper>
+          {/*  
           <div className="NavbarPosition">
-            <Navbar hostUrl={hostUrl} />
+            <NavbarPage hostUrl={hostUrl} />
           </div>
+          */}
           <Routes>
             <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
             <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />

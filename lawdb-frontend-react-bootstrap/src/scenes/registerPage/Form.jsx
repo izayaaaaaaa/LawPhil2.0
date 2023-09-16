@@ -1,48 +1,12 @@
-// register form
-// to do: 
-// - implement a feature that checks if the username already exists, cancel registration if yes
+/* The code defines a functional component called `Form` in JavaScript React. This component renders a
+form with input fields for username, email, and password. It takes three props: `formData`,
+`handleChange`, and `handleSubmit`. */
 
-import React, { useState } from 'react';
-import axios from 'axios';
-
-const RegisterForm = ({ hostUrl }) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // console.log("Backend Base URL:", hostUrl);
-
-      const response = await axios.post(`${hostUrl}/LawPhil2.0_Server/register.php`, formData, {
-        headers: {
-          "Content-Type": "application/json"
-        },
-      });
-
-      // console.log("Full response object:", response); 
-
-      if (response.data.success) {
-        console.log("Registration successful!");
-      } else {
-        console.log("Registration failed:", response.data.message);
-      }
-    } catch (error) {
-      console.log("Registration failed:", error.message);
-    }
-  };
-
+const Form = ({
+  formData,
+  handleChange,
+  handleSubmit,
+}) => {
   return (
     <div className="container">
       <div className="row d-flex justify-content-center align-items-center">
@@ -107,4 +71,4 @@ const RegisterForm = ({ hostUrl }) => {
   );
 };
 
-export default RegisterForm;
+export default Form;

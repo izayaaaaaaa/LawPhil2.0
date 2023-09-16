@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = ({ hostUrl }) => {
   const [userData, setUserData] = useState(null);
@@ -8,7 +9,11 @@ const UserProfile = ({ hostUrl }) => {
     email: '',
   });
 
+  const [modifiedUser, setModifiedUser] = useState(false);
+
   const userId = localStorage.getItem('id');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch user data and populate the state
@@ -20,11 +25,12 @@ const UserProfile = ({ hostUrl }) => {
         const data = await response.json();
         setUserData(data);
         setEditedData(data); // Initialize editedData with user data
+        setModifiedUser(false);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
       });
-  }, [userId, hostUrl]);
+  }, [userId, hostUrl, modifiedUser]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -32,23 +38,58 @@ const UserProfile = ({ hostUrl }) => {
 
   const handleSaveClick = () => {
     // Send an update request to the backend
-    fetch(`${hostUrl}/LawPhil2.0_Server/updateUserProfile.php?userId=${userId}`, {
+    fetch(`${hostUrl}/LawPhil2.0_Server/updateUserProfile.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(editedData),
+      body: JSON.stringify({
+        id: userId,
+        username: editedData.username,
+        email: editedData.email,
+      }),
+    })
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Update response:', data);
+      setModifiedUser(true);
+      setIsEditing(false); // Disable editing mode after successful update
+    })
+    .catch((error) => {
+      console.error('Error updating user profile:', error);
+    });
+  };
+
+  const handleDeleteClick = () => {
+    // Send a delete request to the backend
+    fetch(`${hostUrl}/LawPhil2.0_Server/deleteUserProfile.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: userId,
+      }),
     })
       .then(async (response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log('Update response:', data);
-        setIsEditing(false); // Disable editing mode after successful update
+        console.log('Delete response:', data);
+        // Handle successful deletion, such as logging out the user or redirecting
+        // redirect to / route
+        localStorage.removeItem('id');
+        localStorage.removeItem('username');
+        localStorage.removeItem('email');
+        localStorage.removeItem('role');
+        navigate('/');
       })
       .catch((error) => {
-        console.error('Error updating user profile:', error);
+        console.error('Error deleting user profile:', error);
       });
   };
 
@@ -89,9 +130,10 @@ const UserProfile = ({ hostUrl }) => {
         </div>
       ) : (
         <div>
-          <p>Name: {userData.username}</p>
+          <p>Username: {userData.username}</p>
           <p>Email: {userData.email}</p>
           <button onClick={handleEditClick}>Edit Profile</button>
+<button onClick={handleDeleteClick}>Delete Profile</button>
         </div>
       )}
     </div>
