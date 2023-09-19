@@ -8,11 +8,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/login.css';
 import Form from "./Form";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ hostUrl }) => {
+const LoginPage = ({ hostUrl, registrationSuccess }) => {
   const navigate = useNavigate();
+  const [showRegistrationSuccess, setShowRegistrationSuccess] = useState(false);
+
+  useEffect(() => {
+    // When registrationSuccess prop changes to true, show the message
+    if (registrationSuccess) {
+      setShowRegistrationSuccess(true);
+
+      // Hide the message after 3 seconds
+      const timeoutId = setTimeout(() => {
+        setShowRegistrationSuccess(false);
+      }, 3000);
+
+      // Clean up the timer when the component unmounts
+      return () => clearTimeout(timeoutId);
+    }
+  }, [registrationSuccess]);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -64,6 +80,12 @@ const LoginPage = ({ hostUrl }) => {
   return (
     <div>
       <div className="container-user d-flex align-items-center min-vh-100">
+        {showRegistrationSuccess && ( 
+          // Conditionally render the alert based on registrationSuccess
+          <div className="alert alert-success" role="alert">
+            Registration was successful! You can now log in.
+          </div>
+        )}
         <Form
           className="text-center"
           formData={formData}

@@ -4,7 +4,7 @@
  * @returns The App component is being returned.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
 // import NavbarPage from './scenes/navbarPage';
@@ -25,25 +25,25 @@ const BackgroundWrapper = ({ children }) => {
   // Conditionally apply the appropriate background class based on the route
   const getBackgroundClass = () => {
     if (location.pathname === '/search-results') {
-      return 'white-bg'; // For search results page
+      return 'white-bg';
     } else if (location.pathname === '/') {
-      return 'search-bg'; // For search page
+      return 'search-bg';
     } else {
-      return 'default-bg'; // Use the default class for other pages
+      return 'default-bg';
     }
   };
-  // Conditionally apply padding for search results page
+  // Conditionally apply padding for each page
   const getContentStyles = () => {
-    let paddingTop = '12vh'; // Default top padding
+    let paddingTop = '12vh';
   
     if (location.pathname === '/law-content/') {
-      paddingTop = '30vh'; // Override top padding for search results page
-    } else if (location.pathname === '/user-profile' || location.pathname === '/login') {
-      paddingTop = '25vh'; // Override top padding for search results page
-    }else if (location.pathname === '/admin-dashboard') {
-      paddingTop = '12vh'; // Override top padding for admin-dashboard page
+      paddingTop = '30vh';
+    } else if (location.pathname === '/user-profile') {
+      paddingTop = '25vh';
+    }else if (location.pathname === '/admin-dashboard'  || location.pathname === '/login') {
+      paddingTop = '12vh';
     } else if (location.pathname === '/') {
-      paddingTop = '0'; // Override top padding for search page
+      paddingTop = '0';
     }
   
     return { paddingTop, paddingBottom: '0' }; // Set bottom padding to 0 for all pages
@@ -59,6 +59,7 @@ const BackgroundWrapper = ({ children }) => {
 
 function App() {
   // const { getRole } = useAuth();
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   return (
     <BrowserRouter>
@@ -74,8 +75,8 @@ function App() {
             <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
             <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
 
-            <Route path="/login" element={<LoginPage hostUrl={hostUrl} />} />
-            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
+            <Route path="/login" element={<LoginPage hostUrl={hostUrl}  registrationSuccess={registrationSuccess} />} />
+            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} setRegistrationSuccess={setRegistrationSuccess} />} />
             <Route path="/user-profile/:id" element={<UserProfile hostUrl={hostUrl}/>} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl}/>} />
       
