@@ -13,12 +13,12 @@ const Form = ({
         <div className="col col-xl-10 mx-auto">
           <div className="card reg-card reg-card-bg">
             <div className="text-center">
-              <h3>Welcome back to</h3>
+              <h3>Welcome to</h3>
               <h2>LawPhil Project!</h2>
               <br />
             </div>
 
-            <form onSubmit={handleSubmit} className="px-5">
+            <form onSubmit={handleSubmit} className="px-5 pt-4">
               <div className="form-outline mb-4 input-wrapper">
                 <label className="form-label reg-form-label" htmlFor="username">
                   Username
@@ -58,7 +58,7 @@ const Form = ({
                 />
               </div>
 
-              <div className="text-center mt-4 mx-auto">
+              <div className="text-center pt-4 mx-auto">
                 <button type="submit" className="btn btn-light reg-btn btn-md">
                   Register
                 </button>

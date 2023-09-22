@@ -2,11 +2,11 @@
 
 .law-container {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .law-list-container {
-    height: 150px;
+    height: auto;
     overflow-y: auto;
 }
 
@@ -14,6 +14,46 @@
     border: 1px solid #3A086B;
     border-radius: 10px;
 }
+
+.page-ctrl-btn {
+    margin: 4px;
+    width: fit-content;
+    border: none;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.page-ctrl-btn:disabled {
+    color: rgba(105, 73, 138, 0.5);
+    border: none;
+    box-shadow: none;
+}
+
+.page-btn {
+    margin: 4px;
+    width: fit-content;
+    color:#ffffff;
+    background-color: #69498a;
+    border-color: #69498a;
+}
+
+.page-btn:hover {
+    color: #ffffff;
+    background-color: rgba(105, 73, 138, 0.75);
+    border-color: #6A498a;
+}
+
+.page-btn:focus {
+    color: #ffffff;
+    background-color: rgba(105, 73, 138, 0.75);
+    border-color: #6A498a;
+}
+
+.page-btn:active {
+    color:#ffffff;
+    background-color: #69498a;
+    border-color: #69498a;
+}
+
 
 .law-btn {
     color: #6A498A;

@@ -4,11 +4,15 @@
  * @returns The AdminDashboard component is being returned.
  */
 
+// index.jsx - AdminDashboard index component
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/admin.css';
 import Form from './Form';
 import React, { useState, useEffect } from 'react';
+
+const ITEMS_PER_PAGE = 8;
 
 const fetchData = async (url, options = {}) => {
   const response = await fetch(url, options);
@@ -26,6 +30,7 @@ const AdminDashboard = ({ hostUrl }) => {
     currentPage: 1,
     createMode: false,
     lawChangeState: [false],
+    showDeleteAlert: false,
   };
   
   const [state, setState] = useState(initialState);
@@ -116,29 +121,30 @@ const AdminDashboard = ({ hostUrl }) => {
 
   // DELETE LAW
   const handleDeleteLaw = () => {
-  console.log("handleDeleteLaw called");
-
-  if (!selectedLaw || !selectedLaw.id) return;
-
-  const url = `${hostUrl}/LawPhil2.0_Server/lawCRUD/deleteLaw.php?id=${selectedLaw.id}`;
+    console.log("handleDeleteLaw called");
   
-  const requestOptions = {
-    method: 'DELETE',
-  };
-
-  fetch(url, requestOptions)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data && data.message) {
-      setFormState({
-        laws: laws.filter((law) => law.id !== selectedLaw.id),
-        selectedLaw: null,
-        showSavedNotification: true,
-      });
-    }
-  })
-  .catch((error) => console.error('Frontend handleDeleteLaw error:', error));
-  };
+    if (!selectedLaw || !selectedLaw.id) return;
+  
+    const url = `${hostUrl}/LawPhil2.0_Server/lawCRUD/deleteLaw.php?id=${selectedLaw.id}`;
+    
+    const requestOptions = {
+      method: 'DELETE',
+    };
+  
+    fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data && data.message) {
+        setFormState({
+          laws: laws.filter((law) => law.id !== selectedLaw.id),
+          selectedLaw: null,
+          showSavedNotification: true,
+          showDeleteAlert: true,
+        });
+      }
+    })
+    .catch((error) => console.error('Frontend handleDeleteLaw error:', error));
+    };
 
   // SELECT LAW AND SHOW IT ON THE FORM
   const handleLawClick = (law, e) => {
@@ -176,29 +182,37 @@ const AdminDashboard = ({ hostUrl }) => {
     });
   };
 
+  // PAGINATION
   const handlePaginationClick = (pageNumber) => {
     setFormState({ currentPage: pageNumber });
-  }
+  };
 
-  return (
-    <Form
-      laws={laws}
-      selectedLaw={selectedLaw}
-      editMode={editMode}
-      editedLaw={editedLaw}
-      showSavedNotification={showSavedNotification}
-      currentPage={currentPage}
-      createMode={createMode}
-      lawChangeState={lawChangeState}
-      handleLawClick={handleLawClick}
-      handleCancelEdit={handleCancelEdit}
-      handlePaginationClick={handlePaginationClick}
-      handleCreateLaw={handleCreateLaw}
-      handleSaveChanges={handleSaveChanges}
-      handleDeleteLaw={handleDeleteLaw}
-      setFormState={setFormState}
-    />
-  );
-};
+  const totalPages = Math.ceil(laws.length / ITEMS_PER_PAGE);
+  const showPrevious = currentPage > 1;
+  const showNext = currentPage < totalPages;
+
+return (
+  <Form
+    laws={laws}
+    selectedLaw={selectedLaw}
+    editMode={editMode}
+    editedLaw={editedLaw}
+    showSavedNotification={showSavedNotification}
+    currentPage={currentPage}
+    createMode={createMode}
+    lawChangeState={lawChangeState}
+    handleLawClick={handleLawClick}
+    handleCancelEdit={handleCancelEdit}
+    handlePaginationClick={handlePaginationClick}
+    handleCreateLaw={handleCreateLaw}
+    handleSaveChanges={handleSaveChanges}
+    handleDeleteLaw={handleDeleteLaw}
+    setFormState={setFormState}
+    totalPages={totalPages}
+    showPrevious={showPrevious}
+    showNext={showNext}
+  />
+);
+}
 
 export default AdminDashboard;

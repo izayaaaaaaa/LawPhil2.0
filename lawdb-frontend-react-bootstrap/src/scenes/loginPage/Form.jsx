@@ -46,7 +46,7 @@ const LoginForm = ({ formData, handleChange, handleSubmit }) => {
                 
                     <div className="text-center mt-4">
                       <button type="submit" className="btn btn-light btn-md login-btn">
-                        <span id="btn-text">Login</span>
+                        Login
                       </button>
                     </div>
                     

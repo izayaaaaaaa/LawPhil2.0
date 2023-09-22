@@ -5,10 +5,12 @@ law), `editMode` (a boolean indicating whether the form is in edit mode), `edite
 edited), and various event handlers for different actions like creating a law, saving changes,
 deleting a law, etc. */
 
+// Form.jsx - Admin Dashboard Form Component
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faTrash, faAngleLeft, faAngleRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 const Form = ({
   laws,
@@ -27,6 +29,7 @@ const Form = ({
   handleDeleteLaw,
   setFormState,
 }) => {
+
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -40,13 +43,33 @@ const Form = ({
   }, [showSavedNotification, setFormState]);
 
   const ITEMS_PER_PAGE = 8;
+  const MAX_PAGES_DISPLAYED = 3;
   const indexOfLastLaw = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstLaw = indexOfLastLaw - ITEMS_PER_PAGE;
   const currentLaws = laws.slice(indexOfFirstLaw, indexOfLastLaw);
+  const showPrevious = currentPage > 1;
+  const totalPages = Math.ceil(laws.length / ITEMS_PER_PAGE);
+  
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const startPage = Math.max(1, currentPage - Math.floor(MAX_PAGES_DISPLAYED / 2));
+    const endPage = Math.min(totalPages, startPage + MAX_PAGES_DISPLAYED - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
+  };
+
+  const pageNumbers = getPageNumbers();
+  
+  // Define showNext based on the current page and total pages
+  const showNext = currentPage < totalPages;
 
   return (
     <div className="container">
-      <div className="row law-container">
+      <div className="row law-container justify-content-center">
         <div className="col-md-3 law-list">
           
           {/* CREATE LAW */}
@@ -79,16 +102,29 @@ const Form = ({
           {/* PAGINATION */}
           <div>
             <div className="d-flex justify-content-center mt-3">
-              {Array.from({ length: Math.ceil(laws.length / ITEMS_PER_PAGE) }, (_, index) => (
+              <button
+                onClick={() => handlePaginationClick(currentPage - 1)}
+                className="btn page-ctrl-btn"
+                disabled={!showPrevious}
+              >
+                <FontAwesomeIcon icon={faAngleLeft} />
+              </button>
+              {pageNumbers.map((page) => (
                 <button
-                  key={index}
-                  onClick={() => handlePaginationClick(index + 1)}
-                  style={{ margin: '4px' }}
-                  disabled={currentPage === index + 1}
+                  key={page}
+                  onClick={() => handlePaginationClick(page)}
+                  className={`btn page-btn${currentPage === page ? ' active' : ''}`}
                 >
-                  {index + 1}
+                  {page}
                 </button>
               ))}
+              <button
+                onClick={() => handlePaginationClick(currentPage + 1)}
+                className="btn page-ctrl-btn"
+                disabled={!showNext}
+              >
+                <FontAwesomeIcon icon={faAngleRight} />
+              </button>
             </div>
           </div>
 
@@ -158,7 +194,7 @@ const Form = ({
                     <p className="ml-4 mt-3">Edit Law</p>
                     <button
                       type="button"
-                      className="btn law-btn btn-link p-0 m-0 link-style"
+                      className="btn btn-link p-0 m-0 link-style"
                       onClick={() => {
                         const confirmed = window.confirm("Are you sure you want to delete this law?");
                         if (confirmed) {
@@ -224,7 +260,7 @@ const Form = ({
                 </div>
               )}
               {showAlert && (
-                <div className="alert alert-dismissible alert-success" role="alert">
+                <div className="alert alert-success" role="alert">
                   Changes have been saved!
                 </div>
               )}
@@ -286,8 +322,8 @@ const Form = ({
                 </button>
               </div>
               {showAlert && (
-                <div className="alert alert-dismissible alert-success" role="alert">
-                  New law successfuly created!
+                <div className="alert alert-success" role="alert">
+                  New law successfully created!
                 </div>
               )}  
             </>

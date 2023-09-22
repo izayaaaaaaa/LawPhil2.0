@@ -11,7 +11,7 @@ import Form from "./Form";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterPage = ({ hostUrl }) => {
+const RegisterPage = ({ hostUrl, setRegistrationSuccess }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -49,17 +49,18 @@ const RegisterPage = ({ hostUrl }) => {
         throw new Error(`Network response was not ok`);
       }
 
-      const responseData = await response.json(); 
+      const responseData = await response.json();
 
       if (responseData.success) {
         console.log("Registration successful!");
+        setRegistrationSuccess(true); // Set the registration success state to true
         navigate('/login');
-      } 
+      }
     } catch (error) {
       console.log("Registration failed:", error.message);
     }
   };
-    
+
   return (
     <div className="container-fluid d-flex align-items-center justify-content-center">
       <Form
