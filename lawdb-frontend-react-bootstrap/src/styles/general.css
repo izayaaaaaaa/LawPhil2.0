@@ -27,7 +27,7 @@ body {
 }
 
 .search-bg {
-  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.50),rgba(58, 8, 107, 1));
+  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.40),rgba(58, 8, 107, 0.75));
 }
 
 .white-bg {
@@ -98,7 +98,7 @@ hr {
 }
 
 .form-control:focus,
-.form-select:focus,
+.form-selection:focus,
 select:focus,
 button:focus {
   border-color: #432575;

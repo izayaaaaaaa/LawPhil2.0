@@ -17,7 +17,7 @@ import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.100.19";
+const hostUrl = "http://192.168.56.1";
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -38,9 +38,9 @@ const BackgroundWrapper = ({ children }) => {
   
     if (location.pathname === '/law-content/') {
       paddingTop = '30vh';
-    } else if (location.pathname === '/user-profile') {
+    } else if (location.pathname === '/user-profile' || location.pathname === '/login') {
       paddingTop = '25vh';
-    }else if (location.pathname === '/admin-dashboard'  || location.pathname === '/login') {
+    }else if (location.pathname === '/admin-dashboard') {
       paddingTop = '12vh';
     } else if (location.pathname === '/') {
       paddingTop = '0';
