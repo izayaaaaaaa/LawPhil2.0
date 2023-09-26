@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './scenes/loginPage';
 import NavbarPage from './scenes/navbar';
 import RegisterPage from './scenes/registerPage';
-import SearchPage from './scenes/searchPage/searchPage';
+import SearchPage from './scenes/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
 import LawContentPage from './scenes/lawContentPage';
 import UserProfile from './scenes/userProfilePage/UserProfile';

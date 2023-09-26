@@ -1,21 +1,7 @@
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-// Form.jsx
-
-const Form = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    console.log('Search query:', searchQuery);
-    onSearch(searchQuery);
-  };
+const Form = ({ handleSubmit }) => {
   return (
     <div className="body-search">
       <div className="container d-flex flex-column">
@@ -25,17 +11,15 @@ const Form = ({ onSearch }) => {
           <h1>LawPhil Project</h1>
           {/* Main Search */}
           <div className="search-bar">
-          <form onSubmit={handleSearch} className="search-form">
-            <div className="form-group has-feedback">
-              <div className="input-group my-5">
-                <input
-                  type="text"
-                  className="form-control search-form-control"
-                  placeholder="Search Keywords"
-                  aria-label="Search Bar"
-                  value={searchQuery}
-                  onChange={handleInputChange}
-                />
+            <form onSubmit={handleSubmit} className="search-form">
+              <div className="form-group has-feedback">
+                <div className="input-group my-5">
+                  <input
+                    type="text"
+                    className="form-control search-form-control"
+                    placeholder="Search Keywords"
+                    aria-label="Search Bar"
+                  />
                   <div className="input-group-append">
                     <button type="submit" className="btn search-btn"> {/* Change the Link component to a button */}
                       <FontAwesomeIcon icon={faSearch} />

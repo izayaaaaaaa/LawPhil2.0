@@ -9,7 +9,7 @@ const SearchResultsPage = ({ hostUrl }) => {
 
   useEffect(() => {
     // Fetch search results based on the query
-    Axios.get(`${hostUrl}/LawPhil2.0_Server/search.php?q=${query}`)
+    Axios.get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/searchKeywordLaw.php?q=${query}`)
       .then((response) => {
         // Handle the successful response
         console.log('Search query:', query);
