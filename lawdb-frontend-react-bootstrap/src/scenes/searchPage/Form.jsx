@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-// Form.jsx
+const Form = ({ handleSubmit }) => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchType, setSearchType] = useState('both');
 
-const Form = ({
-  searchQuery,
-  selectedCategory,
-  handleInputChange,
-  handleCategoryChange,
-  handleSearch,
-  categories,
-  searchType,
-  setSearchType,
-}) => {
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+
   return (
     <div className="body-search">
       <div className="container d-flex flex-column">
@@ -23,24 +20,23 @@ const Form = ({
           <h1>LawPhil Project</h1>
           {/* Main Search */}
           <div className="search-bar">
-            <form onSubmit={handleSearch} className="search-form">
-              <div className="form-group has-feedback my-5">
-                <div className="input-group search-input">
-                  {/* Text Input */}
+            <form onSubmit={handleSubmit} className="search-form">
+              <div className="form-group has-feedback">
+                <div className="input-group my-5 search-input">
                   <input
                     type="text"
                     className="form-control search-form-control"
                     placeholder="Search Keywords"
                     aria-label="Search Bar"
-                    value={searchQuery}
-                    onChange={handleInputChange}
                   />
-                  <button type="submit" className="btn search-btn">
-                    <FontAwesomeIcon icon={faSearch} />
-                  </button>
+                  <div className="input-group-append">
+                    <button type="submit" className="btn search-btn"> {/* Change the Link component to a button */}
+                      <FontAwesomeIcon icon={faSearch} />
+                    </button>
+                  </div>
                 </div>
                   {/* Dropdowns */}
-                  <div className="input-group my-3 d-flex mx-auto justify-content-center align-items-center">
+                  <div className="input-group my-5 d-flex mx-auto justify-content-center align-items-center">
                     <select
                       value={selectedCategory}
                       onChange={handleCategoryChange}
@@ -48,9 +44,9 @@ const Form = ({
                     >
                       {/* change into fetched categories */}
                       <option value="all">All Categories</option>
-                      <option value="consti">Constitution</option>
-                      <option value="stat">Statutes</option>
-                      <option value="admin">Administrative Issuances</option>
+                      <option value="catA">Category A</option>
+                      <option value="catB">Category B</option>
+                      <option value="catC">Category C</option>
                     </select>
                     <select
                       id="searchType"
@@ -62,15 +58,16 @@ const Form = ({
                       <option value="title">Title Only</option>
                       <option value="content">Content Only</option>
                     </select>
-                  </div>
-                </div>
+              </div>
+            </div>
           </form>
+          </div>
+
           <h5>FREE ACCESS TO LAW</h5>
         </div>
       </div>
     </div>
-  </div>
-  );
-};
+    );
+  };
 
 export default Form;

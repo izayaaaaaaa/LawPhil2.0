@@ -1,4 +1,4 @@
-/* general.css */
+/* fonts */
 @font-face {
   font-family: 'Source Serif 4';
   src: url('./fonts/SourceSerif4.ttf') format('truetype');
@@ -14,20 +14,20 @@
   src: url('./fonts/AnonymousPro.ttf') format('truetype');
 }
 
+/* general.css */
 body {
   margin: 0;
   background-size: 100% 100%;
-}   
+}
 
 /* Backgrounds */
-
 .default-bg {
   background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
   background-attachment: fixed;
 }
 
 .search-bg {
-  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.40),rgba(58, 8, 107, 0.75));
+  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.40), rgba(58, 8, 107, 0.75));
 }
 
 .white-bg {
@@ -45,8 +45,8 @@ hr {
 }
 
 /* button styles */
-
-.btn {
+.btn,
+.btn-link {
   font-family: 'Anonymous Pro', monospace;
   box-shadow: none;
   border-color: rgba(146, 99, 179, 0.1);
@@ -56,45 +56,44 @@ hr {
 .btn-link {
   text-decoration: none;
   color: #6a498a;
-  box-shadow: none;
 }
 
 .btn-link:hover {
-  color: #3A086B
+  color: #3A086B;
 }
 
-.edit-btn {
+.edit-btn,
+.save-btn {
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;
+  border-color: transparent;
+}
+
+.edit-btn {
   background: #9163B3;
-  border-color: #9163B3;
 }
 
 .edit-btn:hover {
   color: #9163B3;
   background-color: transparent;
-  border-color: #9163B3;
 }
 
 .save-btn {
-  font-size: 16px;
-  font-weight: bold;
-  color: #ffffff;
   background-color: #3A086B;
-  border-color: #3A086B;
 }
 
 .save-btn:hover {
   color: #3A086B;
   background: transparent;
-  border-color: #3A086B;
 }
 
 /* form styles */
-
-.form-control {
-  border-color:#432575;
+.form-control,
+.form-selection,
+select,
+button {
+  border-color: #432575;
 }
 
 .form-control:focus,
@@ -106,10 +105,13 @@ button:focus {
 }
 
 /* link styles */
+.link-style,
+.link-style:hover {
+  text-decoration: none !important;
+}
 
 .link-style {
   color: #3a086b !important;
-  text-decoration: none !important;
 }
 
 .link-style:hover {
@@ -117,34 +119,24 @@ button:focus {
   text-decoration: underline !important;
 }
 
-@media (max-width: 767px) {
-  .form-control,
-  .btn {
-    width: 100%;
-  }
-}
-
-/* Source Serif 4 - Larger Headings (h1, h2, h3); Body Text  */
-
+/* Typography */
 h1, h2, h3 {
   font-family: 'Source Serif 4', serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  color: #3a086b;
 }
 
 h1 {
   font-size: 64px;
-  color: #3a086b;
 }
 
 h2 {
   font-size: 40px;
-  color: #3a086b;
   text-align: center;
 }
 
 h3 {
   font-size: 20px;
-  color: #3a086b;
 }
 
 p, span {
@@ -154,9 +146,7 @@ p, span {
   text-align: justify;
 }
 
-/* Lexend Exa - Smaller Headings (h4, h5); form label */
-
-h4, h5, h6 {
+h4, h5, h6, .form-label {
   font-family: 'Lexend Exa', sans-serif;
   color: #3a086b;
 }
@@ -175,58 +165,48 @@ h5 {
 }
 
 .form-label {
-  font-family: 'Lexend Exa', sans-serif;
   font-size: 16px;
   font-weight: bold;
 }
 
-/* Anonymous Pro - smaller text (a, li, span, etc.) */
-
-h6,
-a,
-li,
-option, 
-select, 
-button,
-.small-text,
-.keywords {
+/* Smaller text */
+h6, a, li, option, select, button, .small-text, .keywords {
   font-family: 'Anonymous Pro', monospace;
 }
 
-h6  {
+h6 {
   font-size: 16px;
-  /* color: #ffffff; */
 }
 
-a:focus, 
-a::selection, 
-.btn-link:focus, 
-.btn-link::selection {
+a:focus, a::selection, .btn-link:focus, .btn-link::selection {
   outline: none;
   background-color: transparent;
 }
 
-.results-found,
-.keywords {
+.results-found, .keywords {
   font-size: 14px;
   color: #432575;
 }
 
 /* Responsive Breakpoints */
-
 @media (max-width: 767px) {
+  .form-control,
+  .btn {
+    width: 100%;
+  }
+
   h1 {
     font-size: 48px;
   }
-  
+
   h2 {
     font-size: 28px;
   }
-  
+
   h3 {
     font-size: 16px;
   }
-  
+
   .form-label {
     font-size: 14px;
   }
