@@ -17,7 +17,7 @@ import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.56.1";
+const hostUrl = "http://192.168.100.19";
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
@@ -70,7 +70,7 @@ function App() {
           </div>
           <Routes>
             <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
-            <Route path="/search-results/:query" element={<SearchResultsPage hostUrl={hostUrl} />} />
+            <Route path="/search-results/*" element={<SearchResultsPage hostUrl={hostUrl} />} />
             <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
 
             <Route path="/login" element={<LoginPage hostUrl={hostUrl}  registrationSuccess={registrationSuccess} />} />

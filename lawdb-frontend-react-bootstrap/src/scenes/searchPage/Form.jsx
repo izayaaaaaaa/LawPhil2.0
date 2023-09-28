@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const Form = ({ handleSubmit }) => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchType, setSearchType] = useState('both');
+const Form = ({
+  handleSubmit,
+  searchType,
+  setSearchType,
+  selectedCategory,
+  setSelectedCategory,
+}) => {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -44,9 +47,9 @@ const Form = ({ handleSubmit }) => {
                     >
                       {/* change into fetched categories */}
                       <option value="all">All Categories</option>
-                      <option value="catA">Category A</option>
-                      <option value="catB">Category B</option>
-                      <option value="catC">Category C</option>
+                      <option value="Category A">Category A</option>
+                      <option value="Category B">Category B</option>
+                      <option value="Category C">Category C</option>
                     </select>
                     <select
                       id="searchType"
