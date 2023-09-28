@@ -50,7 +50,7 @@
 .form-selection {
   color: #3A086B;
   background-color: transparent;
-  border: none;
+  border: #3A086B solid 1px;
   outline: none;
   height: fit-content;
   width: auto;
