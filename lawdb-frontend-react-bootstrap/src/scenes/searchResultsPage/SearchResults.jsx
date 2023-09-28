@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/general.css';
+import '../../styles/search.css';
 import '../../styles/searchResults.css';
 
 // SearchResults.jsx

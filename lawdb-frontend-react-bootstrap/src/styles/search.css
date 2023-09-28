@@ -55,6 +55,7 @@
   height: fit-content;
   width: auto;
   padding: 7px;
+  margin-inline: 20px;
 }
 
 .form-selection::-ms-expand {

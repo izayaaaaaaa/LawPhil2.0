@@ -22,10 +22,10 @@ const Form = ({
           <h4 className="mb-3">ARELLANO LAW FOVNDATION</h4>
           <h1>LawPhil Project</h1>
           {/* Main Search */}
-          <div className="search-bar">
+          <div className="search-bar p-5">
             <form onSubmit={handleSubmit} className="search-form">
               <div className="form-group has-feedback">
-                <div className="input-group my-5 search-input">
+                <div className="input-group search-input">
                   <input
                     type="text"
                     className="form-control search-form-control"

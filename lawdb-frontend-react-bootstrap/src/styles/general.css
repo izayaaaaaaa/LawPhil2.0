@@ -172,6 +172,7 @@ h5 {
 /* Smaller text */
 h6, a, li, option, select, button, .small-text, .keywords {
   font-family: 'Anonymous Pro', monospace;
+  font-weight: bold;
 }
 
 h6 {

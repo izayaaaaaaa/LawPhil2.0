@@ -17,7 +17,7 @@ import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
 
-const hostUrl = "http://192.168.100.19";
+const hostUrl = "http://192.168.56.1";
 
 const BackgroundWrapper = ({ children }) => {
   const location = useLocation();
