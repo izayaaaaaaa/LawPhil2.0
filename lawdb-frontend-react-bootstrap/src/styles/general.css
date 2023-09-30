@@ -119,6 +119,27 @@ button:focus {
   text-decoration: underline !important;
 }
 
+/* logo */
+.logo {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
+.logo-sm {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+/* .logo-loading {
+  width: 450px;
+  height: 450px;
+  object-fit: contain;
+  opacity: 0.1;
+} */
+
 /* Typography */
 h1, h2, h3 {
   font-family: 'Source Serif 4', serif;

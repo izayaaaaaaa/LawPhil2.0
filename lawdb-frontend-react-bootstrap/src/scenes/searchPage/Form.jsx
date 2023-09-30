@@ -18,7 +18,7 @@ const Form = ({
     <div className="body-search">
       <div className="container d-flex flex-column">
         <div className="search-body text-center flex-grow-1 vh-100">
-          <img src="/logo.png" className="login-logo mb-4" alt="LawPhil Logo" />
+          <img src="/logo.png" className="logo mb-4" alt="LawPhil Logo" />
           <h4 className="mb-3">ARELLANO LAW FOVNDATION</h4>
           <h1>LawPhil Project</h1>
           {/* Main Search */}
