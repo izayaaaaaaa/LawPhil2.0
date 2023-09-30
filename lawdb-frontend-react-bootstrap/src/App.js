@@ -4,15 +4,12 @@
  * @returns The App component is being returned.
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import LoginPage from './scenes/loginPage';
 import NavbarPage from './scenes/navbar';
-import RegisterPage from './scenes/registerPage';
 import SearchPage from './scenes/searchPage';
 import SearchResultsPage from './scenes/searchResultsPage';
 import LawContentPage from './scenes/lawContentPage';
-import UserProfile from './scenes/userProfilePage/UserProfile';
 import AdminDashboard from './scenes/adminDashboardPage';
 import './styles/components.css';
 import './styles/general.css';
@@ -58,24 +55,17 @@ const BackgroundWrapper = ({ children }) => {
 };
 
 function App() {
-  // const { getRole } = useAuth();
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
   return (
     <BrowserRouter>
       <div className="App">
         <BackgroundWrapper>
           <div className="NavbarPosition">
-            <NavbarPage hostUrl={hostUrl} />
+            <NavbarPage />
           </div>
           <Routes>
             <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
             <Route path="/search-results/*" element={<SearchResultsPage hostUrl={hostUrl} />} />
             <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
-
-            <Route path="/login" element={<LoginPage hostUrl={hostUrl}  registrationSuccess={registrationSuccess} />} />
-            <Route path="/register" element={<RegisterPage hostUrl={hostUrl} setRegistrationSuccess={setRegistrationSuccess} />} />
-            <Route path="/user-profile/:id" element={<UserProfile hostUrl={hostUrl}/>} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl}/>} />
       
             {/* about us route */}
