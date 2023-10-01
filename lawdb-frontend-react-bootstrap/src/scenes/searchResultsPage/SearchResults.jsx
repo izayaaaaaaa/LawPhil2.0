@@ -12,7 +12,7 @@ const SearchResults = ({ results }) => {
       {results.length > 0 ? (
         <>
           {/* Display the number of results */}
-          <p className="small-text m-3">{results.length} results found.</p>
+          <p className="small-text mx-3">{results.length} results found.</p>
 
           {/* Loop through the search results */}
           {results.map((item, index) => (

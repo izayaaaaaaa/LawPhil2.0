@@ -49,7 +49,7 @@ hr {
 .btn-link {
   font-family: 'Anonymous Pro', monospace;
   box-shadow: none;
-  border-color: rgba(146, 99, 179, 0.1);
+  border-color: #9263b3;
   width: 200px;
 }
 
@@ -102,6 +102,29 @@ select:focus,
 button:focus {
   border-color: #432575;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-check-input {
+  /* Unchecked state */
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  outline: none;
+}
+
+.form-check-input:checked {
+  /* Checked state */
+  background-color: #9163B3;
+  border-color: #6a498a;
+}
+
+.form-check-input:hover {
+  /* Hover state */
+  background-color: #644683;
+  border-color: #432575;
+}
+
+.form-check-input:focus {
+  outline-color: #9163B3 !important;
 }
 
 /* link styles */
@@ -167,7 +190,7 @@ p, span {
   text-align: justify;
 }
 
-h4, h5, h6, .form-label {
+h4, h5, .form-label {
   font-family: 'Lexend Exa', sans-serif;
   color: #3a086b;
 }
@@ -190,7 +213,7 @@ h5 {
   font-weight: bold;
 }
 
-/* Smaller text */
+/* Smaller Text Styles */
 h6, a, li, option, select, button, .small-text, .keywords {
   font-family: 'Anonymous Pro', monospace;
   font-weight: bold;
