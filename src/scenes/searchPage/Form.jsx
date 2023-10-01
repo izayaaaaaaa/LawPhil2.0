@@ -9,9 +9,10 @@ const Form = ({
     <div className="body-search">
       <div className="container d-flex flex-column">
         <div className="search-body text-center flex-grow-1 vh-100">
+          
           <img src="/logo.png" className="logo mb-4" alt="LawPhil Logo" />
           <h1>LawPhil Project</h1>
-          {/* Main Search */}
+
           <div className="search-bar p-5">
             <form onSubmit={handleSubmit} className="search-form">
               <div className="form-group has-feedback">
@@ -28,8 +29,8 @@ const Form = ({
                     </button>
                   </div>
                 </div>
-            </div>
-          </form>
+              </div>
+            </form>
           </div>
 
           <h5>FREE ACCESS TO LAW</h5>

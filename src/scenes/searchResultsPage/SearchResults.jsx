@@ -4,8 +4,6 @@ import '../../styles/general.css';
 import '../../styles/search.css';
 import '../../styles/searchResults.css';
 
-// SearchResults.jsx
-
 const SearchResults = ({ results }) => {
   return (
     <div>

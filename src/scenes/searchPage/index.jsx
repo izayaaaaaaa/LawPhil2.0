@@ -7,28 +7,24 @@ import { useNavigate } from 'react-router-dom';
 const SearchPage = ({ hostUrl }) => {
   const navigate = useNavigate();
 
-  const [searchType, setSearchType] = useState('both');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategories, setSelectedCategories] = useState('All');
 
   const handleSearch = (event) => {
     event.preventDefault();
     const searchQuery = event.target.querySelector('input').value;
     
     // log the variables to console first
-    console.log('Search query:', searchQuery);
-    console.log('Search type:', searchType);
-    console.log('Selected category:', selectedCategory);
+    console.log('SearchPage Search query:', searchQuery);
+    console.log('SearchPage Selected category:', selectedCategories);
 
-    // Build the URL with query parameters
+    // build the URL with query parameters
     const queryParams = new URLSearchParams();
     queryParams.append('searchQuery', searchQuery);
-    queryParams.append('searchType', searchType);
-    queryParams.append('selectedCategory', selectedCategory);
+    queryParams.append('selectedCategories', selectedCategories);
 
     // log the built URL full
-    console.log('URL:', `/search-results/?${queryParams.toString()}`);
+    console.log('SearchPage URL:', `/search-results/?${queryParams.toString()}`);
 
-    // Use navigate with the built URL
     navigate(`/search-results/?${queryParams.toString()}`);
   };
 
@@ -36,10 +32,6 @@ const SearchPage = ({ hostUrl }) => {
     <div>
       <Form
         handleSubmit={handleSearch}
-        searchType={searchType}
-        setSearchType={setSearchType}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
       />
     </div>
   );
