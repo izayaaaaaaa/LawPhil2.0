@@ -6,9 +6,10 @@ import { useParams } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/content.css';
 import Form from './Form';
+import axios from 'axios';
 
 const LawContentPage = ({ hostUrl }) => {
-  const { id } = useParams(); 
+  const { lawID } = useParams(); 
   const [lawContent, setLawContent] = useState(null);
   const [formattedContent, setFormattedContent] = useState(null); // Changed variable name
 
@@ -21,24 +22,37 @@ const LawContentPage = ({ hostUrl }) => {
   useEffect(() => {
     const fetchLawContent = async () => {
       try {
-        const response = await fetch(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getSpecificLaw.php?id=${id}`);
+        const response = await axios.get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getSpecificLaw.php`, {
+          params: {
+            lawID: lawID, 
+          },
+        });
 
-        if (!response.ok) {
-          throw new Error(`Error fetching law content: ${response.status}`);
+        // log lawID
+        console.log('LawContentPage lawID:', lawID);
+    
+        if (response.status === 200) {
+          const data = response.data;
+          const content = data.content;
+          const formatted = formatContent(content);
+          setLawContent(data);
+          setFormattedContent(formatted);
+        } else {
+          // Handle unexpected status codes here
+          console.error('Unexpected status code:', response.status);
         }
-
-        const data = await response.json();
-        const content = data.content;
-        const formatted = formatContent(content);
-        setLawContent(data);
-        setFormattedContent(formatted);
       } catch (error) {
+        // Handle Axios-related errors
         console.error('Error fetching law content:', error);
+        if (error.response) {
+          console.error('Response data:', error.response.data);
+          console.error('Response status:', error.response.status);
+        }
       }
     };
 
     fetchLawContent();
-  }, [id, hostUrl]);
+  }, [lawID, hostUrl]);
 
   return (
     <Form 

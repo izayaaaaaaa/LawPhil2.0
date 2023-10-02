@@ -102,7 +102,6 @@ const SearchResultsPage = ({ hostUrl }) => {
       <div className="container">
         <div className="row">
           <div className="col-md-2">
-            
             <h6>Filter by:</h6>
 
             {/* Checkbox items for categories */}
@@ -115,11 +114,6 @@ const SearchResultsPage = ({ hostUrl }) => {
                 onChange={handleCategoryChange}
               />
             ))}
-
-            {/* <button type="button" className="btn">
-              Apply Filters
-            </button> */}
-
           </div>
 
           <div className="col-md-10">

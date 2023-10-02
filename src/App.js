@@ -65,7 +65,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SearchPage hostUrl={hostUrl} />} />
             <Route path="/search-results/*" element={<SearchResultsPage hostUrl={hostUrl} />} />
-            <Route path="/law-content/:id" element={<LawContentPage hostUrl={hostUrl} />} />
+            <Route path="/law-content/:lawID" element={<LawContentPage hostUrl={hostUrl} />} />
             <Route path="/admin-dashboard" element={<AdminDashboard hostUrl={hostUrl}/>} />
       
             {/* about us route */}

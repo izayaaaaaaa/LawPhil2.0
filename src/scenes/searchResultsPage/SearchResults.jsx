@@ -4,7 +4,7 @@ import '../../styles/general.css';
 import '../../styles/search.css';
 import '../../styles/searchResults.css';
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results}) => {
   return (
     <div>
       {results.length > 0 ? (
@@ -16,9 +16,11 @@ const SearchResults = ({ results }) => {
           {results.map((item, index) => (
             <div className="law-item" key={index}>
               <div className="px-5 py-4">
+
                 <Link to={`/law-content/${item.id}`} className="link-style">
-                  <h5>{item.title.toUpperCase()}</h5> {/* Redirect to lawContent - via ID */}
+                  <h5>{item.title.toUpperCase()}</h5> 
                 </Link>
+
                 <div>
                   <p className="category small-text "><b>Category (s):</b> {item.category}</p>
                   <p className="law-desc">{item.content}</p>
@@ -26,6 +28,7 @@ const SearchResults = ({ results }) => {
                     Read More
                   </Link>
                 </div>
+
               </div>
               <hr />
             </div>
