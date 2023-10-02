@@ -33,7 +33,7 @@ const Form = ({
             </form>
           </div>
 
-          <h5>FREE ACCESS TO LAW</h5>
+          <h4>FREE ACCESS TO LAW</h4>
         </div>
       </div>
     </div>

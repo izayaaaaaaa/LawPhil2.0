@@ -10,7 +10,7 @@ const SearchResults = ({ results}) => {
       {results.length > 0 ? (
         <>
           {/* Display the number of results */}
-          <p className="small-text mx-3">{results.length} results found.</p>
+          <h6 className="mx-3">{results.length} results found.</h6>
 
           {/* Loop through the search results */}
           {results.map((item, index) => (
@@ -35,7 +35,7 @@ const SearchResults = ({ results}) => {
           ))}
         </>
       ) : (
-        <p>No Results</p>
+        <h6>No Results</h6>
       )}
     </div>
   );

@@ -9,7 +9,7 @@
 .search-input {
   background-color: #ffffff;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   outline: none;
   padding: 0.15rem 1rem;
 }
@@ -32,40 +32,10 @@
   border: none;
   box-shadow: none;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
   width: fit-content;
 }
 
 .search-btn:active {
   outline: none;
-}
-
-.form-selection {
   color: #3A086B;
-  background-color: transparent;
-  border: #3A086B solid 1px;
-  outline: none;
-  height: fit-content;
-  width: auto;
-  padding: 7px;
-  margin-inline: 20px;
-}
-
-.form-selection::-ms-expand {
-  display: none;
-}
-
-.form-selection option {
-  color: #3A086B;
-  background-color: #ffffff;
-}
-
-.form-selection option:checked {
-  color: #ffffff;
-  background-color: #3A086B;
-}
-
-#search-categories:focus {
-  outline: none;
 }
