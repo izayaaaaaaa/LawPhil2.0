@@ -49,7 +49,7 @@ hr {
 .btn-link {
   font-family: 'Anonymous Pro', monospace;
   box-shadow: none;
-  border-color: #9263b3;
+  border-color: rgba(146, 99, 179, 0.25);
   width: 200px;
 }
 

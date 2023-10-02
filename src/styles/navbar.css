@@ -1,4 +1,5 @@
 /* navbar.css */
+
 .navbar {
   top: 0;
   height: auto;
@@ -7,26 +8,19 @@
   z-index: 1;
 }
 
-/* .navbar-toggler {
-  border: none;
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
-} */
-
+/* Navbar elements alignment */
 .navbar-nav {
   display: flex;
   align-items: center;
 }
 
+/* Navbar brand styling */
 .navbar-brand {
   font-family: 'Lexend Exa', sans-serif;
   font-size: 16px;
   font-weight: bold;
   color: #3a086b;
   &:hover {
-    color: #6a498a;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   }
   @media (max-width: 350px) {
@@ -34,6 +28,7 @@
   }
 }
 
+/* Navbar links styling */
 .nav-link {
   font-family: 'Lexend Exa', sans-serif;
   font-size: 16px;
@@ -45,30 +40,28 @@
   }
 }
 
-#navbar-dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content {
-  display: none;
+/* Dropdown content styling */
+.dropdown-menu {
   position: absolute;
   background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-.dropdown-content a {
+/* Dropdown content items styling */
+.dropdown-menu a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {
+/* Hover effect for dropdown content items */
+.dropdown-menu a:hover {
   background-color: #f1f1f1;
-
 }
 
+/* Styling for dropdown items */
 .dropdown-item {
   color: #3a086b;
   &:hover {
@@ -77,6 +70,7 @@
   }
 }
 
+/* Button and icon styling */
 .usr-btn, .nav-btn {
   font-size: 16px;
   font-weight: bold;
@@ -89,10 +83,12 @@
   }
 }
 
+/* User icon styling */
 .user-icon {
   margin-right: 15px;
 }
 
+/* Styling for navigation button */
 .nav-btn {
   background-color: #ffffff;
   border-color: #3a086b;
