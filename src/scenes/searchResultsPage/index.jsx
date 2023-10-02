@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Axios from 'axios';
 import SearchResults from './SearchResults';
 import CategoryCheckbox from './CategoryCheckbox';
@@ -19,17 +19,14 @@ const categories = [
 
 const SearchResultsPage = ({ hostUrl }) => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState(['All']);
 
   useEffect(() => {
-    // Extract searchType and selectedCategories from query parameters
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('searchQuery');
-    const selectedCategories = searchParams.getAll('selectedCategories');
 
-    // log the variables to console first
     console.log('SearchResultsPage Search query:', searchQuery);
     console.log('SearchResultsPage Selected categories:', selectedCategories);
 
@@ -55,29 +52,6 @@ const SearchResultsPage = ({ hostUrl }) => {
       });
   }, [hostUrl, location.search, selectedCategories]);
 
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const searchQuery = event.target.querySelector('input').value;
-
-    // log the variables to console first
-    console.log('Search query:', searchQuery);
-    console.log('Selected categories:', selectedCategories);
-
-    // build the URL with query parameters
-    const queryParams = new URLSearchParams();
-    queryParams.append('searchQuery', searchQuery);
-    selectedCategories.forEach((category) => {
-      queryParams.append('selectedCategories[]', category); // Use '[]' to send an array of selected categories
-    });
-
-    // log the built URL full
-    console.log('URL:', `/search-results/?${queryParams.toString()}`);
-
-    // Use navigate with the built URL
-    navigate(`/search-results/?${queryParams.toString()}`);
-  };
-
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     const isChecked = e.target.checked;
@@ -89,13 +63,38 @@ const SearchResultsPage = ({ hostUrl }) => {
       } else {
         if (isChecked) {
           // Uncheck 'All Categories' if any other category is checked
-          return prevCategories.includes('All') ? prevCategories.filter((c) => c !== 'All') : [...prevCategories, category];
+          const newCategories = prevCategories.includes('All')
+            ? prevCategories.filter((c) => c !== 'All')
+            : [...prevCategories, category];
+
+          // If all categories except 'All' are checked, check 'All Categories'
+          if (
+            newCategories.length === categories.length - 1 &&
+            newCategories.every((c) => c !== 'All')
+          ) {
+            // empty the cateogyr array first
+            newCategories.splice(0, newCategories.length);
+            newCategories.push('All');
+          }
+
+          return newCategories;
         } else {
           // If unchecking a category, remove it from selectedCategories
-          return prevCategories.filter((prevCategory) => prevCategory !== category);
+          const newCategories = prevCategories.filter(
+            (prevCategory) => prevCategory !== category
+          );
+
+          // If no categories are checked, check 'All Categories'
+          if (newCategories.length === 0) {
+            newCategories.push('All');
+          }
+
+          return newCategories;
         }
       }
     });
+
+    console.log('Selected categories:', selectedCategories);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from './Form';
 import '../../styles/general.css';
 import '../../styles/search.css';
@@ -7,22 +7,15 @@ import { useNavigate } from 'react-router-dom';
 const SearchPage = ({ hostUrl }) => {
   const navigate = useNavigate();
 
-  const [selectedCategories, setSelectedCategories] = useState('All');
-
   const handleSearch = (event) => {
     event.preventDefault();
     const searchQuery = event.target.querySelector('input').value;
     
-    // log the variables to console first
-    console.log('SearchPage Search query:', searchQuery);
-    console.log('SearchPage Selected category:', selectedCategories);
+    // console.log('SearchPage Search query:', searchQuery);
 
-    // build the URL with query parameters
     const queryParams = new URLSearchParams();
     queryParams.append('searchQuery', searchQuery);
-    queryParams.append('selectedCategories', selectedCategories);
 
-    // log the built URL full
     console.log('SearchPage URL:', `/search-results/?${queryParams.toString()}`);
 
     navigate(`/search-results/?${queryParams.toString()}`);
