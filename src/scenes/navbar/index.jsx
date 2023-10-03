@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faSearch } from '@fortawesome/free-solid-svg-icons'; // Assuming you have the search icon imported
+import { faSearch } from '@fortawesome/free-solid-svg-icons'; // Assuming you have the search icon imported
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';

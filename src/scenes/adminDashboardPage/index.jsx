@@ -7,15 +7,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/admin.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import LawList from './LawList';
-import LawForm from "./LawForm";
 
 const lawCategories = [
+  // feature upgrade: fetch the categories from the database
   { id: 'Constitutions', name: 'Constitutions' },
   { id: 'Statutes', name: 'Statutes' },
   { id: 'Executive Issuances', name: 'Executive Issuances' },
@@ -30,7 +30,14 @@ const lawCategories = [
 const AdminDashboard = ({ hostUrl }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [lawsInCategory, setLawsInCategory] = useState([]);
-  const [editedLaw, setEditedLaw] = useState(null);
+
+  const activeCategoryName = selectedCategory ? lawCategories.find((category) => category.id === selectedCategory)?.name : '';
+
+  // Fetch and set initial data (e.g., categories and laws) on component mount
+  // useEffect(() => {
+  // Example: You can make API calls here to get categories and initial laws
+  // Update states accordingly
+  // }, []);
 
   const handleCategorySelect = (categoryID) => {
     setSelectedCategory(categoryID);
@@ -53,27 +60,8 @@ const AdminDashboard = ({ hostUrl }) => {
       });
   };
 
-  const handleEditLaw = (law) => {
-    setEditedLaw(law);
-  };
-
-  const handleSaveChanges = (editedLaw) => {
-    // Handle saving the edited law (e.g., make an API call to update the law)
-    // After successful save, update `lawsInCategory` state and reset `editedLaw` state
-  };
-
-  // Fetch and set initial data (e.g., categories and laws) on component mount
-  useEffect(() => {
-    // Example: You can make API calls here to get categories and initial laws
-    // Update states accordingly
-  }, []);
-
-  // Get the active category name based on selectedCategory
-  const activeCategoryName = selectedCategory ? lawCategories.find((category) => category.id === selectedCategory)?.name : '';
-
   return (
     <div className="container AdminDashboard">      
-      {/* row one */}
       <div className="row rowOne">
         <div className="col-md-10">
           <h2 className="">Admin Dashboard</h2>
@@ -84,13 +72,11 @@ const AdminDashboard = ({ hostUrl }) => {
             Add New Law
           </button>
         </div>
-        {/* admin dashboard title + create new law button */}
       </div>
       <div className="row my-3">
         <hr />
       </div>
 
-      {/* row two */}
       <div className="row rowTwo">
         <div className="col-md-3">
           <Sidebar
@@ -99,7 +85,7 @@ const AdminDashboard = ({ hostUrl }) => {
             onCategorySelect={handleCategorySelect}
           />
         </div>
-        <LawList laws={lawsInCategory} onEditLaw={handleEditLaw} activeCategoryName={activeCategoryName} />
+        <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
       </div>
     </div>
   );

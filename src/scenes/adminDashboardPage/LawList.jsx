@@ -1,16 +1,40 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import LawModal from './LawModal'; 
 
-const LawList = ({ laws, onEditLaw, activeCategoryName }) => {
-  const ellipsisStyle ={
-    width: 'auto'
-  }
+const LawList = ({ laws, activeCategoryName, hostUrl }) => {
+  const ellipsisStyle = {
+    width: 'auto',
+  };
 
-  const [showModal, setShowModal] = useState(false);
+  const [selectedLaw, setSelectedLaw] = useState(null);
+  const [selectedLawContent, setSelectedLawContent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
+  const toggleModal = (law) => {
+    // Fetch the law content when the ellipsis button is clicked
+    axios.get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
+      .then((response) => {
+        console.log(response.data);
+        setSelectedLawContent(response.data);
+        setSelectedLaw(law);
+        setIsModalOpen(true); // Open the modal
+      })
+      .catch((error) => console.error('Error fetching law content:', error));
+  };
+  
+  const handleEditLaw = () => {
+    // Handle the "Edit Law" functionality within the LawList component
+    // For example, you can open an edit form or perform other actions here.
+    console.log('Edit Law clicked for:', selectedLaw);
+    // Close the modal
+    setIsModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Close the modal
   };
   
   return (
@@ -26,37 +50,25 @@ const LawList = ({ laws, onEditLaw, activeCategoryName }) => {
               <div className="d-flex justify-content-end">
                 <button 
                   className="btn btn-link" 
-                  onClick={toggleModal} 
+                  onClick={() => toggleModal(law)} 
                   style={ellipsisStyle}
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
                 >
-                  <FontAwesomeIcon icon={ faEllipsisH } />
+                  <FontAwesomeIcon icon={faEllipsisH} />
                 </button>
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ...
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">djsklajds changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </li>
           ))}
         </ul>
       </div>
+      {isModalOpen && (
+        <LawModal
+          activeCategoryName={activeCategoryName}
+          selectedLawContent={selectedLawContent}
+          handleEditLaw={handleEditLaw}
+          handleCloseModal={handleCloseModal}
+          show={isModalOpen}
+        />
+      )}
     </div>
   );
 };
