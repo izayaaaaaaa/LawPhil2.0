@@ -33,14 +33,10 @@ body {
   background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.40), rgba(58, 8, 107, 0.75));
 }
 
-.white-bg, .card {
-  background-color: #ffffff;
-}
-
-.card {
+/* .card {
   border-color: #6a498a;
   border-radius: 20px;
-}
+} */
 
 hr {
   color: #432575;
@@ -50,7 +46,6 @@ hr {
 .btn, .btn-link {
   font-family: 'Anonymous Pro', monospace;
   box-shadow: none;
-  border-color: rgba(146, 99, 179, 0.25);
   width: 200px;
 }
 
@@ -61,6 +56,13 @@ hr {
 
 .btn-link:hover {
   color: #3A086B;
+}
+
+.btn-link:focus, .btn-link::selection {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .edit-btn, .save-btn {
@@ -160,8 +162,8 @@ h1 {
 
 h2 {
   font-family: 'Source Serif 4', serif;
-  font-size: 40px;
-  text-align: center;
+  font-size: 30px;
+  color: #3a086b;
 }
 
 h3, p, span {
@@ -194,6 +196,11 @@ h6, a, li, option, select, button, .small-text, .keywords, .form-check-label {
 h6 {
   font-size: 16px;
   font-weight: bold;
+}
+
+span, li {
+  font-size: 16px;
+  cursor: pointer;
 }
 
 a:focus, a::selection, .btn-link:focus, .btn-link::selection {

@@ -1,76 +1,27 @@
 /* admin.css */
-
-.law-container {
-    display: flex;
-    gap: 15px;
+#sidebar {
+    background: #3A086B;
+    border-radius: 7px;
+    /* width: 280px; */
+    background-color: #ffffff;
 }
 
-.law-list-container {
-    height: auto;
-    overflow-y: auto;
+#sidebar-title {
+    border-bottom: rgba(58, 8, 107, 0.25) 0.5px solid;
 }
 
-.law-list {
-    border: 1px solid #3A086B;
-    border-radius: 10px;
-}
-
-.page-ctrl-btn {
-    margin: 4px;
-    width: fit-content;
-    border: none;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.page-ctrl-btn:disabled {
-    color: rgba(105, 73, 138, 0.5);
-    border: none;
-    box-shadow: none;
-}
-
-.page-btn {
-    margin: 4px;
-    width: fit-content;
-    color:#ffffff;
-    background-color: #69498a;
-    border-color: #69498a;
-}
-
-.page-btn:hover {
-    color: #ffffff;
-    background-color: rgba(105, 73, 138, 0.75);
-    border-color: #6A498a;
-}
-
-.page-btn:focus {
-    color: #ffffff;
-    background-color: rgba(105, 73, 138, 0.75);
-    border-color: #6A498a;
-}
-
-.page-btn:active {
-    color:#ffffff;
-    background-color: #69498a;
-    border-color: #69498a;
-}
-
-
-.law-btn {
-    color: #6A498A;
-}
-
-.law-btn:focus {
-    outline: none;
-    border: none;
-    box-shadow: none;
-}
-
-.law-btn:hover {
-    color: #3A086B;
+.category-list-item {
+    border-bottom: rgba(58, 8, 107, 0.25) 0.5px solid;
+    padding: 17px 0;
 }
 
 .law-details {
-    border: 1px solid #3A086B;
+    border: none;
+    border-radius: 10px;
+}
+
+#listbar {
+    flex: 1;
     border-radius: 10px;
 }
 

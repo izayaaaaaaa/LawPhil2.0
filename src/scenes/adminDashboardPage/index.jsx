@@ -9,12 +9,13 @@ import '../../styles/general.css';
 import '../../styles/admin.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import LawList from './LawList';
 import LawForm from "./LawForm";
 
 const lawCategories = [
-  { id: 'All', name: 'All Categories (Default)' },
   { id: 'Constitutions', name: 'Constitutions' },
   { id: 'Statutes', name: 'Statutes' },
   { id: 'Executive Issuances', name: 'Executive Issuances' },
@@ -67,29 +68,39 @@ const AdminDashboard = ({ hostUrl }) => {
     // Update states accordingly
   }, []);
 
-  return (
-    <div className="AdminDashboard">
-      {/* <h3>Admin Dashboard</h3>
-      
-      <div className="d-flex">
-        <Sidebar
-          categories={lawCategories} 
-          selectedCategory={selectedCategory}
-          onCategorySelect={handleCategorySelect}
-        />
-        <LawList laws={lawsInCategory} onEditLaw={handleEditLaw} />
-      </div>
-      {editedLaw && (
-        <LawForm
-          law={editedLaw}
-          onCancelEdit={() => setEditedLaw(null)}
-          onSaveChanges={handleSaveChanges}
-        />
-      )} */}
-      
-      
-      
+  // Get the active category name based on selectedCategory
+  const activeCategoryName = selectedCategory ? lawCategories.find((category) => category.id === selectedCategory)?.name : '';
 
+  return (
+    <div className="container AdminDashboard">      
+      {/* row one */}
+      <div className="row rowOne">
+        <div className="col-md-10">
+          <h2 className="">Admin Dashboard</h2>
+        </div>
+        <div className="col-md-2">
+          <button type="button" className="btn btn-link">
+            <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
+            Add New Law
+          </button>
+        </div>
+        {/* admin dashboard title + create new law button */}
+      </div>
+      <div className="row my-3">
+        <hr />
+      </div>
+
+      {/* row two */}
+      <div className="row rowTwo">
+        <div className="col-md-3">
+          <Sidebar
+            categories={lawCategories} 
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </div>
+        <LawList laws={lawsInCategory} onEditLaw={handleEditLaw} activeCategoryName={activeCategoryName} />
+      </div>
     </div>
   );
 };
