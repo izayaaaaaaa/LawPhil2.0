@@ -55,47 +55,37 @@ const SearchResultsPage = ({ hostUrl }) => {
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     const isChecked = e.target.checked;
-
+  
     setSelectedCategories((prevCategories) => {
       if (category === 'All') {
-        // If 'All Categories' is checked, clear other selections
+        // If 'All Categories' is checked, set selectedCategories to ['All']
         return isChecked ? ['All'] : [];
       } else {
+        let newCategories;
+        
         if (isChecked) {
-          // Uncheck 'All Categories' if any other category is checked
-          const newCategories = prevCategories.includes('All')
-            ? prevCategories.filter((c) => c !== 'All')
-            : [...prevCategories, category];
-
-          // If all categories except 'All' are checked, check 'All Categories'
-          if (
-            newCategories.length === categories.length - 1 &&
-            newCategories.every((c) => c !== 'All')
-          ) {
-            // empty the cateogyr array first
-            newCategories.splice(0, newCategories.length);
-            newCategories.push('All');
+          // If a category is checked, add it to selectedCategories
+          if (!prevCategories.includes(category)) {
+            newCategories = [...prevCategories, category];
+          } else {
+            newCategories = prevCategories;
           }
-
-          return newCategories;
         } else {
-          // If unchecking a category, remove it from selectedCategories
-          const newCategories = prevCategories.filter(
+          // If a category is unchecked, remove it from selectedCategories
+          newCategories = prevCategories.filter(
             (prevCategory) => prevCategory !== category
           );
-
-          // If no categories are checked, check 'All Categories'
-          if (newCategories.length === 0) {
-            newCategories.push('All');
-          }
-
-          return newCategories;
         }
+  
+        // Uncheck 'All Categories' if any other category is checked
+        if (newCategories.includes('All')) {
+          newCategories = newCategories.filter((c) => c !== 'All');
+        }
+  
+        return newCategories;
       }
     });
-
-    console.log('Selected categories:', selectedCategories);
-  };
+  };  
 
   return (
     <div>
@@ -112,7 +102,7 @@ const SearchResultsPage = ({ hostUrl }) => {
                 value={category.value}
                 checked={selectedCategories.includes(category.value)}
                 onChange={handleCategoryChange}
-              />
+              /> 
             ))}
           </div>
 
