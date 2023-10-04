@@ -85,7 +85,7 @@ const AdminDashboard = ({ hostUrl }) => {
             onCategorySelect={handleCategorySelect}
           />
         </div>
-        <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
+          <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
       </div>
     </div>
   );

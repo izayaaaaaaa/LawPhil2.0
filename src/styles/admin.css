@@ -1,8 +1,6 @@
 /* admin.css */
 #sidebar {
-    background: #3A086B;
     border-radius: 7px;
-    /* width: 280px; */
     background-color: #ffffff;
 }
 
@@ -20,9 +18,14 @@
     border-radius: 10px;
 }
 
-#listbar {
+#lawlist {
     flex: 1;
     border-radius: 10px;
+    background-color: #ffffff;
+}
+
+#lawlist-title {
+    border-bottom: rgba(58, 8, 107, 0.25) 0.5px solid;
 }
 
 .list-group-item {

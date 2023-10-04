@@ -38,9 +38,8 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
   };
   
   return (
-    <div className="col-md-9" id="listbar">
-      <div className="card">
-        <div className="card-header p-3">
+    <div className="col-md-9 d-flex flex-column flex-shrink-0 mx-2" id="lawlist">
+        <div className="p-3" id="lawlist-title">
           <span className="fs-4">{activeCategoryName}</span>
         </div>
         <ul className="px-3 list-group list-group-flush">
@@ -59,7 +58,6 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
             </li>
           ))}
         </ul>
-      </div>
       {isModalOpen && (
         <LawModal
           activeCategoryName={activeCategoryName}
