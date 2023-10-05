@@ -11,24 +11,27 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
 
   const [selectedLaw, setSelectedLaw] = useState(null);
   const [selectedLawContent, setSelectedLawContent] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+  const [editedContent, setEditedContent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = (law) => {
     // Fetch the law content when the ellipsis button is clicked
-    axios.get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
+    axios
+      .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
       .then((response) => {
         console.log(response.data);
         setSelectedLawContent(response.data);
         setSelectedLaw(law);
+        setEditedContent(response.data.content); // Initialize editedContent with the existing content
         setIsModalOpen(true); // Open the modal
       })
       .catch((error) => console.error('Error fetching law content:', error));
   };
   
-  const handleEditLaw = () => {
-    // Handle the "Edit Law" functionality within the LawList component
-    // For example, you can open an edit form or perform other actions here.
-    console.log('Edit Law clicked for:', selectedLaw);
+  const handleSaveChanges = (editedContent) => {
+    // Handle saving changes here, you can make an API call to update the content
+    console.log('Save Changes clicked for:', selectedLaw);
+
     // Close the modal
     setIsModalOpen(false);
   };
@@ -38,33 +41,49 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
   };
   
   return (
-    <div className="col-md-9 d-flex flex-column flex-shrink-0 mx-2" id="lawlist">
-        <div className="p-3" id="lawlist-title">
-          <span className="fs-4">{activeCategoryName}</span>
-        </div>
-        <ul className="px-3 list-group list-group-flush">
-          {laws.map((law) => (
-            <li className="py-3 list-group-item d-flex justify-content-between" key={law.id}>
-              <span>{law.title}</span>
-              <div className="d-flex justify-content-end">
-                <button 
-                  className="btn btn-link" 
-                  onClick={() => toggleModal(law)} 
-                  style={ellipsisStyle}
-                >
-                  <FontAwesomeIcon icon={faEllipsisH} />
-                </button>
+    <div className="d-flex flex-column flex-shrink-0 mx-2" id="lawlist">
+      <div className="p-3" id="lawlist-title">
+        <span className="fs-4">{activeCategoryName}</span>
+      </div>
+
+      <ul className="list-group list-group-flush">
+        {laws.map((law) => (
+          <li className="align-items-center py-3 list-group-item d-flex justify-content-between" key={law.id}>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-11">
+                  <span>{law.title}</span>
+                </div>
+                <div className="col-md-1 d-flex justify-content-end">
+                  <button 
+                    className="btn btn-link" 
+                    onClick={() => toggleModal(law)} 
+                    style={ellipsisStyle}
+                  >
+                    <FontAwesomeIcon icon={faEllipsisH} />
+                  </button>
+                </div>
               </div>
-            </li>
-          ))}
-        </ul>
+              
+              <div className="row">
+                <div className="col-md-12">
+                <span className="subcategory">{law.subcategory ? law.subcategory : ''}</span>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
       {isModalOpen && (
         <LawModal
+          show={isModalOpen}  
           activeCategoryName={activeCategoryName}
+          lawName={selectedLaw.title}
           selectedLawContent={selectedLawContent}
-          handleEditLaw={handleEditLaw}
-          handleCloseModal={handleCloseModal}
-          show={isModalOpen}
+          editedContent={editedContent}
+          onSave={handleSaveChanges} 
+          onClose={handleCloseModal} 
         />
       )}
     </div>

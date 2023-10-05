@@ -166,12 +166,12 @@ h2 {
   color: #3a086b;
 }
 
-h3, p, span {
+h3, p, span, .modal-header {
   font-family: 'Source Serif 4', serif;
   font-size: 18px;
   text-align: justify;
-  color: #000000;
 }
+
 
 h4, .form-label {
   font-family: 'Lexend Exa', sans-serif;
@@ -188,8 +188,21 @@ h5 {
   color: #3a086b;
 }
 
+p {
+  margin-bottom: 0;
+}
+
+.subcategory {
+  font-size: 14px;
+  color: #515151;
+}
+
+span, li {
+  cursor: pointer;
+}
+
 /* Smaller Text Styles */
-h6, a, li, option, select, button, .small-text, .keywords, .form-check-label {
+h6, a, li, option, select, button, .small-text, .form-check-label {
   font-family: 'Anonymous Pro', monospace;
 }
 
@@ -198,17 +211,12 @@ h6 {
   font-weight: bold;
 }
 
-span, li {
-  font-size: 16px;
-  cursor: pointer;
-}
-
 a:focus, a::selection, .btn-link:focus, .btn-link::selection {
   outline: none;
   background-color: transparent;
 }
 
-.results-found, .keywords {
+.results-found {
   font-size: 14px;
   color: #432575;
 }

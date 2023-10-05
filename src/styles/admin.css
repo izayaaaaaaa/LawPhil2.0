@@ -1,4 +1,6 @@
 /* admin.css */
+
+/* Sidebar.jsx */
 #sidebar {
     border-radius: 7px;
     background-color: #ffffff;
@@ -13,11 +15,7 @@
     padding: 17px 0;
 }
 
-.law-details {
-    border: none;
-    border-radius: 10px;
-}
-
+/* LawList.jsx */
 #lawlist {
     flex: 1;
     border-radius: 10px;
@@ -31,11 +29,24 @@
 .list-group-item {
     border: none;
     background-color: transparent;
+    &:hover {
+        background-color: rgba(173, 173, 173, 0.25);
+      }
+    &:active{
+        border: none;
+        background-color: transparent;
+        color: #3A086B;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    }
 }
 
-.list-group-item.active{
-    border: none;
-    background-color: transparent;
-    color: #3A086B;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+/* LawModal.jsx */
+.modal-fullscreen {
+    max-width: 100%;
+    margin: 0;
+}
+
+/* Optionally, you can set a background color for the modal overlay */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
 }

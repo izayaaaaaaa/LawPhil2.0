@@ -7,7 +7,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/admin.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -30,27 +30,20 @@ const lawCategories = [
 const AdminDashboard = ({ hostUrl }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [lawsInCategory, setLawsInCategory] = useState([]);
-
-  const activeCategoryName = selectedCategory ? lawCategories.find((category) => category.id === selectedCategory)?.name : '';
-
-  // Fetch and set initial data (e.g., categories and laws) on component mount
-  // useEffect(() => {
-  // Example: You can make API calls here to get categories and initial laws
-  // Update states accordingly
-  // }, []);
+  const [activeCategoryName, setActiveCategoryName] = useState('');
 
   const handleCategorySelect = (categoryID) => {
     setSelectedCategory(categoryID);
     console.log(`AdminDashboard Selected category: ${categoryID}`);
   
-    const apiUrl = `${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawsByCategory.php?category=${categoryID}`;
-  
+    // Fetch laws in the selected category (title and subcategory only)
     axios
-      .get(apiUrl)
+      .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawsByCategory.php?category=${categoryID}`)
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
           setLawsInCategory(response.data);
+          setActiveCategoryName(lawCategories.find((category) => category.id === categoryID)?.name || '');
         } else {
           throw new Error(`Failed to fetch laws for category ${categoryID}`);
         }
@@ -62,10 +55,12 @@ const AdminDashboard = ({ hostUrl }) => {
 
   return (
     <div className="container AdminDashboard">      
+      
       <div className="row rowOne">
         <div className="col-md-10">
           <h2 className="">Admin Dashboard</h2>
         </div>
+        
         <div className="col-md-2">
           <button type="button" className="btn btn-link">
             <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
@@ -73,6 +68,7 @@ const AdminDashboard = ({ hostUrl }) => {
           </button>
         </div>
       </div>
+
       <div className="row my-3">
         <hr />
       </div>
@@ -85,8 +81,11 @@ const AdminDashboard = ({ hostUrl }) => {
             onCategorySelect={handleCategorySelect}
           />
         </div>
-          <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
+          <div className="col-md-9">
+            <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
+          </div>
       </div>
+
     </div>
   );
 };
