@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactQuill from 'react-quill';
@@ -14,6 +14,7 @@ const LawModal = ({
   handleSaveChanges,
   handleCloseModal,
 }) => {
+  const [content, setContent] = useState(editedContent);
 
   const modalBodyStyle = {
     wordWrap: 'break-word', // Allow text to wrap
@@ -21,34 +22,38 @@ const LawModal = ({
     whiteSpace: 'pre-wrap', // Preserve whitespace
   };
 
+  const handleContentChange = (newContent) => {
+    setContent(newContent);
+  };
+
+  const handleSaveClick = () => {
+    handleSaveChanges(content);
+  };
+
   return (
     <Modal show={show} onHide={handleCloseModal} size="lg" dialogClassName="modal-fullscreen">
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
-          <p className="small-text"><b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeCategoryName}</span>)</p>
+          <p className="small-text">
+            <b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeCategoryName}</span>)
+          </p>
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body 
-        className="d-flex justify-content-center"
-        style={modalBodyStyle}
-      >
+      <Modal.Body className="d-flex justify-content-center" style={modalBodyStyle}>
         <ReactQuill
-          value={editedContent}
-          onChange={(content, delta, source, editor) => {
-            if (source === 'user') {
-              handleSaveChanges(editor.getHTML());
-            }
-          }}
+          value={content}
+          style={{ width: '90%', height: '100%' }}
+          onChange={handleContentChange}
         />
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="light"  className="close-btn" onClick={handleCloseModal}>
+        <Button variant="light" className="close-btn" onClick={handleCloseModal}>
           Cancel
         </Button>
-        <Button variant="secondary" className="save-btn" onClick={() => handleSaveChanges(editedContent)}>
+        <Button variant="secondary" className="save-btn" onClick={handleSaveClick}>
           Save Changes
         </Button>
       </Modal.Footer>
