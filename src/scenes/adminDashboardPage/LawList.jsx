@@ -45,7 +45,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   return (
     <div className="d-flex flex-column flex-shrink-0 mx-2" id="lawlist">
       <div className="p-3" id="lawlist-title">
-        <span className="fs-4">{activeCategoryName}</span>
+        <span className="title fs-4">{activeCategoryName}</span>
       </div>
 
       <ul className="list-group list-group-flush">
@@ -54,16 +54,38 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
             <div className="container">
               <div className="row">
                 <div className="col-md-11">
-                  <span>{law.title}</span>
+                  <h3>{law.title}</h3>
                 </div>
                 <div className="col-md-1 d-flex justify-content-end">
-                  <button 
-                    className="btn btn-link" 
-                    onClick={() => toggleModal(law)} 
-                    style={ellipsisStyle}
-                  >
-                    <FontAwesomeIcon icon={faEllipsisH} />
-                  </button>
+                  <div className="dropdown">
+                    <button
+                      className="btn btn-link"
+                      type="button"
+                      id={`dropdownMenuButton-${law.id}`}
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style={ellipsisStyle}
+                    >
+                      <FontAwesomeIcon icon={faEllipsisH} />
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton-${law.id}`}>
+                      <li>
+                        <button className="dropdown-item" 
+                          onClick={() => toggleModal(law)}
+                        >
+                          Edit
+                        </button>
+                      </li>
+                      <li>
+                        {/* Add your delete functionality here */}
+                        <button className="dropdown-item" 
+                          // onClick={() => handleDeleteLaw(law.id)}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               
