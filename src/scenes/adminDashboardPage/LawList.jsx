@@ -106,8 +106,8 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
           lawName={selectedLaw.title}
           selectedLawContent={selectedLawContent}
           editedContent={editedContent}
-          onSave={handleSaveChanges} 
-          onClose={handleCloseModal} 
+          handleSaveChanges={handleSaveChanges} 
+          handleCloseModal={handleCloseModal} 
         />
       )}
     </div>

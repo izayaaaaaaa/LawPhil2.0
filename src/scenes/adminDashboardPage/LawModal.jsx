@@ -1,8 +1,8 @@
-// LawModal.jsx
-
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const LawModal = ({
   show,
@@ -11,8 +11,8 @@ const LawModal = ({
   lawName,
   selectedLawContent,
   editedContent,
-  onSave,
-  onClose,
+  handleSaveChanges,
+  handleCloseModal,
 }) => {
 
   const modalBodyStyle = {
@@ -22,29 +22,33 @@ const LawModal = ({
   };
 
   return (
-    <Modal show={show} onHide={onClose} size="lg" dialogClassName="modal-fullscreen">
+    <Modal show={show} onHide={handleCloseModal} size="lg" dialogClassName="modal-fullscreen">
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
           <p className="small-text"><b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeCategoryName}</span>)</p>
         </Modal.Title>
       </Modal.Header>
+      
       <Modal.Body 
         className="d-flex justify-content-center"
         style={modalBodyStyle}
       >
-        <textarea
+        <ReactQuill
           value={editedContent}
-          onChange={(e) => onSave(e.target.value)} // Update editedContent as the user makes changes
-          style={{ width: '90%', height: '100%' }}
+          onChange={(content, delta, source, editor) => {
+            if (source === 'user') {
+              handleSaveChanges(editor.getHTML());
+            }
+          }}
         />
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="light"  className="close-btn" onClick={onClose}>
+        <Button variant="light"  className="close-btn" onClick={handleCloseModal}>
           Cancel
         </Button>
-        <Button variant="secondary" className="save-btn" onClick={onClose}>
+        <Button variant="secondary" className="save-btn" onClick={() => handleSaveChanges(editedContent)}>
           Save Changes
         </Button>
       </Modal.Footer>
