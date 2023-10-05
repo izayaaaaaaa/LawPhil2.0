@@ -7,7 +7,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../styles/general.css';
 import '../../styles/admin.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -41,7 +41,7 @@ const AdminDashboard = ({ hostUrl }) => {
       .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawsByCategory.php?category=${categoryID}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
+          console.log('AdminDashboard Category Laws Array: ', response.data);
           setLawsInCategory(response.data);
           setActiveCategoryName(lawCategories.find((category) => category.id === categoryID)?.name || '');
         } else {
@@ -76,14 +76,18 @@ const AdminDashboard = ({ hostUrl }) => {
       <div className="row rowTwo">
         <div className="col-md-3">
           <Sidebar
-            categories={lawCategories} 
+            lawCategories={lawCategories} 
             selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
+            handleCategorySelect={handleCategorySelect}
           />
         </div>
-          <div className="col-md-9">
-            <LawList laws={lawsInCategory} activeCategoryName={activeCategoryName} hostUrl={hostUrl} />
-          </div>
+        <div className="col-md-9">
+          <LawList  
+            hostUrl={hostUrl} 
+            lawsInCategory={lawsInCategory} 
+            activeCategoryName={activeCategoryName}
+          />
+        </div>
       </div>
 
     </div>

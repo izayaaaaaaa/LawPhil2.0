@@ -4,7 +4,7 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import LawModal from './LawModal'; 
 
-const LawList = ({ laws, activeCategoryName, hostUrl }) => {
+const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   const ellipsisStyle = {
     width: 'auto',
   };
@@ -15,7 +15,9 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = (law) => {
-    // Fetch the law content when the ellipsis button is clicked
+    // log law to console
+    console.log('Law clicked:', law);
+
     axios
       .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
       .then((response) => {
@@ -47,7 +49,7 @@ const LawList = ({ laws, activeCategoryName, hostUrl }) => {
       </div>
 
       <ul className="list-group list-group-flush">
-        {laws.map((law) => (
+        {lawsInCategory.map((law) => (
           <li className="align-items-center py-3 list-group-item d-flex justify-content-between" key={law.id}>
             <div className="container">
               <div className="row">

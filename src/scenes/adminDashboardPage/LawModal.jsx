@@ -33,15 +33,16 @@ const LawModal = ({
         />
       </Modal.Body>
 
-    <Modal.Footer>
-      <Button variant="secondary" onClick={onClose}>
+      <Modal.Footer>
+        Category: {activeCategoryName}
+
+        <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
-      <Button variant="primary" onClick={onClose}>
-        Save Changes
-      </Button>
-      Category: {activeCategoryName}
-    </Modal.Footer>
+        <Button variant="primary" onClick={onClose}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };
