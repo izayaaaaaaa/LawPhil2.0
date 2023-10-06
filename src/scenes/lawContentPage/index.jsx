@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../styles/general.css';
 import '../../styles/content.css';
@@ -8,13 +8,19 @@ import axios from 'axios';
 const LawContentPage = ({ hostUrl }) => {
   const { lawID } = useParams(); 
   const [lawContent, setLawContent] = useState(null);
-  const [formattedContent, setFormattedContent] = useState(null); // Changed variable name
-
+  
   // Function to find and replace the "Section <number>." pattern with bold text
   const formatContent = (content) => {
     const sectionPattern = /Section \d+\./g;
     return content.replace(sectionPattern, (match) => `<br /><br /><strong>${match}</strong><br />`);
   };
+
+  const formattedContent = useMemo(() => {
+    if (lawContent) {
+      return formatContent(lawContent.content);
+    }
+    return null;
+  }, [lawContent]);
 
   useEffect(() => {
     const fetchLawContent = async () => {
@@ -30,10 +36,7 @@ const LawContentPage = ({ hostUrl }) => {
     
         if (response.status === 200) {
           const data = response.data;
-          const content = data.content;
-          const formatted = formatContent(content);
           setLawContent(data);
-          setFormattedContent(formatted);
         } else {
           // Handle unexpected status codes here
           console.error('Unexpected status code:', response.status);
