@@ -1,6 +1,3 @@
-/* This code is a React component called `LawContentPage`. It is responsible for fetching and
-displaying the content of a law based on an ID parameter. */
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../styles/general.css';

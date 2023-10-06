@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Form from './Form';
 import '../../styles/general.css';
 import '../../styles/search.css';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const SearchPage = ({ hostUrl }) => {
   const navigate = useNavigate();
 
-  const handleSearch = (event) => {
+  const handleSearch = useCallback((event) => {
     event.preventDefault();
     const searchQuery = event.target.querySelector('input').value;
     
@@ -19,7 +19,7 @@ const SearchPage = ({ hostUrl }) => {
     console.log('SearchPage URL:', `/search-results/?${queryParams.toString()}`);
 
     navigate(`/search-results/?${queryParams.toString()}`);
-  };
+  }, [navigate]);
 
   return (
     <div>
