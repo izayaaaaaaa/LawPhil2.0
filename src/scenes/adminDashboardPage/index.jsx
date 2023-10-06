@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import LawList from './LawList';
+import NewLawModal from './NewLawModal';
 
 const lawCategories = [
   // feature upgrade: fetch the categories from the database
@@ -31,6 +32,7 @@ const AdminDashboard = ({ hostUrl }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [lawsInCategory, setLawsInCategory] = useState([]);
   const [activeCategoryName, setActiveCategoryName] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // Add state for modal
 
   const handleCategorySelect = (categoryID) => {
     setSelectedCategory(categoryID);
@@ -53,6 +55,11 @@ const AdminDashboard = ({ hostUrl }) => {
       });
   };
 
+  const toggleModal = () => {
+    // Open the modal
+    setIsModalOpen(true);
+  }
+
   return (
     <div className="container AdminDashboard">      
       
@@ -62,7 +69,7 @@ const AdminDashboard = ({ hostUrl }) => {
         </div>
         
         <div className="col-md-2">
-          <button type="button" className="btn btn-link">
+          <button type="button" className="btn btn-link" onClick={() => toggleModal()}>
             <FontAwesomeIcon icon={faPlusCircle} className="me-2" />
             Add New Law
           </button>
@@ -90,6 +97,9 @@ const AdminDashboard = ({ hostUrl }) => {
         </div>
       </div>
 
+      {isModalOpen && (
+        <NewLawModal show={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+      )}
     </div>
   );
 };

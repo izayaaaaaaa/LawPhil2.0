@@ -31,8 +31,19 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   };
   
   const handleSaveChanges = (editedContent) => {
-    // Handle saving changes here, you can make an API call to update the content
-    console.log('Save Changes clicked for:', selectedLaw);
+    // Make an API call to update the law content
+    axios.put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
+      id: selectedLaw.id,
+      content: editedContent,
+    })
+    .then((response) => {
+      console.log(response.data);
+      // Handle success response
+    })
+    .catch((error) => {
+      console.error('Error updating law content:', error);
+      // Handle error response
+    });
 
     // Close the modal
     setIsModalOpen(false);
