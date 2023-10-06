@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import LawModal from './LawModal';
+import LawModal from './LawModal'; 
 
 const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   const ellipsisStyle = {
@@ -31,19 +31,8 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   };
   
   const handleSaveChanges = (editedContent) => {
-    // Make an API call to update the law content
-    axios.put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
-      id: selectedLaw.id,
-      content: editedContent,
-    })
-    .then((response) => {
-      console.log(response.data);
-      // Handle success response
-    })
-    .catch((error) => {
-      console.error('Error updating law content:', error);
-      // Handle error response
-    });
+    // Handle saving changes here, you can make an API call to update the content
+    console.log('Save Changes clicked for:', selectedLaw);
 
     // Close the modal
     setIsModalOpen(false);
