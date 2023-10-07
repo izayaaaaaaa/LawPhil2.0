@@ -114,6 +114,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
         <LawModal
           show={isModalOpen}  
           activeCategoryName={activeCategoryName}
+          activeSubcategoryName={selectedLaw.subcategory}
           lawName={selectedLaw.title}
           selectedLawContent={selectedLawContent}
           editedContent={editedContent}

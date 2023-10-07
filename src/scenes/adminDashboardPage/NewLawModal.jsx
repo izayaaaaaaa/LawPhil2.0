@@ -46,8 +46,12 @@ const NewLawModal = ({ show, handleClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-        <Button variant="primary" onClick={handleSaveClick}>Save</Button>
+        <Button variant="light" className="close-btn" onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button variant="secondary" className="save-btn" onClick={handleSaveClick}>
+          Save Changes
+        </Button>
       </Modal.Footer>
     </Modal>
   );
