@@ -132,7 +132,7 @@ h1, h2, h4, h5, .form-label {
 
 h1 {
   font-family: 'Source Serif 4', serif;
-  font-size: 64px;
+  font-size: 64px !important;
   color: #3a086b;
 }
 
@@ -147,13 +147,12 @@ h3, p, .title, .modal-title {
 }
 
 h3, p, .title {
-  font-size: 18px;
+  font-size: 18px !important;
   text-align: justify;
 }
 
 h4, .form-label {
   font-family: 'Lexend Exa', sans-serif;
-  font-size: 18px;
   color: #000000;
   letter-spacing: 5px;
 }
