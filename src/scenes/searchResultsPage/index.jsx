@@ -19,7 +19,6 @@ const categories = [
 
 const SearchResultsPage = ({ hostUrl }) => {
   const location = useLocation();
-  // const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState(['All']);
 
@@ -27,35 +26,43 @@ const SearchResultsPage = ({ hostUrl }) => {
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('searchQuery');
 
-    console.log('SearchResultsPage Search query:', searchQuery);
-    console.log('SearchResultsPage Selected categories:', selectedCategories);
-
-    // Fetch search results based on the query, searchType, and selectedCategories
-    Axios.get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/searchKeywordLaw.php`, {
-      params: {
-        searchQuery: searchQuery,
-        selectedCategories: selectedCategories, // Pass an array of selected categories
-      },
-    })
-      .then((response) => {
-        // Handle the successful response
-        setSearchResults(response.data);
-        console.log('SearchResultsPage Search results:', response.data);
+    // Function to fetch search results
+    const fetchSearchResults = () => {
+      Axios
+      .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/searchKeywordLaw.php`, {
+        params: {
+          searchQuery: searchQuery,
+          selectedCategories: selectedCategories,
+        },
       })
+      .then((response) => {
+                setSearchResults(response.data);
+              })
       .catch((error) => {
-        // Handle errors
         console.error('Error fetching search results:', error);
         if (error.response) {
           console.error('Response data:', error.response.data);
           console.error('Response status:', error.response.status);
         }
       });
+    };
+
+    // Initial fetch
+    fetchSearchResults();
+
+    // Interval for fetching search results
+    const interval = setInterval(fetchSearchResults, 5000);
+
+    // Cleanup interval on component unmount
+    return () => {
+      clearInterval(interval);
+    };
   }, [hostUrl, location.search, selectedCategories]);
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     const isChecked = e.target.checked;
-  
+    
     setSelectedCategories((prevCategories) => {
       if (category === 'All') {
         // If 'All Categories' is checked, set selectedCategories to ['All']
@@ -76,12 +83,12 @@ const SearchResultsPage = ({ hostUrl }) => {
             (prevCategory) => prevCategory !== category
           );
         }
-  
+
         // Uncheck 'All Categories' if any other category is checked
         if (newCategories.includes('All')) {
           newCategories = newCategories.filter((c) => c !== 'All');
         }
-  
+
         return newCategories;
       }
     });
