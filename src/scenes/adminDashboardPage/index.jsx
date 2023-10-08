@@ -98,7 +98,11 @@ const AdminDashboard = ({ hostUrl }) => {
       </div>
 
       {isModalOpen && (
-        <NewLawModal show={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+        <NewLawModal 
+          show={isModalOpen} 
+          handleClose={() => setIsModalOpen(false)} 
+          hostUrl={hostUrl}
+        />
       )}
     </div>
   );

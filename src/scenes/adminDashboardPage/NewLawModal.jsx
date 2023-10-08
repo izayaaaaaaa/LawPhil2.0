@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
-const NewLawModal = ({ show, handleClose }) => {
+const lawCategories = [
+  { id: 'Constitutions', name: 'Constitutions' },
+  { id: 'Statutes', name: 'Statutes' },
+  { id: 'Executive Issuances', name: 'Executive Issuances' },
+  { id: 'Judicial Issuances', name: 'Judicial Issuances' },
+  { id: 'Other Judicial Issuances', name: 'Other Judicial Issuances' },
+  { id: 'Other Issuances', name: 'Other Issuances' },
+  { id: 'Jurisprudence', name: 'Jurisprudence' },
+  { id: 'International Legal Resources', name: 'International Legal Resources' },
+  { id: 'AUSL Exclusive', name: 'AUSL Exclusive' },
+];
+
+const NewLawModal = ({ show, handleClose, hostUrl }) => {
   const [lawTitle, setLawTitle] = useState('');
   const [lawCategory, setLawCategory] = useState('');
+  const [lawSubcategory, setLawSubcategory] = useState('');
+  const [lawContent, setLawContent] = useState('');
 
   const handleTitleChange = (e) => {
     setLawTitle(e.target.value);
@@ -14,17 +29,30 @@ const NewLawModal = ({ show, handleClose }) => {
     setLawCategory(e.target.value);
   };
 
+  const handleSubcategoryChange = (e) => {
+    setLawSubcategory(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setLawContent(e.target.value);
+  };
+
   const handleSaveClick = () => {
-    // Add your logic here to save the new law with lawTitle and lawCategory
-    // You can make an API call to save the law data to your backend
-    // After saving, you can close the modal.
-    // Example: axios.post('/api/create-law', { title: lawTitle, category: lawCategory })
-    //   .then(() => {
-    //     handleClose();
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error creating a new law:', error);
-    //   });
+    const lawData = {
+      title: lawTitle,
+      category: lawCategory,
+      subcategory: lawSubcategory,
+      content: lawContent
+    };
+
+    axios.post(`${hostUrl}/LawPhil2.0_Server/lawCRUD/createLaw.php`, lawData)
+      .then((response) => {
+    console.log(response.data);
+        handleClose();
+    })
+    .catch((error) => {
+    console.error('Error creating a new law:', error);
+    });
   };
 
   return (
@@ -41,8 +69,18 @@ const NewLawModal = ({ show, handleClose }) => {
           <label htmlFor="lawCategory" className="form-label">Law Category</label>
           <select className="form-select" id="lawCategory" value={lawCategory} onChange={handleCategoryChange}>
             <option value="">Select a category</option>
-            {/* Map your lawCategories to options */}
+            {lawCategories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
           </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lawSubcategory" className="form-label">Law Subcategory</label>
+          <input type="text" className="form-control" id="lawSubcategory" value={lawSubcategory} onChange={handleSubcategoryChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lawContent" className="form-label">Law Content</label>
+          <textarea className="form-control" id="lawContent" rows="5" value={lawContent} onChange={handleContentChange}></textarea>
         </div>
       </Modal.Body>
       <Modal.Footer>
