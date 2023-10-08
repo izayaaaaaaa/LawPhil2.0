@@ -1,5 +1,6 @@
 // navbar
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'; // Assuming you have the search icon imported
@@ -10,6 +11,13 @@ import '../../styles/navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLawsButtonClick = () => {
+    const queryParams = new URLSearchParams();
+    queryParams.append('searchQuery', '');
+    navigate(`/search-results/?${queryParams.toString()}`);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,12 +41,10 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faSearch} />
           </Link>
         ) : (
-          <Link className="nav-link active" aria-current="page" to="/"> {/* change to law list when available */}
+          <button className="nav-link active" onClick={handleLawsButtonClick}>
             LAWS
-          </Link>
+          </button>
         )}
-
-        
       </div>
     </nav>
   );
