@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import LawModal from './LawModal';
+import LawModal from './LawModal'; 
 
 const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   const ellipsisStyle = {
@@ -114,6 +114,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
         <LawModal
           show={isModalOpen}  
           activeCategoryName={activeCategoryName}
+          activeSubcategoryName={selectedLaw.subcategory}
           lawName={selectedLaw.title}
           selectedLawContent={selectedLawContent}
           editedContent={editedContent}

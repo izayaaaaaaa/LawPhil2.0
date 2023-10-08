@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactQuill from 'react-quill';
@@ -14,7 +14,14 @@ const LawModal = ({
   handleSaveChanges,
   handleCloseModal,
 }) => {
-  const [content, setContent] = useState(editedContent);
+const [content, setContent] = useState('');
+
+  // implement lazy loading to immediately render the text editor when the modal is opened
+  useEffect(() => {
+    if (show) {
+      setContent(editedContent);
+    }
+  }, [show, editedContent]);
 
   const modalBodyStyle = {
     wordWrap: 'break-word', // Allow text to wrap
@@ -36,7 +43,7 @@ const LawModal = ({
         <Modal.Title>
           {lawName}
           <p className="small-text">
-            <b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeCategoryName}</span>)
+            <b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeSubcategoryName}</span>)
           </p>
         </Modal.Title>
       </Modal.Header>
