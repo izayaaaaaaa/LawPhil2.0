@@ -11,8 +11,8 @@ const LawModal = ({
   lawName,
   selectedLawContent,
   editedContent,
-  handleSaveChanges,
-  handleCloseModal,
+  onSave,
+  onClose,
 }) => {
 const [content, setContent] = useState('');
 
@@ -24,9 +24,9 @@ const [content, setContent] = useState('');
   }, [show, editedContent]);
 
   const modalBodyStyle = {
-    wordWrap: 'break-word', // Allow text to wrap
-    overflowY: 'auto', // Vertical scrolling if needed
-    whiteSpace: 'pre-wrap', // Preserve whitespace
+    wordWrap: 'break-word',
+    overflowY: 'auto',
+    whiteSpace: 'pre-wrap',
   };
 
   const handleContentChange = (newContent) => {
@@ -34,11 +34,11 @@ const [content, setContent] = useState('');
   };
 
   const handleSaveClick = () => {
-    handleSaveChanges(content);
+    onSave(content);
   };
 
   return (
-    <Modal show={show} onHide={handleCloseModal} size="lg" dialogClassName="modal-fullscreen">
+    <Modal show={show} onHide={onClose} size="lg" dialogClassName="modal-fullscreen">
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
@@ -57,7 +57,7 @@ const [content, setContent] = useState('');
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="light" className="close-btn" onClick={handleCloseModal}>
+        <Button variant="light" className="close-btn" onClick={onClose}>
           Cancel
         </Button>
         <Button variant="secondary" className="save-btn" onClick={handleSaveClick}>

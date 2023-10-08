@@ -15,8 +15,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = (law) => {
-    // log law to console
-    console.log('Law clicked:', law);
+        console.log('Law clicked:', law);
 
     axios
       .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
@@ -24,15 +23,14 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
         console.log(response.data);
         setSelectedLawContent(response.data);
         setSelectedLaw(law);
-        setEditedContent(response.data.content); // Initialize editedContent with the existing content
-        setIsModalOpen(true); // Open the modal
+        setEditedContent(response.data.content);
+        setIsModalOpen(true);
       })
       .catch((error) => console.error('Error fetching law content:', error));
   };
   
   const handleSaveChanges = (editedContent) => {
-    // Make an API call to update the law content
-    axios.put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
+        axios.put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
       id: selectedLaw.id,
       content: editedContent,
     })
@@ -45,12 +43,11 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
       // Handle error response
     });
 
-    // Close the modal
-    setIsModalOpen(false);
+        setIsModalOpen(false);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
   
   return (
@@ -88,8 +85,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
                         </button>
                       </li>
                       <li>
-                        {/* Add your delete functionality here */}
-                        <button className="dropdown-item" 
+                                                <button className="dropdown-item" 
                           // onClick={() => handleDeleteLaw(law.id)}
                         >
                           Delete
