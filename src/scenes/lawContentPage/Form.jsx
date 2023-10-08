@@ -1,5 +1,3 @@
-// lawContentPage form
-
 const Form = ({ lawContent, formattedContent }) => {
 if (lawContent === null) {
     // Handle the case when lawContent is null (e.g., display a loading message)
