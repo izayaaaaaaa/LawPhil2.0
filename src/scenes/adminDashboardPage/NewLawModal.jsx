@@ -56,31 +56,35 @@ const NewLawModal = ({ show, handleClose, hostUrl }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} size="lg" dialogClassName="modal-fullscreen">
       <Modal.Header closeButton>
         <Modal.Title>Create a New Law</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <div className="mb-3">
-          <label htmlFor="lawTitle" className="form-label">Law Title</label>
-          <input type="text" className="form-control" id="lawTitle" value={lawTitle} onChange={handleTitleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="lawCategory" className="form-label">Law Category</label>
-          <select className="form-select" id="lawCategory" value={lawCategory} onChange={handleCategoryChange}>
-            <option value="">Select a category</option>
-            {lawCategories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="lawSubcategory" className="form-label">Law Subcategory</label>
-          <input type="text" className="form-control" id="lawSubcategory" value={lawSubcategory} onChange={handleSubcategoryChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="lawContent" className="form-label">Law Content</label>
-          <textarea className="form-control" id="lawContent" rows="5" value={lawContent} onChange={handleContentChange}></textarea>
+      <Modal.Body style={{ maxWidth: '100%', padding: '0'}}>
+        <div className="container m-5 px-5">
+          <div className="mb-3 row">
+            <label htmlFor="lawTitle" className="form-label p-0">Law Title</label>
+            <input type="text" className="form-control" id="lawTitle" value={lawTitle} onChange={handleTitleChange} />
+          </div>
+          <div className="mb-3 row">
+            <div className="mb-3 col p-0 me-3">
+              <label htmlFor="lawCategory" className="form-label">Law Category</label>
+              <select className="form-select" id="lawCategory" value={lawCategory} onChange={handleCategoryChange}>
+                <option value="">Select a category</option>
+                {lawCategories.map((category) => (
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-3 col p-0 ms-3">
+              <label htmlFor="lawSubcategory" className="form-label">Law Subcategory</label>
+              <input type="text" className="form-control" id="lawSubcategory" value={lawSubcategory} onChange={handleSubcategoryChange} />
+            </div>
+          </div>
+          <div className="mb-3 row">
+            <label htmlFor="lawContent" className="form-label p-0">Law Content</label>
+            <textarea className="form-control" id="lawContent" rows="12" value={lawContent} onChange={handleContentChange}></textarea>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>

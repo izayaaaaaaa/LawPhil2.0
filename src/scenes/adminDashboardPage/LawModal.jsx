@@ -43,8 +43,9 @@ const [content, setContent] = useState('');
         <Modal.Title>
           {lawName}
           <p className="small-text">
-            <b>&nbsp;Category:</b> {activeCategoryName} (<span className="subcategory">{activeSubcategoryName}</span>)
+            <b>&nbsp;Category:</b> {activeCategoryName}
           </p>
+          <span className="subcategory"><b>&nbsp;Subcategory:</b> {activeSubcategoryName}</span>
         </Modal.Title>
       </Modal.Header>
       
