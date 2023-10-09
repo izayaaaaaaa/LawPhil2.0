@@ -64,7 +64,7 @@ const NewLawModal = ({ show, handleClose, hostUrl }) => {
         <div className="container m-5 px-5">
           <div className="mb-3 row">
             <label htmlFor="lawTitle" className="form-label p-0">Law Title</label>
-            <input type="text" className="form-control" id="lawTitle" value={lawTitle} onChange={handleTitleChange} />
+            <input type="text" className="form-control" id="lawTitle" placeholder="Enter law title here" value={lawTitle} onChange={handleTitleChange} />
           </div>
           <div className="mb-3 row">
             <div className="mb-3 col p-0 me-3">
@@ -78,7 +78,7 @@ const NewLawModal = ({ show, handleClose, hostUrl }) => {
             </div>
             <div className="mb-3 col p-0 ms-3">
               <label htmlFor="lawSubcategory" className="form-label">Law Subcategory</label>
-              <input type="text" className="form-control" id="lawSubcategory" value={lawSubcategory} onChange={handleSubcategoryChange} />
+              <input type="text" className="form-control" id="lawSubcategory" placeholder="Enter a subcategory" value={lawSubcategory} onChange={handleSubcategoryChange} />
             </div>
           </div>
           <div className="mb-3 row">

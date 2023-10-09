@@ -4,12 +4,6 @@ import '../../styles/general.css';
 import '../../styles/search.css';
 import '../../styles/searchResults.css';
 
-// Helper function to remove HTML tags from content
-const stripHtmlTags = (html) => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body.textContent || "";
-};
-
 const SearchResults = ({ results }) => {
   return (
     <div>
@@ -28,12 +22,18 @@ const SearchResults = ({ results }) => {
                 </Link>
 
                 <div>
-                  <p className="small-text "><b>Category:</b> {item.category} (<span className="subcategory">{item.subcategory}</span>)</p>
-                  {/* Remove HTML formatting from law.desc content */}
-                  <p className="law-desc">{stripHtmlTags(item.content)}</p>
-                  <Link to={`/law-content/${item.id}`} className="link-style">
-                    Read More
+                  <Link to={`/law-content/${item.id}`} className="text-link-style">
+                    <p className="law-desc mt-3" dangerouslySetInnerHTML={{ __html: item.content }} />
                   </Link>
+                  <div className="mt-4">
+                    <span className="search-result-font category">
+                      <b>{item.category}</b> 
+                    </span>
+                    <span className="search-result-font category subcategory">
+                      {item.subcategory}
+                    </span>
+                  </div>
+                  
                 </div>
 
               </div>

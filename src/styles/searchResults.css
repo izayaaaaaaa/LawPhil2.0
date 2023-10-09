@@ -1,10 +1,8 @@
-.law-item:hover {
-  background-color: rgba(147, 58, 124, 0.05);
-}
-
 .law-desc {
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  -webkit-line-clamp: 5;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-height: 5.5em;
 }

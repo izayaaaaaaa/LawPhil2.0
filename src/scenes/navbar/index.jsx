@@ -24,9 +24,9 @@ const Navbar = () => {
       <div className="container-fluid">
         
         <div className="btn-group">
-          {/* <div className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <div>
             <img src="/logo.png" className="logo-sm mx-2"/>
-          </div> */}
+          </div>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><Link to="/link1">Log In</Link></li>
             <li><Link to="/admin-dashboard">Admin Dashboard</Link></li>

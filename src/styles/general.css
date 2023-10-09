@@ -67,12 +67,13 @@ hr {
 
 /* form styles */
 .form-control, .form-select, select, button {
-  border-color: #432575;
-  /* width: auto; */
+  border: none;
+  background-color: rgba(146, 101, 179, 0.15);
 }
 
 .form-control:focus, .form-select:focus, select:focus, button:focus {
   border-color: #432575;
+  background-color: rgba(146, 101, 179, 0.15);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   outline: none;
 }
@@ -100,7 +101,7 @@ hr {
 }
 
 /* link styles */
-.link-style, .link-style:hover {
+.link-style {
   text-decoration: none  ;
 }
 
@@ -109,8 +110,13 @@ hr {
 }
 
 .link-style:hover {
-  color: #6a498a  ;
-  text-decoration: underline  ;
+  color: #6a498a;
+  text-decoration: underline;
+}
+
+.text-link-style, .text-link-style:hover, .text-link-style:focus, .text-link-style:active, .text-link-style:visited {
+  color: #000000;
+  text-decoration: none;
 }
 
 /* logo */
@@ -127,7 +133,7 @@ hr {
 }
 
 /* Typography */
-h1, h2, h4, h5 {
+h1, h2, h4, h5{
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -164,8 +170,13 @@ h5 {
   color: #3a086b;
   font-size: 16px;
   font-weight: bolder;
-  letter-spacing: 5px;
-  
+}
+
+search-result-font {
+  font-family: 'Lexend Exa', sans-serif;
+  color: #3a086b;
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 p {
@@ -176,8 +187,12 @@ span, li {
   cursor: pointer;
 }
 
+::placeholder {
+  color: #000000;
+}
+
 /* Smaller Text Styles */
-h6, a, li, option, select, button, .small-text, .subcategory, .form-check-label, .form-label {
+h6, a, li, button, .small-text, .form-check-label, .form-label {
   font-family: 'Anonymous Pro', monospace;
 }
 
@@ -188,6 +203,15 @@ h6 {
 
 .small-text {
   font-size: 16px;
+}
+
+.category {
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(146, 101, 179, 0.15);
+  width: fit-content;
+  margin-right: 10px;
+  padding: 5px 10px;
 }
 
 .subcategory {

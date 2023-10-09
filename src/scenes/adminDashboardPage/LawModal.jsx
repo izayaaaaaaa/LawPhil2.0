@@ -42,10 +42,12 @@ const [content, setContent] = useState('');
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
-          <p className="small-text">
+          <p>
             <b>&nbsp;Category:</b> {activeCategoryName}
           </p>
-          <span className="subcategory"><b>&nbsp;Subcategory:</b> {activeSubcategoryName}</span>
+          <p className="subcategory">
+            <b>&nbsp;Subcategory:</b> {activeSubcategoryName}
+          </p>
         </Modal.Title>
       </Modal.Header>
       
