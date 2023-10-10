@@ -38,6 +38,12 @@ hr {
 }
 
 /* button styles */
+button {
+  font-family: 'lexend exa', sans-serif;
+  border: none;
+  background-color: rgba(146, 101, 179, 0.15);
+}
+
 .btn, .btn-link {
   font-family: 'lexend exa', sans-serif;
   box-shadow: none;
@@ -61,7 +67,25 @@ hr {
 }
 
 /* form styles */
-.form-control, .form-select, select, button {
+.form-check-label, .form-label, .edit-form-label {
+  font-family: 'lexend exa', sans-serif;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.edit-form-label {
+  font-size: 16px;
+}
+
+.edit-form-field {
+  width:fit-content;
+}
+
+.form-control, .form-select, select {
+  font-family: 'lexend exa', sans-serif;
   border: none;
   background-color: rgba(146, 101, 179, 0.15);
 }
@@ -172,13 +196,6 @@ h5 {
   font-weight: bolder;
 }
 
-search-result-font {
-  font-family: 'Lexend Exa', sans-serif;
-  font-size: 16px;
-  color: #3a086b;
-  font-weight: bolder;
-}
-
 p {
   margin-bottom: 0;
 }
@@ -191,12 +208,12 @@ span, li {
   color: #000000;
 }
 
-h6, a, li, button, .small-text, .subcategory, .form-check-label, .form-label {
+h6, a, li, button, .small-text, .category, .subcategory {
   font-family: 'lexend exa', sans-serif;
 }
 
 h6 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -204,7 +221,7 @@ h6 {
   font-size: 14px;
 }
 
-.category {
+.category-pill {
   border: none;
   border-radius: 20px;
   background-color: rgba(146, 101, 179, 0.15);
@@ -213,14 +230,13 @@ h6 {
   padding: 5px 10px;
 }
 
-.subcategory {
-  font-size: 14px;
-  color: #6f6f6f;
+.category {
+  font-size: 16px;
 }
 
-.form-label {
-  font-weight: bold;
-  font-size: 20px;
+.subcategory {
+  font-size: 16px;
+  color: #6f6f6f;
 }
 
 a:focus, a::selection, .btn-link:focus, .btn-link::selection {

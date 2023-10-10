@@ -98,7 +98,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
               
               <div className="row">
                 <div className="col-md-12">
-                <span className="subcategory">{law.subcategory ? law.subcategory : ''}</span>
+                  <span className="subcategory">{law.subcategory ? law.subcategory : ''}</span>
                 </div>
               </div>
             </div>
@@ -108,14 +108,16 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
 
       {isModalOpen && (
         <LawModal
-          show={isModalOpen}  
+          show={isModalOpen}
           activeCategoryName={activeCategoryName}
           activeSubcategoryName={selectedLaw.subcategory}
           lawName={selectedLaw.title}
           selectedLawContent={selectedLawContent}
           editedContent={editedContent}
-          onSave={handleSaveChanges} 
-          onClose={handleCloseModal} 
+          onSave={handleSaveChanges}
+          onUpdateCategory={(updatedCategory) => setEditedContent(updatedCategory)}
+          onUpdateSubcategory={(updatedSubcategory) => setEditedContent(updatedSubcategory)}
+          onClose={handleCloseModal}
         />
       )}
     </div>

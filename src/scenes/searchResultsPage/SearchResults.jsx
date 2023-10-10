@@ -26,10 +26,10 @@ const SearchResults = ({ results }) => {
                     <p className="law-desc mt-3" dangerouslySetInnerHTML={{ __html: item.content }} />
                   </Link>
                   <div className="mt-4">
-                    <span className="search-result-font category">
+                    <span className="category-pill category">
                       <b>{item.category}</b> 
                     </span>
-                    <span className="search-result-font category subcategory">
+                    <span className="category-pill subcategory">
                       {item.subcategory}
                     </span>
                   </div>

@@ -15,8 +15,24 @@ const LawModal = ({
   editedContent,
   onSave,
   onClose,
+  onUpdateCategory,
+  onUpdateSubcategory,
 }) => {
-const [content, setContent] = useState('');
+  const [content, setContent] = useState('');
+  const [editedCategory, setEditedCategory] = useState(activeCategoryName || '');
+  const [editedSubcategory, setEditedSubcategory] = useState(activeSubcategoryName || '');
+
+  const lawCategories = [
+    { id: 'Constitutions', name: 'Constitutions' },
+    { id: 'Statutes', name: 'Statutes' },
+    { id: 'Executive Issuances', name: 'Executive Issuances' },
+    { id: 'Judicial Issuances', name: 'Judicial Issuances' },
+    { id: 'Other Judicial Issuances', name: 'Other Judicial Issuances' },
+    { id: 'Other Issuances', name: 'Other Issuances' },
+    { id: 'Jurisprudence', name: 'Jurisprudence' },
+    { id: 'International Legal Resources', name: 'International Legal Resources' },
+    { id: 'AUSL Exclusive', name: 'AUSL Exclusive' },
+  ];
 
   // implement lazy loading to immediately render the text editor when the modal is opened
   useEffect(() => {
@@ -29,14 +45,25 @@ const [content, setContent] = useState('');
     wordWrap: 'break-word',
     overflowY: 'auto',
     whiteSpace: 'pre-wrap',
+    width: '100%',
   };
 
   const handleContentChange = (newContent) => {
     setContent(newContent);
   };
 
+  const handleCategoryChange = (event) => {
+    setEditedCategory(event.target.value);
+  };
+
+  const handleSubcategoryChange = (event) => {
+    setEditedSubcategory(event.target.value);
+  };
+
   const handleSaveClick = () => {
     onSave(content);
+    onUpdateCategory(editedCategory);
+    onUpdateSubcategory(editedSubcategory);
   };
 
   return (
@@ -44,21 +71,55 @@ const [content, setContent] = useState('');
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
-          <p className="small-text">
-            <b>&nbsp;Category:</b> {activeCategoryName}
-          </p>
-          <p className="subcategory">
-            <b>&nbsp;Subcategory:</b> {activeSubcategoryName}
-          </p>
         </Modal.Title>
       </Modal.Header>
-      
-      <Modal.Body className="d-flex justify-content-center" style={modalBodyStyle}>
-        <ReactQuill
-          value={content}
-          style={{ width: '90%', height: '100%' }}
-          onChange={handleContentChange}
-        />
+
+      <Modal.Body className="d-flex flex-column" style={modalBodyStyle}>
+        <div className="container">
+          <div className="row my-3 align-items-center">
+            <div className="col-auto">
+              <label htmlFor="categorySelect" className="category edit-form-label">
+                <b>Category:</b>
+              </label>
+            </div>
+            <div className="col-auto">
+              <select
+                id="categorySelect"
+                className="category form-select edit-form-field"
+                value={editedCategory}
+                onChange={handleCategoryChange}
+              >
+                {lawCategories.map((category) => (
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="col-auto">
+              <label htmlFor="subcategoryInput" className="subcategory edit-form-label">
+                <b>Subcategory:</b>
+              </label>
+            </div>
+            <div className="col-auto">
+              <input
+                id="subcategoryInput"
+                type="text"
+                className="subcategory form-control edit-form-field"
+                style={{ width: 'unset' }}
+                value={editedSubcategory}
+                onChange={handleSubcategoryChange}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <ReactQuill
+              value={content}
+              style={{ width: '100%', height: '100%' }}
+              onChange={handleContentChange}
+            />
+          </div>
+        </div>
       </Modal.Body>
 
       <Modal.Footer>
