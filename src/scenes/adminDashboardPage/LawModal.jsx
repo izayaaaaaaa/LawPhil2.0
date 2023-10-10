@@ -1,3 +1,5 @@
+// LawModal component
+
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -42,7 +44,7 @@ const [content, setContent] = useState('');
       <Modal.Header closeButton>
         <Modal.Title>
           {lawName}
-          <p>
+          <p className="small-text">
             <b>&nbsp;Category:</b> {activeCategoryName}
           </p>
           <p className="subcategory">

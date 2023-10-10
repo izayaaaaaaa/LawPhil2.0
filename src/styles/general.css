@@ -9,11 +9,6 @@
   src: url('./fonts/LexendExa.ttf') format('truetype');
 }
 
-@font-face {
-  font-family: 'Anonymous Pro';
-  src: url('./fonts/AnonymousPro.ttf') format('truetype');
-}
-
 /* general.css */
 body {
   margin: 0;
@@ -44,7 +39,7 @@ hr {
 
 /* button styles */
 .btn, .btn-link {
-  font-family: 'Anonymous Pro', monospace  ;
+  font-family: 'lexend exa', sans-serif;
   box-shadow: none;
   width: 200px;
 }
@@ -133,7 +128,7 @@ hr {
 }
 
 /* Typography */
-h1, h2, h4, h5{
+h1, h2, h4 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -153,13 +148,18 @@ h3, p, .title, .modal-title {
   font-family: 'Source Serif 4', serif;
 }
 
-h3, p, .title {
-  font-size: 18px  ;
+h3 {
+  font-size: 20px;
+}
+
+p, .title {
+  font-size: 18px;
   text-align: justify;
 }
 
 h4  {
   font-family: 'Lexend Exa', sans-serif;
+  font-size: 20px;
   text-transform: uppercase;
   color: #000000;
   letter-spacing: 5px;
@@ -167,15 +167,15 @@ h4  {
 
 h5 {
   font-family: 'Lexend Exa', sans-serif;
+  font-size: 18px;
   color: #3a086b;
-  font-size: 16px;
   font-weight: bolder;
 }
 
 search-result-font {
   font-family: 'Lexend Exa', sans-serif;
-  color: #3a086b;
   font-size: 16px;
+  color: #3a086b;
   font-weight: bolder;
 }
 
@@ -191,9 +191,8 @@ span, li {
   color: #000000;
 }
 
-/* Smaller Text Styles */
-h6, a, li, button, .small-text, .form-check-label, .form-label {
-  font-family: 'Anonymous Pro', monospace;
+h6, a, li, button, .small-text, .subcategory, .form-check-label, .form-label {
+  font-family: 'lexend exa', sans-serif;
 }
 
 h6 {
@@ -202,7 +201,7 @@ h6 {
 }
 
 .small-text {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .category {
@@ -215,7 +214,7 @@ h6 {
 }
 
 .subcategory {
-  font-size: 16px;
+  font-size: 14px;
   color: #6f6f6f;
 }
 

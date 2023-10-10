@@ -85,7 +85,7 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
                         </button>
                       </li>
                       <li>
-                                                <button className="dropdown-item" 
+                        <button className="dropdown-item" 
                           // onClick={() => handleDeleteLaw(law.id)}
                         >
                           Delete
