@@ -4,7 +4,7 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import LawModal from './LawModal'; 
 
-const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
+const LawList = ({ hostUrl, lawsInCategory, activeCategoryName, setLawsInCategory }) => {
   const ellipsisStyle = {
     width: 'auto',
   };
@@ -15,22 +15,23 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = (law) => {
-        console.log('Law clicked:', law);
+    console.log('Law clicked:', law);
 
     axios
-      .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
-      .then((response) => {
-        console.log(response.data);
-        setSelectedLawContent(response.data);
-        setSelectedLaw(law);
-        setEditedContent(response.data.content);
-        setIsModalOpen(true);
-      })
-      .catch((error) => console.error('Error fetching law content:', error));
+    .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawContent.php?lawID=${law.id}`)
+    .then((response) => {
+      console.log(response.data);
+      setSelectedLawContent(response.data);
+      setSelectedLaw(law);
+      setEditedContent(response.data.content);
+      setIsModalOpen(true);
+    })
+    .catch((error) => console.error('Error fetching law content:', error));
   };
   
   const handleSaveChanges = (editedContent) => {
-        axios.put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
+    axios
+    .put(`${hostUrl}/LawPhil2.0_Server/lawCRUD/updateLawContent.php`, {
       id: selectedLaw.id,
       content: editedContent,
     })
@@ -43,7 +44,23 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
       // Handle error response
     });
 
-        setIsModalOpen(false);
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteLaw = (lawId) => {
+    axios
+      .delete(`${hostUrl}/LawPhil2.0_Server/lawCRUD/deleteLaw.php?id=${lawId}`)
+      .then((response) => {
+        console.log(response.data);
+        // Handle success response
+        setLawsInCategory((prevLaws) =>
+          prevLaws.filter((law) => law.id !== lawId)
+        );
+      })
+      .catch((error) => {
+        console.error('Error deleting law:', error);
+        // Handle error response
+      });
   };
 
   const handleCloseModal = () => {
@@ -78,16 +95,12 @@ const LawList = ({ hostUrl, lawsInCategory, activeCategoryName }) => {
                     </button>
                     <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton-${law.id}`}>
                       <li>
-                        <button className="dropdown-item" 
-                          onClick={() => toggleModal(law)}
-                        >
+                        <button className="dropdown-item" onClick={() => toggleModal(law)}>
                           Edit
                         </button>
                       </li>
                       <li>
-                        <button className="dropdown-item" 
-                          // onClick={() => handleDeleteLaw(law.id)}
-                        >
+                        <button className="dropdown-item" onClick={() => handleDeleteLaw(law.id)}>
                           Delete
                         </button>
                       </li>

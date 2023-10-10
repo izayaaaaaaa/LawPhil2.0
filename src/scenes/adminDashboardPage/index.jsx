@@ -32,7 +32,7 @@ const AdminDashboard = ({ hostUrl }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [lawsInCategory, setLawsInCategory] = useState([]);
   const [activeCategoryName, setActiveCategoryName] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); // Add state for modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCategorySelect = (categoryID) => {
     setSelectedCategory(categoryID);
@@ -45,7 +45,9 @@ const AdminDashboard = ({ hostUrl }) => {
         if (response.status === 200) {
           console.log('AdminDashboard Category Laws Array: ', response.data);
           setLawsInCategory(response.data);
-          setActiveCategoryName(lawCategories.find((category) => category.id === categoryID)?.name || '');
+          setActiveCategoryName(
+            lawCategories.find((category) => category.id === categoryID)?.name || ''
+          );
         } else {
           throw new Error(`Failed to fetch laws for category ${categoryID}`);
         }
@@ -93,6 +95,7 @@ const AdminDashboard = ({ hostUrl }) => {
             hostUrl={hostUrl} 
             lawsInCategory={lawsInCategory} 
             activeCategoryName={activeCategoryName}
+            setLawsInCategory={setLawsInCategory}
           />
         </div>
       </div>
@@ -102,6 +105,8 @@ const AdminDashboard = ({ hostUrl }) => {
           show={isModalOpen} 
           handleClose={() => setIsModalOpen(false)} 
           hostUrl={hostUrl}
+          setLawsInCategory={setLawsInCategory}
+          selectedCategory={selectedCategory}
         />
       )}
     </div>

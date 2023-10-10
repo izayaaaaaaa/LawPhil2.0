@@ -1,5 +1,3 @@
-// NewLawModal component
-
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -17,7 +15,7 @@ const lawCategories = [
   { id: 'AUSL Exclusive', name: 'AUSL Exclusive' },
 ];
 
-const NewLawModal = ({ show, handleClose, hostUrl }) => {
+const NewLawModal = ({ show, handleClose, hostUrl, setLawsInCategory, selectedCategory}) => {
   const [lawTitle, setLawTitle] = useState('');
   const [lawCategory, setLawCategory] = useState('');
   const [lawSubcategory, setLawSubcategory] = useState('');
@@ -46,16 +44,32 @@ const NewLawModal = ({ show, handleClose, hostUrl }) => {
       subcategory: lawSubcategory,
       content: lawContent
     };
+  
+    axios
+    .post(`${hostUrl}/LawPhil2.0_Server/lawCRUD/createLaw.php`, lawData)
+    .then((response) => {
+      console.log(response.data);
+      handleClose();
 
-    axios.post(`${hostUrl}/LawPhil2.0_Server/lawCRUD/createLaw.php`, lawData)
-      .then((response) => {
-    console.log(response.data);
-        handleClose();
+      // Fetch the updated list of laws for the selected category
+      axios
+        .get(`${hostUrl}/LawPhil2.0_Server/lawCRUD/getLawsByCategory.php?category=${selectedCategory}`)
+        .then((response) => {
+          if (response.status === 200) {
+            setLawsInCategory(response.data);
+          } else {
+            throw new Error(`Failed to fetch laws for category ${selectedCategory}`);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     })
     .catch((error) => {
-    console.error('Error creating a new law:', error);
+      console.error('Error creating a new law:', error);
     });
   };
+  
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" dialogClassName="modal-fullscreen">
