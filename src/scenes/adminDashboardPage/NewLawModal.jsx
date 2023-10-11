@@ -64,6 +64,9 @@ const NewLawModal = ({ show, handleClose, hostUrl, setLawsInCategory, selectedCa
         .catch((error) => {
           console.error(error);
         });
+
+        // Show an alert indicating success
+        alert('New law successfully created!');
     })
     .catch((error) => {
       console.error('Error creating a new law:', error);

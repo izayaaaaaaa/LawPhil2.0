@@ -42,10 +42,8 @@ const LawModal = ({
   }, [show, editedContent]);
 
   const modalBodyStyle = {
-    wordWrap: 'break-word',
-    overflowY: 'auto',
-    whiteSpace: 'pre-wrap',
-    width: '100%',
+    maxWidth: '100%',
+    padding: '0',
   };
 
   const handleContentChange = (newContent) => {
@@ -61,59 +59,65 @@ const LawModal = ({
   };
 
   const handleSaveClick = () => {
+    console.log('LawModal handleSaveClick - Save button clicked');
     onSave(content);
     onUpdateCategory(editedCategory);
     onUpdateSubcategory(editedSubcategory);
+
+    // Use native JavaScript alert for pop-up
+    alert('Changes saved successfully!');
   };
 
   return (
     <Modal show={show} onHide={onClose} size="lg" dialogClassName="modal-fullscreen">
       <Modal.Header closeButton>
-        <Modal.Title>
-          {lawName}
-        </Modal.Title>
+        <Modal.Title>Edit Law</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="d-flex flex-column" style={modalBodyStyle}>
-        <div className="container">
-          <div className="row my-3 align-items-center">
-            <div className="col-auto">
-              <label htmlFor="categorySelect" className="category edit-form-label">
-                <b>Category:</b>
-              </label>
-            </div>
-            <div className="col-auto">
-              <select
-                id="categorySelect"
-                className="category form-select edit-form-field"
-                value={editedCategory}
-                onChange={handleCategoryChange}
-              >
-                {lawCategories.map((category) => (
-                  <option key={category.id} value={category.id}>{category.name}</option>
-                ))}
-              </select>
-            </div>
+      <Modal.Body style={modalBodyStyle} className="d-flex justify-content-center align-content-center">
+        <div className="container m-5 px-5">
+        <div className="mb-3 row">
+          <div className="col-md-12">
+            <label htmlFor="lawTitle" className="form-label">Law Title</label>
+            <input type="text" className="form-control" id="lawTitle" value={lawName} />
+          </div>
+        </div>
 
-            <div className="col-auto">
-              <label htmlFor="subcategoryInput" className="subcategory edit-form-label">
-                <b>Subcategory:</b>
-              </label>
-            </div>
-            <div className="col-auto">
-              <input
-                id="subcategoryInput"
-                type="text"
-                className="subcategory form-control edit-form-field"
-                style={{ width: 'unset' }}
-                value={editedSubcategory}
-                onChange={handleSubcategoryChange}
-              />
-            </div>
+        <div className="mb-3 row">
+          <div className="mb-3 col-md-6">
+            <label htmlFor="categorySelect" className="form-label">
+              Category
+            </label>
+            <select
+              id="categorySelect"
+              className="category form-select"
+              value={editedCategory}
+              onChange={handleCategoryChange}
+            >
+              {lawCategories.map((category) => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+            </select>
           </div>
 
-          <div className="row">
+          <div className="mb-3 col-md-6">
+            <label htmlFor="subcategoryInput" className="form-label">
+              Subcategory
+            </label>
+            <input
+              id="subcategoryInput"
+              type="text"
+              className="subcategory form-control"
+              value={editedSubcategory}
+              onChange={handleSubcategoryChange}
+            />
+          </div>
+        </div>
+
+          <div className="mb-3 row">
+          <span className="form-label">Law Content</span>
             <ReactQuill
+              id="lawContent"
               value={content}
               style={{ width: '100%', height: '100%' }}
               onChange={handleContentChange}
