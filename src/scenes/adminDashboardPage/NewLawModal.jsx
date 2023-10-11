@@ -76,7 +76,7 @@ const NewLawModal = ({ show, handleClose, hostUrl, setLawsInCategory, selectedCa
       <Modal.Header closeButton>
         <Modal.Title>Create a New Law</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ maxWidth: '100%', padding: '0'}}>
+      <Modal.Body style={{ maxWidth: '100%', padding: '0'}} className="d-flex justify-content-center align-content-center">
         <div className="container m-5 px-5">
           <div className="mb-3 row">
             <label htmlFor="lawTitle" className="form-label p-0">Law Title</label>
