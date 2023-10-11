@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const lawCategories = [
   { id: 'Constitutions', name: 'Constitutions' },
@@ -33,8 +35,8 @@ const NewLawModal = ({ show, handleClose, hostUrl, setLawsInCategory, selectedCa
     setLawSubcategory(e.target.value);
   };
 
-  const handleContentChange = (e) => {
-    setLawContent(e.target.value);
+  const handleContentChange = (content) => {
+    setLawContent(content);
   };
 
   const handleSaveClick = () => {
@@ -99,7 +101,11 @@ const NewLawModal = ({ show, handleClose, hostUrl, setLawsInCategory, selectedCa
           </div>
           <div className="mb-3 row">
             <label htmlFor="lawContent" className="form-label p-0">Law Content</label>
-            <textarea className="form-control" id="lawContent" rows="12" value={lawContent} onChange={handleContentChange}></textarea>
+            <ReactQuill 
+              value={lawContent} 
+              onChange={handleContentChange}
+              style={{ height: '400px' }}
+            />
           </div>
         </div>
       </Modal.Body>
