@@ -1,0 +1,8 @@
+.law-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  text-overflow: ellipsis;
+  max-height: 5.5em;
+}

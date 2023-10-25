@@ -1,0 +1,266 @@
+/* fonts */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('./fonts/SourceSerif4.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lexend Exa';
+  src: url('./fonts/LexendExa.ttf') format('truetype');
+}
+
+/* general.css */
+body {
+  margin: 0;
+  background-size: 100% 100%;
+}
+
+/* Backgrounds */
+.default-bg, .search-bg {
+  background-attachment: fixed;
+}
+
+.default-bg {
+  background-image: linear-gradient(rgba(141, 56, 146, 0.20), rgba(64, 16, 112, 0.20));
+}
+
+.search-bg {
+  background-image: linear-gradient(rgba(141, 56, 146, 0.34), rgba(64, 16, 112, 0.40), rgba(58, 8, 107, 0.75));
+}
+
+/* .card {
+  border-color: #6a498a;
+  border-radius: 20px;
+} */
+
+hr {
+  color: #432575;
+}
+
+/* button styles */
+button {
+  font-family: 'lexend exa', sans-serif;
+  border: none;
+  background-color: rgba(146, 101, 179, 0.15);
+}
+
+.btn, .btn-link {
+  font-family: 'lexend exa', sans-serif;
+  box-shadow: none;
+  width: 200px;
+}
+
+.btn-link {
+  text-decoration: none  ;
+  color: #6a498a  ;
+}
+
+.btn-link:hover {
+  color: #3A086B  ;
+}
+
+.btn-link:focus, .btn-link::selection {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* form styles */
+.form-check-label, .form-label, .edit-form-label {
+  font-family: 'lexend exa', sans-serif;
+}
+
+.form-label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form-control, .form-select, select {
+  font-family: 'lexend exa', sans-serif;
+  border: none;
+  background-color: rgba(146, 101, 179, 0.15);
+}
+
+.form-control:focus, .form-select:focus, select:focus, button:focus {
+  border-color: #432575;
+  background-color: rgba(146, 101, 179, 0.15);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+.form-check-input {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  outline: none;
+}
+
+.form-check-input:checked {
+  background-color: #9163B3;
+  border-color: #6a498a;
+}
+
+.form-check-input:hover {
+  background-color: #6a498a;
+  border-color: #432575;
+  color: #9163B3;
+}
+
+.form-check-input:focus {
+  box-shadow: none; /* Remove blue outline on focus */
+  outline-color: #9163B3  ;
+}
+
+/* link styles */
+.link-style {
+  text-decoration: none  ;
+}
+
+.link-style {
+  color: #3a086b  ;
+}
+
+.link-style:hover {
+  color: #6a498a;
+  text-decoration: underline;
+}
+
+.text-link-style, .text-link-style:hover, .text-link-style:focus, .text-link-style:active, .text-link-style:visited {
+  color: #000000;
+  text-decoration: none;
+}
+
+/* logo */
+.logo, .logo-sm {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.logo-sm {
+  width: 40px;
+  height: 40px;
+}
+
+/* Typography */
+h1, h2, h4 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 64px  ;
+  color: #3a086b;
+}
+
+h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 30px;
+  color: #3a086b;
+}
+
+h3, p, .title, .modal-title {
+  font-family: 'Source Serif 4', serif;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p, .title {
+  font-size: 18px;
+  text-align: justify;
+}
+
+h4  {
+  font-family: 'Lexend Exa', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #000000;
+  letter-spacing: 5px;
+}
+
+h5 {
+  font-family: 'Lexend Exa', sans-serif;
+  font-size: 18px;
+  color: #3a086b;
+  font-weight: bolder;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+span, li {
+  cursor: pointer;
+}
+
+::placeholder {
+  color: #000000;
+}
+
+h6, a, li, button, .small-text, .category, .subcategory {
+  font-family: 'lexend exa', sans-serif;
+}
+
+h6 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.small-text {
+  font-size: 14px;
+}
+
+.category-pill {
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(146, 101, 179, 0.15);
+  width: fit-content;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+
+.category {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.subcategory {
+  font-size: 16px;
+  color: #6f6f6f;
+}
+
+a:focus, a::selection, .btn-link:focus, .btn-link::selection {
+  outline: none;
+  background-color: transparent;
+}
+
+.results-found {
+  font-size: 14px;
+  color: #432575;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 767px) {
+  .form-control, .btn {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+}

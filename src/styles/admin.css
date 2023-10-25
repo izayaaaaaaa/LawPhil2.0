@@ -1,0 +1,73 @@
+/* admin.css */
+
+/* Sidebar.jsx */
+#sidebar {
+    border-radius: 7px;
+    background-color: #ffffff;
+}
+
+.category-list-item {
+    border-top: rgba(58, 8, 107, 0.25) 0.5px solid;
+    padding: 17px 0;
+}
+
+/* LawList.jsx */
+#lawlist {
+    flex: 1;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+#lawlist-title {
+    border-bottom: rgba(58, 8, 107, 0.25) 0.5px solid;
+}
+
+.list-group-item {
+    border: none;
+    background-color: transparent;
+    &:hover {
+        background-color: rgba(173, 173, 173, 0.10);
+    }
+    &:active {
+        border: none;
+        background-color: rgba(173, 173, 173, 0.20);
+        color: #3A086B;
+    }
+}
+
+/* LawModal.jsx */
+.modal-fullscreen {
+    max-width: 100%;
+    margin: 0;
+}
+
+/* Optionally, you can set a background color for the modal overlay */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Close and Save Buttons */
+.close-btn,
+.save-btn {
+    font-size: 16px;
+    font-weight: bold;
+    border-color: none;
+    outline: none;
+}
+
+.close-btn {
+    color: #9163B3;
+    background-color: transparent;
+    &:hover {
+        border-color: #9163B3;
+    }
+}
+
+.save-btn {
+    background-color: #6a498a;
+    border-color: #6a498a;
+    &:hover {
+        background-color: #3A086B;
+        border-color: #3A086B;
+    }
+}
