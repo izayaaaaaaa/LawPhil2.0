@@ -5,6 +5,9 @@ import Form from "./Form";
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
+// TODO:
+//  1. feature to navigate to admin dashboard if account is an admin account
+
 const LoginPage = ({ hostUrl }) => {
     const navigate = useNavigate();
     
@@ -45,8 +48,8 @@ const LoginPage = ({ hostUrl }) => {
             const responseData = await response.json();
             
             if (responseData.success) {
-                const redirectUrl = responseData.role === 'admin' ? '/admin-dashboard' : '/';
-                navigate(redirectUrl);
+                // const redirectUrl = responseData.success === 'true' ? '/search' : '/';
+                navigate('/search');
             } else {
                 console.log("Login failed:", responseData.message);
             }
@@ -67,6 +70,6 @@ const LoginPage = ({ hostUrl }) => {
             </div>
         </div>
         );
-    };
+};
     
-    export default LoginPage;
+export default LoginPage;

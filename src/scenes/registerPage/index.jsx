@@ -47,7 +47,7 @@ const RegisterPage = ({ hostUrl }) => {
             
             if (responseData.success) {
                 console.log("Registration successful!");
-                navigate('/login');
+                navigate('/');
             } 
         } catch (error) {
             console.log("Registration failed:", error.message);

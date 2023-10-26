@@ -1,4 +1,4 @@
-const Form = ({
+const RegisterForm = ({
     formData,
     handleChange,
     handleSubmit,
@@ -59,4 +59,4 @@ const Form = ({
     );
 };
 
-export default Form;
+export default RegisterForm;
