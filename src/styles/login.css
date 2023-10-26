@@ -1,8 +1,6 @@
-/* this creates a spacing bug for search but is what's needed here so i made it specific to the page */
 .container-user {
     display: flex;
     flex-direction: column;
-    height: 100vh;
 } 
 
 .log-card {

@@ -1,6 +1,6 @@
 const LoginForm = ({ formData, handleChange, handleSubmit }) => {
     return (
-        <div className="container px-5">
+        <div className="container mt-3 px-5 pt-5">
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col col-xl-10">
                     <div className="card log-card">
