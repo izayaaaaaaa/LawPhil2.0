@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 // TODO:
 //  1. feature to navigate to admin dashboard if account is an admin account
 
+// FIXME: 
+//  1. login form position is off
+
 const LoginPage = ({ hostUrl }) => {
     const navigate = useNavigate();
     

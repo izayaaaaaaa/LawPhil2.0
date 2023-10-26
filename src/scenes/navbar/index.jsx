@@ -1,5 +1,3 @@
-// TODO: 
-//    1. fix the styling of the register and login buttons
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,6 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
 import '../../styles/navbar.css';
+
+// FIXME: 
+//    1. fix the styling of the register and login buttons
 
 const Navbar = () => {
     const location = useLocation();
