@@ -7,8 +7,8 @@ const RegisterForm = ({
         <div className="container">
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col col-xl-10 mx-auto">
-                    <div className="card reg-card reg-card-bg">
-                        <div className="text-center">
+                    <div className="card reg-card reg-card-bg h-auto">
+                        <div className="text-center my-4">
                             <h3>Welcome back to</h3>
                             <h2>LawPhil Project!</h2>
                             <br />
