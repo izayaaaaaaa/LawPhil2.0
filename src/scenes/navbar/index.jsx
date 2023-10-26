@@ -19,6 +19,8 @@ import '../../styles/navbar.css';
 const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const navbarSpacing = location.pathname !== '/' ? 'mb-5' : '';
     
     const handleLawsButtonClick = () => {
         const queryParams = new URLSearchParams();
@@ -56,7 +58,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light mb-5">
+        <nav className={`navbar navbar-expand-lg navbar-light bg-light ${navbarSpacing}`}>
             <div className="container-fluid">
             
                 <div className="btn-group">
