@@ -51,8 +51,11 @@ const LoginPage = ({ hostUrl }) => {
             const responseData = await response.json();
             
             if (responseData.success) {
-                // const redirectUrl = responseData.success === 'true' ? '/search' : '/';
-                navigate('/search');
+                if (responseData.is_admin === 1) { // or use "role" if your response uses role instead of is_admin
+                    navigate('/admin-dashboard');
+                } else {
+                    navigate('/search');
+                }
             } else {
                 console.log("Login failed:", responseData.message);
             }
