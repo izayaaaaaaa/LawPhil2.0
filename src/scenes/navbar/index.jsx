@@ -19,12 +19,14 @@ const Navbar = () => {
     const navigate = useNavigate();
     
     const handleLawsButtonClick = () => {
-        const queryParams = new URLSearchParams();
-        queryParams.append('searchQuery', '');
-        navigate(`/search-results/?${queryParams.toString()}`);
+        // const queryParams = new URLSearchParams();
+        // queryParams.append('searchQuery', '');
+        // navigate(`/search-results/?${queryParams.toString()}`);
     };
 
-    const renderRightButton = () => {
+
+
+    const renderUserItems = () => {
         if (location.pathname === "/") {
             return (
                 <Link to="/register" className="btn btn-md nav-btn">Register</Link> 
@@ -33,17 +35,11 @@ const Navbar = () => {
             return (
                 <Link to="/" className="btn btn-md nav-btn">Login</Link> 
             );
-        } else if (location.pathname.startsWith("/search-results") || location.pathname.startsWith("/admin-dashboard")) {
+        } else {
             return (
-                <Link className="nav-link active" aria-current="page" to="/search">
-                    <FontAwesomeIcon icon={faSearch} />
-                </Link>
+                <Link to="/register" className="btn btn-md nav-btn">Logout</Link> 
             );
-        } else if (location.pathname.startsWith("/search")) {
-            return ( 
-                <button className="nav-link active" onClick={handleLawsButtonClick}>LAWS</button>
-            );
-        } 
+        }
     }
 
     return (
@@ -52,18 +48,24 @@ const Navbar = () => {
             
                 <div className="btn-group">
                     <div>
-                        <img src="/logo.png" className="logo-sm mx-2" alt="lawphil logo" />
+                        {location.pathname.startsWith("/search-results") ? (
+                            <Link className="nav-link active" aria-current="page" to="/">
+                                <FontAwesomeIcon icon={faSearch} />
+                            </Link>
+                        ) : (
+                            <button className="nav-link active" onClick={handleLawsButtonClick}>LAWS</button>
+                        )}
                     </div>
-                    {/* <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><Link to="/link1">Log In</Link></li>
                         <li><Link to="/admin-dashboard">Admin Dashboard</Link></li>
                         <li><Link to="/link3">Example</Link></li>
-                    </ul> */}
+                    </ul>
                 </div>
                 
                 <Link className="navbar-brand" to="https://lawphil.net/">ARELLANO LAW FOUNDATION</Link>
                 
-                {renderRightButton()}
+                {renderUserItems()}
             </div>
         </nav>
     );
