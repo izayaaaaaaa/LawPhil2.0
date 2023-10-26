@@ -8,8 +8,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/general.css';
 import '../../styles/navbar.css';
 
+// TODO:
+//      1. create the drop down for logged in users (user profile, laws, search, logout, etc...)
+
 // FIXME: 
-//    1. fix the styling of the register and login buttons
+//      1. fix the styling of the register and login buttons
 
 const Navbar = () => {
     const location = useLocation();
@@ -24,24 +27,23 @@ const Navbar = () => {
     const renderRightButton = () => {
         if (location.pathname === "/") {
             return (
-                <Link to="/register" className="btn btn-md nav-btn">Register</Link> // Adjust styles as needed
+                <Link to="/register" className="btn btn-md nav-btn">Register</Link> 
             );
         } else if (location.pathname === "/register") {
             return (
-                <Link to="/" className="btn btn-md nav-btn">Login</Link> // Adjust styles as needed
+                <Link to="/" className="btn btn-md nav-btn">Login</Link> 
             );
-        } else if (location.pathname.startsWith("/search-results")) {
-            return ( // Added return statement here
+        } else if (location.pathname.startsWith("/search-results") || location.pathname.startsWith("/admin-dashboard")) {
+            return (
                 <Link className="nav-link active" aria-current="page" to="/search">
                     <FontAwesomeIcon icon={faSearch} />
                 </Link>
             );
         } else if (location.pathname.startsWith("/search")) {
-            return ( // Added return statement here
+            return ( 
                 <button className="nav-link active" onClick={handleLawsButtonClick}>LAWS</button>
             );
-        }
-        // You can continue with more conditions if there are other specific paths or requirements.
+        } 
     }
 
     return (
