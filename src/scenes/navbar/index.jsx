@@ -85,13 +85,13 @@ const Navbar = ({ hostUrl }) => {
                     <FontAwesomeIcon icon={faUser} />
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    {user.is_admin ? (
+                    {/* {user.is_admin ? (
                         // If the user is an admin, show admin-related options
                         <li><Link to="/admin-dashboard" className="dropdown-item">Admin Dashboard</Link></li>
                     ) : (
                         // If the user is not an admin, show profile option
                         <li><Link to={`/user-profile/${user.id}`} className="dropdown-item">User Profile</Link></li>
-                    )}
+                    )} */}
                     {/* Common logout option for all users */}
                     <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                 </ul>

@@ -60,7 +60,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
                         <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
-                        <Route path="/user-profile/:id" element={<UserProfile hostUrl={hostUrl} />} />
+                        <Route path="/user-profile/:id" element={<ProtectedRoute element={<UserProfile hostUrl={hostUrl} />} allowedRoles={['user']} />} />
                         <Route path="/search" element={<ProtectedRoute element={<SearchPage hostUrl={hostUrl} />} allowedRoles={['user']} />} />
                         <Route path="/search-results" element={<ProtectedRoute element={<SearchResultsPage hostUrl={hostUrl} />} allowedRoles={['user']} />} />
                         <Route path="/law-content/:lawID" element={<LawContentPage hostUrl={hostUrl} allowedRoles={['user']} />} />
