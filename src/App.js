@@ -56,22 +56,14 @@ function App() {
         <Router>
             <div className="App">
                 <BackgroundWrapper>
-                    <NavbarPage user={user} />
+                    <NavbarPage user={user} hostUrl={hostUrl} />
                     <Routes>
                         <Route path="/" element={<LoginPage hostUrl={hostUrl} />} />
                         <Route path="/register" element={<RegisterPage hostUrl={hostUrl} />} />
                         <Route path="/user-profile/:id" element={<UserProfile hostUrl={hostUrl} />} />
-                        <Route 
-                            path="/search" 
-                            element={
-                                <ProtectedRoute 
-                                    element={<SearchPage hostUrl={hostUrl} />} 
-                                    allowedRoles={['user']} 
-                                />
-                            } 
-                        />
-                        <Route path="/search-results" element={<ProtectedRoute element={<SearchResultsPage hostUrl={hostUrl} />} allowedRoles={['admin', 'user']} />} />
-                        <Route path="/law-content/:lawID" element={<LawContentPage hostUrl={hostUrl} allowedRoles={['admin', 'user']} />} />
+                        <Route path="/search" element={<ProtectedRoute element={<SearchPage hostUrl={hostUrl} />} allowedRoles={['user']} />} />
+                        <Route path="/search-results" element={<ProtectedRoute element={<SearchResultsPage hostUrl={hostUrl} />} allowedRoles={['user']} />} />
+                        <Route path="/law-content/:lawID" element={<LawContentPage hostUrl={hostUrl} allowedRoles={['user']} />} />
                         <Route path="/admin-dashboard" element={<ProtectedRoute element={<AdminDashboard hostUrl={hostUrl} />} allowedRoles={['admin']} />} />
                     </Routes>
                 </BackgroundWrapper>
