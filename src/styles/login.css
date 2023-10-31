@@ -1,8 +1,6 @@
-/* this creates a spacing bug for search but is what's needed here so i made it specific to the page */
 .container-user {
     display: flex;
     flex-direction: column;
-    height: 100vh;
 } 
 
 .log-card {
@@ -22,14 +20,21 @@
 }
 
 @media (max-width: 767px) {
+    .log-card{
+        height: auto;
+    }
+
     #welcome-side {
+      padding: 30px;
       border-radius: 20px 20px 0 0;
       margin-bottom: -20px;
+      height: auto;
     }
   
     #login-side {
       border-radius: 0 0 20px 20px;
-      border-top: 2px solid #6a498a; /* Add 2px top border to compensate for the space */
+      border-top: 2px solid #6a498a;
+      height: auto;
     }
 }
 
@@ -47,7 +52,7 @@
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     background-color: transparent;
-    border-color: #ffffff;
+    border: #ffffff 1px solid;
 }
 
 .login-form-control:focus-within {

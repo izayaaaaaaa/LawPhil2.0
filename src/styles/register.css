@@ -69,9 +69,9 @@
     border-top: none;
     border-left: none;
     border-right: none;
+    border-bottom: #3A086B 1px solid;
     border-radius: 0px;
-    border-color: #3A086B;
-    width: 100%; /* Set width to 100% for smaller screens */
+    width: 100%;
   }
   
   .reg-form-control:focus-within {
